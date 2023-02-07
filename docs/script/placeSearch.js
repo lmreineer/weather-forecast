@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-undef */
 /* eslint-disable import/extensions */
 // eslint-disable-next-line max-len
@@ -21,6 +22,36 @@ marker.dragging.disable();
 const search = document.querySelector('.search');
 const errorMessage = document.querySelector('.error');
 
+function proceedNewAddress(location) {
+// show address input
+  const collection = location.features[0];
+
+  // put marker to new location input
+  marker = L.marker(new L.LatLng(collection.properties.lat, collection.properties.lon)).addTo(map);
+  // drag the map to new location input
+  map.panTo(new L.LatLng(collection.properties.lat, collection.properties.lon));
+
+  // convert new location input to lat and lon to check weather based on new location
+  const latitude = collection.geometry.coordinates[1];
+  const longitude = collection.geometry.coordinates[0];
+  checkWeather(latitude, longitude);
+
+  // put location name to HTML DOM
+  const currentAddress = document.querySelector('.address-name');
+  const anyDigit = /\d/gm;
+  // remove any number (prevents any postal codes)
+  const initialPlace = collection.properties.address_line1.replace(anyDigit, '').trimEnd();
+  const { country } = collection.properties;
+  if (initialPlace === country) {
+    currentAddress.innerText = `${country}`;
+    // if there are parentheses (potentially an airport name), avoid it and only put the first name of the place
+  } else if (initialPlace.includes('(')) {
+    currentAddress.innerText = `${initialPlace.split(' ')[0]}, ${country}`;
+  } else {
+    currentAddress.innerText = `${initialPlace}, ${country}`;
+  }
+}
+
 function geocodeAddress() {
   if (marker) {
     marker.remove();
@@ -36,18 +67,7 @@ function geocodeAddress() {
         errorMessage.style.visibility = 'visible';
       } else {
         errorMessage.style.visibility = 'hidden';
-        // show address input
-        const address = location.features[0];
-
-        // put marker to new location input
-        marker = L.marker(new L.LatLng(address.properties.lat, address.properties.lon)).addTo(map);
-        // drag the map to new location input
-        map.panTo(new L.LatLng(address.properties.lat, address.properties.lon));
-
-        // convert new location input to lat and lon to check weather based on new location
-        const latitude = address.geometry.coordinates[1];
-        const longitude = address.geometry.coordinates[0];
-        checkWeather(latitude, longitude);
+        proceedNewAddress(location);
       }
     });
 }

@@ -7,3 +7,16 @@ function displayCurrentTime() {
 }
 
 displayCurrentTime();
+
+const hourly = document.querySelector('.hourly');
+const daily = document.querySelector('.daily');
+
+hourly.addEventListener('click', () => {
+  hourly.style.border = '1px solid black';
+  daily.style.border = 'none';
+});
+
+daily.addEventListener('click', () => {
+  daily.style.border = '1px solid black';
+  hourly.style.border = 'none';
+});
