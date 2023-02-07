@@ -6,6 +6,7 @@ function displayCurrentTime() {
   currentTime.innerText = `Current time: ${time}`;
 }
 
+// setInterval(displayCurrentTime(), 1000);
 displayCurrentTime();
 
 const hourly = document.querySelector('.hourly');

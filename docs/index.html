@@ -13,7 +13,7 @@
     <script src="https://kit.fontawesome.com/dd2a44ac1d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
     <script src="main.js" defer></script>
-    <script type="module" src="./script/placeSearch.js" defer></script>
+    <script type="module" src="./script/location.js" defer></script>
     <script type="module" src="./script/weather.js" defer></script>
 
 </head>
@@ -26,30 +26,30 @@
                     <div class="list">
                         <div class="above">
                             <h1>Currently</h1>
-                            <h2>28°C</h2>
-                            <p>Scattered clouds</p>
+                            <h2 class="current-temp">28°C</h2>
+                            <p class="current-desc">Scattered clouds</p>
                         </div>
                         <div class="below">
-                            <p>Feels like:</p>
-                            <p>High/low:</p>
+                            <p class="feels-like">Feels like:</p>
+                            <p class="high-low">High/low:</p>
                         </div>
                     </div>
-                    <div class="currently-image">
-                        <img src="../res/cloudy.svg">
+                    <div>
+                        <img class="current-image" src="../res/cloudy.svg">
                     </div>
                 </div>
 
                 <div class="side-details">
                     <p class="current-time"></p>
-                    <p>Humidity:</p>
-                    <p>Pressure:</p>
-                    <p>Wind:</p>
+                    <p class="humidity">Humidity:</p>
+                    <p class="pressure">Pressure:</p>
+                    <p class="wind">Wind:</p>
                 </div>
             </div>
 
             <div class="right">
                 <div class="map-section">
-                    <h1 class="address-name">London, United Kingdom</h1>
+                    <h1 class="current-location">London, United Kingdom</h1>
                     <table>
                         <tr>
                             <input class="search" type="search" placeholder="Search" spellcheck="false">

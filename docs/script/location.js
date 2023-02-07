@@ -7,6 +7,10 @@ import {
   checkWeather,
 } from './weather.js';
 
+import {
+  geoapify,
+} from './apiKeys.js';
+
 const map = L.map('map', { zoomControl: false, scrollWheelZoom: false }).setView([51.505, -0.09], 3);
 let marker = L.marker([51.5, -0.09]).addTo(map);
 
@@ -22,8 +26,8 @@ marker.dragging.disable();
 const search = document.querySelector('.search');
 const errorMessage = document.querySelector('.error');
 
-function proceedNewAddress(location) {
-// show address input
+function applyLocation(location) {
+// show location input
   const collection = location.features[0];
 
   // put marker to new location input
@@ -37,27 +41,27 @@ function proceedNewAddress(location) {
   checkWeather(latitude, longitude);
 
   // put location name to HTML DOM
-  const currentAddress = document.querySelector('.address-name');
+  const currentLocation = document.querySelector('.current-location');
   const anyDigit = /\d/gm;
   // remove any number (prevents any postal codes)
-  const initialPlace = collection.properties.address_line1.replace(anyDigit, '').trimEnd();
+  const initialLocation = collection.properties.address_line1.replace(anyDigit, '').trimEnd();
   const { country } = collection.properties;
-  if (initialPlace === country) {
-    currentAddress.innerText = `${country}`;
-    // if there are parentheses (potentially an airport name), avoid it and only put the first name of the place
-  } else if (initialPlace.includes('(')) {
-    currentAddress.innerText = `${initialPlace.split(' ')[0]}, ${country}`;
+  if (initialLocation === country) {
+    currentLocation.innerText = `${country}`;
+    // if there are parentheses (potentially an airport name), avoid it and only put the first name of the location
+  } else if (initialLocation.includes('(')) {
+    currentLocation.innerText = `${initialLocation.split(' ')[0]}, ${country}`;
   } else {
-    currentAddress.innerText = `${initialPlace}, ${country}`;
+    currentLocation.innerText = `${initialLocation}, ${country}`;
   }
 }
 
-function geocodeAddress() {
+function geocodeLocation() {
   if (marker) {
     marker.remove();
   }
 
-  const geocodeAPI = `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(search.value)}&apiKey=25cbd14dd9d249728f260c7ca6470fdd`;
+  const geocodeAPI = `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(search.value)}&apiKey=${geoapify}`;
 
   fetch(geocodeAPI)
     .then((response) => response.json())
@@ -67,7 +71,7 @@ function geocodeAddress() {
         errorMessage.style.visibility = 'visible';
       } else {
         errorMessage.style.visibility = 'hidden';
-        proceedNewAddress(location);
+        applyLocation(location);
       }
     });
 }
@@ -76,12 +80,12 @@ const loupe = document.querySelector('.fa-magnifying-glass');
 
 search.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
-    geocodeAddress();
+    geocodeLocation();
   }
 });
 
 loupe.addEventListener('click', () => {
   if (search.value !== '') {
-    geocodeAddress();
+    geocodeLocation();
   }
 });
