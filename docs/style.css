@@ -1,0 +1,104 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+}
+
+.container {
+    flex-direction: column;
+    height: 100vh;
+}
+
+.container,
+.top-container,
+.current-section,
+.header {
+    display: flex;
+}
+
+.top-container {
+    justify-content: space-between;
+    margin: 4rem;
+    height: auto;
+}
+
+.left,
+.right {
+    display: flex;
+}
+
+.current-section {
+    background-color: lightcyan;
+}
+
+.current-section,
+.side-details {
+    padding: 1rem;
+}
+
+.list,
+.side-details {
+    width: 15rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.list p,
+.side-details {
+    line-height: 2rem;
+}
+
+.map-section {
+    text-align: center;
+    line-height: 2rem;
+}
+
+.search {
+    border-right: none;
+    border-radius: 5px 0 0 5px;
+}
+
+input[type="search"]::-ms-clear {
+    display: none;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+    display: none;
+}
+
+.submit {
+    border-left: none;
+    background-color: white;
+    border-radius: 5px 0 0 5px;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.search,
+.submit {
+    outline: none;
+    border-color: black;
+}
+
+#map {
+    height: 15rem;
+    width: 30rem;
+}
+
+.bottom-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 4rem;
+    flex: 1;
+}
+
+.table-container {
+    display: flex;
+    justify-content: space-around;
+}
