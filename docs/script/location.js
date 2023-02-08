@@ -11,6 +11,12 @@ import {
   geoapify,
 } from './apiKeys.js';
 
+import {
+  addClass,
+  removeClass,
+  removeText,
+} from '../main.js';
+
 const map = L.map('map', { zoomControl: false, scrollWheelZoom: false }).setView([51.505, -0.09], 3);
 let marker = L.marker([51.5, -0.09]).addTo(map);
 
@@ -51,12 +57,19 @@ function applyLocation(location) {
     // if there are parentheses (potentially an airport name), avoid it and only put the first name of the location
   } else if (initialLocation.includes('(')) {
     currentLocation.innerText = `${initialLocation.split(' ')[0]}, ${country}`;
+    // only put the first name of the location if the country is undefined
+  } else if (country === undefined) {
+    currentLocation.innerText = initialLocation;
   } else {
     currentLocation.innerText = `${initialLocation}, ${country}`;
   }
 }
 
 function geocodeLocation() {
+  // when searching for a location, display loading animation
+  removeText();
+  addClass();
+
   if (marker) {
     marker.remove();
   }
@@ -66,6 +79,8 @@ function geocodeLocation() {
   fetch(geocodeAPI)
     .then((response) => response.json())
     .then((location) => {
+      // if location is already searched, remove loading animation
+      removeClass();
       // show error message if no location results found, otherwise, stay hidden
       if (location.features.length === 0) {
         errorMessage.style.visibility = 'visible';
@@ -88,4 +103,10 @@ loupe.addEventListener('click', () => {
   if (search.value !== '') {
     geocodeLocation();
   }
+});
+
+window.addEventListener('load', () => {
+  search.value = 'London';
+  geocodeLocation();
+  search.value = '';
 });

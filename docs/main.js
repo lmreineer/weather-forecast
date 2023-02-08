@@ -1,13 +1,47 @@
-function displayCurrentTime() {
-  const currentTime = document.querySelector('.current-time');
-  const date = new Date();
-  const options = { hour: 'numeric', minute: 'numeric', hour12: true };
-  const time = date.toLocaleTimeString('en-US', options);
-  currentTime.innerText = `Current time: ${time}`;
+/* eslint-disable import/extensions */
+import {
+  currentTemp,
+  currentImage,
+  description,
+  feelsLike,
+  highLow,
+  humidity,
+  pressure,
+  wind,
+} from './script/weather.js';
+
+function addClass() {
+  currentTemp.classList.add('dot-flashing');
+  description.classList.add('dot-flashing');
+  feelsLike.classList.add('dot-flashing');
+  highLow.classList.add('dot-flashing');
+  wind.classList.add('dot-flashing');
+  currentImage.classList.add('dot-flashing');
+  humidity.classList.add('dot-flashing');
+  pressure.classList.add('dot-flashing');
 }
 
-// setInterval(displayCurrentTime(), 1000);
-displayCurrentTime();
+function removeClass() {
+  currentTemp.classList.remove('dot-flashing');
+  description.classList.remove('dot-flashing');
+  feelsLike.classList.remove('dot-flashing');
+  highLow.classList.remove('dot-flashing');
+  currentImage.classList.remove('dot-flashing');
+  humidity.classList.remove('dot-flashing');
+  pressure.classList.remove('dot-flashing');
+  wind.classList.remove('dot-flashing');
+}
+
+function removeText() {
+  currentTemp.innerText = '';
+  description.innerText = '';
+  feelsLike.innerText = '';
+  highLow.innerText = '';
+  currentImage.innerText = '';
+  humidity.innerText = '';
+  pressure.innerText = '';
+  wind.innerText = '';
+}
 
 const hourly = document.querySelector('.hourly');
 const daily = document.querySelector('.daily');
@@ -21,3 +55,9 @@ daily.addEventListener('click', () => {
   daily.style.border = '1px solid black';
   hourly.style.border = 'none';
 });
+
+export {
+  addClass,
+  removeClass,
+  removeText,
+};
