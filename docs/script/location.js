@@ -17,6 +17,10 @@ import {
   removeText,
 } from '../main.js';
 
+import {
+  timeCollection,
+} from './time.js';
+
 const map = L.map('map', { zoomControl: false, scrollWheelZoom: false }).setView([51.505, -0.09], 3);
 let marker = L.marker([51.5, -0.09]).addTo(map);
 
@@ -45,6 +49,8 @@ function applyLocation(location) {
   const latitude = collection.geometry.coordinates[1];
   const longitude = collection.geometry.coordinates[0];
   checkWeather(latitude, longitude);
+  timeCollection.current(latitude, longitude);
+  timeCollection.sunriseSunset(latitude, longitude);
 
   // put location name to HTML DOM
   const currentLocation = document.querySelector('.current-location');

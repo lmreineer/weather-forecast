@@ -10,6 +10,12 @@ import {
   wind,
 } from './script/weather.js';
 
+import {
+  currentTime,
+  sunrise,
+  sunset,
+} from './script/time.js';
+
 function addClass() {
   currentTemp.classList.add('dot-flashing');
   description.classList.add('dot-flashing');
@@ -17,8 +23,11 @@ function addClass() {
   highLow.classList.add('dot-flashing');
   wind.classList.add('dot-flashing');
   currentImage.classList.add('dot-flashing');
+  currentTime.classList.add('dot-flashing');
   humidity.classList.add('dot-flashing');
   pressure.classList.add('dot-flashing');
+  sunrise.classList.add('dot-flashing');
+  sunset.classList.add('dot-flashing');
 }
 
 function removeClass() {
@@ -27,9 +36,12 @@ function removeClass() {
   feelsLike.classList.remove('dot-flashing');
   highLow.classList.remove('dot-flashing');
   currentImage.classList.remove('dot-flashing');
+  currentTime.classList.remove('dot-flashing');
   humidity.classList.remove('dot-flashing');
   pressure.classList.remove('dot-flashing');
   wind.classList.remove('dot-flashing');
+  sunrise.classList.remove('dot-flashing');
+  sunset.classList.remove('dot-flashing');
 }
 
 function removeText() {

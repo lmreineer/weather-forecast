@@ -57,8 +57,6 @@ const converter = (function convertTemp() {
 }());
 
 function applyWeather(data) {
-  console.log(data);
-  console.log(converter.time(data));
   // capitalize the first letter
   const initial = data.weather[0].description;
   const titleCase = initial.charAt(0).toUpperCase() + initial.slice(1);
@@ -78,6 +76,7 @@ function checkWeather(lat, lon) {
   fetch(weatherAPI)
     .then((response) => response.json())
     .then((data) => applyWeather(data))
+    // eslint-disable-next-line no-console
     .catch((error) => console.error(error));
 }
 
