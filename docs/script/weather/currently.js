@@ -1,20 +1,22 @@
+/* eslint-disable no-undef */
 /* eslint-disable import/extensions */
 /* eslint-disable import/prefer-default-export */
 
 import {
   openWeatherMap,
-} from './apiKeys.js';
+} from '../apiKeys.js';
 
 const currentTemp = document.querySelector('.current-temp');
 const currentImage = document.querySelector('.current-image');
 const description = document.querySelector('.current-desc');
 const feelsLike = document.querySelector('.feels-like');
 const highLow = document.querySelector('.high-low');
-const humidity = document.querySelector('.humidity');
-const pressure = document.querySelector('.pressure');
 const wind = document.querySelector('.wind');
+const humidity = document.querySelector('.humidity');
+const airQuality = document.querySelector('.air-quality');
+const pressure = document.querySelector('.pressure');
 
-const converter = (function convertTemp() {
+const converter = (function convertUnits() {
   return {
     mainTemp(data) {
       return `${Math.round(data.main.temp - 273.15)}°C`;
@@ -30,19 +32,6 @@ const converter = (function convertTemp() {
       return `High/low: ${high} / ${low}`;
     },
 
-    time(data) {
-      const date = new Date(data.dt * 1000);
-      return date.toLocaleTimeString('en-US');
-    },
-
-    humidityPercent(data) {
-      return `Humidity: ${data.main.humidity}%`;
-    },
-
-    pressureBar(data) {
-      return `Pressure: ${data.main.pressure} mbar`;
-    },
-
     windSpeed(data) {
       const kph = Math.round((data.wind.speed * 3600) / 1000);
       const compassPoints = ['North', 'NNE', 'North East', 'ENE',
@@ -52,6 +41,30 @@ const converter = (function convertTemp() {
       const rawPosition = Math.floor(data.wind.deg / 22.5 + 0.5);
       const arrayPosition = (rawPosition % 16);
       return `Wind speed: ${kph} km/h ${compassPoints[arrayPosition]}`;
+    },
+
+    humidityPercent(data) {
+      return `Humidity: ${data.main.humidity}%`;
+    },
+
+    airCondition(data) {
+      const index = data.list[0].main.aqi;
+      const qualitativeNames = ['Good', 'Fair', 'Moderate', 'Poor', 'Very poor'];
+      if (index === 1) {
+        airQuality.innerText = `Air quality: ${qualitativeNames[0]}`;
+      } else if (index === 2) {
+        airQuality.innerText = `Air quality: ${qualitativeNames[1]}`;
+      } else if (index === 3) {
+        airQuality.innerText = `Air quality: ${qualitativeNames[2]}`;
+      } else if (index === 4) {
+        airQuality.innerText = `Air quality: ${qualitativeNames[3]}`;
+      } else if (index === 5) {
+        airQuality.innerText = `Air quality: ${qualitativeNames[4]}`;
+      }
+    },
+
+    pressureBar(data) {
+      return `Pressure: ${data.main.pressure} mbar`;
     },
   };
 }());
@@ -64,13 +77,15 @@ function applyWeather(data) {
 
   currentTemp.innerText = converter.mainTemp(data);
   feelsLike.innerText = converter.feelsLikeTemp(data);
+  wind.innerText = converter.windSpeed(data);
   highLow.innerText = converter.highlowTemp(data);
   humidity.innerText = converter.humidityPercent(data);
   pressure.innerText = converter.pressureBar(data);
-  wind.innerText = converter.windSpeed(data);
 }
 
-function checkWeather(lat, lon) {
+// check current weather
+function checkCurrently(lat, lon) {
+  // main API
   const weatherAPI = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${openWeatherMap}`;
 
   fetch(weatherAPI)
@@ -78,16 +93,25 @@ function checkWeather(lat, lon) {
     .then((data) => applyWeather(data))
     // eslint-disable-next-line no-console
     .catch((error) => console.error(error));
+
+  // air pollution API only
+  const airPollutionAPI = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${openWeatherMap}`;
+  fetch(airPollutionAPI)
+    .then((response) => response.json())
+    .then((data) => converter.airCondition(data))
+    // eslint-disable-next-line no-console
+    .catch((error) => console.error(error));
 }
 
 export {
-  checkWeather,
+  checkCurrently,
   currentTemp,
   currentImage,
   description,
   feelsLike,
+  wind,
   highLow,
   humidity,
+  airQuality,
   pressure,
-  wind,
 };

@@ -5,10 +5,11 @@ import {
   description,
   feelsLike,
   highLow,
-  humidity,
-  pressure,
   wind,
-} from './script/weather.js';
+  humidity,
+  airQuality,
+  pressure,
+} from './script/weather/currently.js';
 
 import {
   currentTime,
@@ -21,13 +22,14 @@ function addClass() {
   description.classList.add('dot-flashing');
   feelsLike.classList.add('dot-flashing');
   highLow.classList.add('dot-flashing');
+  wind.classList.add('dot-flashing');
   currentImage.classList.add('dot-flashing');
   currentTime.classList.add('dot-flashing');
   sunrise.classList.add('dot-flashing');
   sunset.classList.add('dot-flashing');
   humidity.classList.add('dot-flashing');
+  airQuality.classList.add('dot-flashing');
   pressure.classList.add('dot-flashing');
-  wind.classList.add('dot-flashing');
 }
 
 function removeClass() {
@@ -35,13 +37,14 @@ function removeClass() {
   description.classList.remove('dot-flashing');
   feelsLike.classList.remove('dot-flashing');
   highLow.classList.remove('dot-flashing');
+  wind.classList.remove('dot-flashing');
   currentImage.classList.remove('dot-flashing');
   currentTime.classList.remove('dot-flashing');
   sunrise.classList.remove('dot-flashing');
   sunset.classList.remove('dot-flashing');
   humidity.classList.remove('dot-flashing');
+  airQuality.classList.remove('dot-flashing');
   pressure.classList.remove('dot-flashing');
-  wind.classList.remove('dot-flashing');
 }
 
 function removeText() {
@@ -49,10 +52,14 @@ function removeText() {
   description.innerText = '';
   feelsLike.innerText = '';
   highLow.innerText = '';
-  currentImage.innerText = '';
-  humidity.innerText = '';
-  pressure.innerText = '';
   wind.innerText = '';
+  currentImage.innerText = '';
+  currentTime.innerText = '';
+  sunrise.innerText = '';
+  sunset.innerText = '';
+  humidity.innerText = '';
+  airQuality.innerText = '';
+  pressure.innerText = '';
 }
 
 const hourlyButton = document.querySelector('.hourly-button');

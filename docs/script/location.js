@@ -4,8 +4,8 @@
 // eslint-disable-next-line max-len
 
 import {
-  checkWeather,
-} from './weather.js';
+  checkCurrently,
+} from './weather/currently.js';
 
 import {
   geoapify,
@@ -45,10 +45,10 @@ function applyLocation(location) {
   // drag the map to new location input
   map.panTo(new L.LatLng(collection.properties.lat, collection.properties.lon));
 
-  // convert new location input to lat and lon to check weather based on new location
+  // convert new location input to lat and lon for checking current weather and time
   const latitude = collection.geometry.coordinates[1];
   const longitude = collection.geometry.coordinates[0];
-  checkWeather(latitude, longitude);
+  checkCurrently(latitude, longitude);
   timeCollection.applyTime(latitude, longitude);
 
   // put location name to HTML DOM

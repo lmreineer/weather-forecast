@@ -11,10 +11,14 @@
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
         integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
     <script src="https://kit.fontawesome.com/dd2a44ac1d.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"
+        integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="style.css">
     <script type="module" src="main.js" defer></script>
     <script type="module" src="./script/location.js" defer></script>
-    <script type="module" src="./script/weather.js" defer></script>
+    <script type="module" src="./script/weather/currently.js" defer></script>
+    <script type="module" src="./script/weather/dailyHourly.js" defer></script>
     <script type="module" src="./script/time.js" defer></script>
 </head>
 
@@ -33,7 +37,7 @@
                         <div class="below">
                             <p class="feels-like"></p>
                             <p class="high-low"></p>
-
+                            <p class="wind"></p>
                         </div>
                     </div>
                     <div>
@@ -46,8 +50,8 @@
                     <p class="sunrise"></p>
                     <p class="sunset"></p>
                     <p class="humidity"></p>
+                    <p class="air-quality"></p>
                     <p class="pressure"></p>
-                    <p class="wind"></p>
                 </div>
             </div>
 
@@ -74,49 +78,49 @@
                 <h2 class="hourly-button">Hourly</h2>
             </div>
             <div class="forecast">
-                <table class="">
+                <table class="daily">
                     <th>
                         <h2>Day</h2>
                         <img src="../res/cloudy.svg">
                         <h2>28C/30C</h2>
                     </th>
                 </table>
-                <table class="">
+                <table class="daily">
                     <th>
                         <h2>Day</h2>
                         <img src="../res/cloudy.svg">
                         <h2>28C/30C</h2>
                     </th>
                 </table>
-                <table>
+                <table class="daily">
                     <th>
                         <h2>Day</h2>
                         <img src="../res/cloudy.svg">
                         <h2>28C/30C</h2>
                     </th>
                 </table>
-                <table>
+                <table class="daily">
                     <th>
                         <h2>Day</h2>
                         <img src="../res/cloudy.svg">
                         <h2>28C/30C</h2>
                     </th>
                 </table>
-                <table>
+                <table class="daily">
                     <th>
                         <h2>Day</h2>
                         <img src="../res/cloudy.svg">
                         <h2>28C/30C</h2>
                     </th>
                 </table>
-                <table>
+                <table class="daily">
                     <th>
                         <h2>Day</h2>
                         <img src="../res/cloudy.svg">
                         <h2>28C/30C</h2>
                     </th>
                 </table>
-                <table>
+                <table class="daily">
                     <th>
                         <h2>Day</h2>
                         <img src="../res/cloudy.svg">
