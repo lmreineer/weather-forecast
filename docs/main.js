@@ -21,13 +21,13 @@ function addClass() {
   description.classList.add('dot-flashing');
   feelsLike.classList.add('dot-flashing');
   highLow.classList.add('dot-flashing');
-  wind.classList.add('dot-flashing');
   currentImage.classList.add('dot-flashing');
   currentTime.classList.add('dot-flashing');
-  humidity.classList.add('dot-flashing');
-  pressure.classList.add('dot-flashing');
   sunrise.classList.add('dot-flashing');
   sunset.classList.add('dot-flashing');
+  humidity.classList.add('dot-flashing');
+  pressure.classList.add('dot-flashing');
+  wind.classList.add('dot-flashing');
 }
 
 function removeClass() {
@@ -37,11 +37,11 @@ function removeClass() {
   highLow.classList.remove('dot-flashing');
   currentImage.classList.remove('dot-flashing');
   currentTime.classList.remove('dot-flashing');
+  sunrise.classList.remove('dot-flashing');
+  sunset.classList.remove('dot-flashing');
   humidity.classList.remove('dot-flashing');
   pressure.classList.remove('dot-flashing');
   wind.classList.remove('dot-flashing');
-  sunrise.classList.remove('dot-flashing');
-  sunset.classList.remove('dot-flashing');
 }
 
 function removeText() {
@@ -55,17 +55,17 @@ function removeText() {
   wind.innerText = '';
 }
 
-const hourly = document.querySelector('.hourly');
-const daily = document.querySelector('.daily');
+const hourlyButton = document.querySelector('.hourly-button');
+const dailyButton = document.querySelector('.daily-button');
 
-hourly.addEventListener('click', () => {
-  hourly.style.border = '1px solid black';
-  daily.style.border = 'none';
+hourlyButton.addEventListener('click', () => {
+  hourlyButton.style.border = '1px solid black';
+  dailyButton.style.border = 'none';
 });
 
-daily.addEventListener('click', () => {
-  daily.style.border = '1px solid black';
-  hourly.style.border = 'none';
+dailyButton.addEventListener('click', () => {
+  dailyButton.style.border = '1px solid black';
+  hourlyButton.style.border = 'none';
 });
 
 export {

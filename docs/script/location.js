@@ -49,8 +49,7 @@ function applyLocation(location) {
   const latitude = collection.geometry.coordinates[1];
   const longitude = collection.geometry.coordinates[0];
   checkWeather(latitude, longitude);
-  timeCollection.current(latitude, longitude);
-  timeCollection.sunriseSunset(latitude, longitude);
+  timeCollection.applyTime(latitude, longitude);
 
   // put location name to HTML DOM
   const currentLocation = document.querySelector('.current-location');
