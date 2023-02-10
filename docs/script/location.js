@@ -8,6 +8,10 @@ import {
 } from './weather/currently.js';
 
 import {
+  checkDailyHourly,
+} from './weather/dailyHourly.js';
+
+import {
   geoapify,
 } from './apiKeys.js';
 
@@ -50,6 +54,7 @@ function applyLocation(location) {
   const longitude = collection.geometry.coordinates[0];
   checkCurrently(latitude, longitude);
   timeCollection.applyTime(latitude, longitude);
+  checkDailyHourly(latitude, longitude);
 
   // put location name to HTML DOM
   const currentLocation = document.querySelector('.current-location');

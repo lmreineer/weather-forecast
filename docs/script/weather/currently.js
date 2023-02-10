@@ -29,7 +29,7 @@ const converter = (function convertUnits() {
     highlowTemp(data) {
       const high = `${Math.round(data.main.temp_max - 273.15)}°C`;
       const low = `${Math.round(data.main.temp_min - 273.15)}°C`;
-      return `High/low: ${high} / ${low}`;
+      return `H: ${high}  L: ${low}`;
     },
 
     windSpeed(data) {
@@ -48,19 +48,8 @@ const converter = (function convertUnits() {
     },
 
     airCondition(data) {
-      const index = data.list[0].main.aqi;
-      const qualitativeNames = ['Good', 'Fair', 'Moderate', 'Poor', 'Very poor'];
-      if (index === 1) {
-        airQuality.innerText = `Air quality: ${qualitativeNames[0]}`;
-      } else if (index === 2) {
-        airQuality.innerText = `Air quality: ${qualitativeNames[1]}`;
-      } else if (index === 3) {
-        airQuality.innerText = `Air quality: ${qualitativeNames[2]}`;
-      } else if (index === 4) {
-        airQuality.innerText = `Air quality: ${qualitativeNames[3]}`;
-      } else if (index === 5) {
-        airQuality.innerText = `Air quality: ${qualitativeNames[4]}`;
-      }
+      const qualitativeNames = ['', 'Good', 'Fair', 'Moderate', 'Poor', 'Very poor'];
+      airQuality.innerText = `Air quality: ${qualitativeNames[data.list[0].main.aqi]}`;
     },
 
     pressureBar(data) {
@@ -69,7 +58,7 @@ const converter = (function convertUnits() {
   };
 }());
 
-function applyWeather(data) {
+function applyCurrently(data) {
   // capitalize the first letter
   const initial = data.weather[0].description;
   const titleCase = initial.charAt(0).toUpperCase() + initial.slice(1);
@@ -90,7 +79,7 @@ function checkCurrently(lat, lon) {
 
   fetch(weatherAPI)
     .then((response) => response.json())
-    .then((data) => applyWeather(data))
+    .then((data) => applyCurrently(data))
     // eslint-disable-next-line no-console
     .catch((error) => console.error(error));
 
