@@ -75,6 +75,7 @@ function applyLocation(location) {
   }
 }
 
+// main starting point of APIs
 function geocodeLocation() {
   // when searching for a location, display loading animation
   removeText();

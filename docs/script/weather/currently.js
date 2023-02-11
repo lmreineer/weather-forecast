@@ -29,7 +29,7 @@ const converter = (function convertUnits() {
     highlowTemp(data) {
       const high = `${Math.round(data.main.temp_max - 273.15)}°C`;
       const low = `${Math.round(data.main.temp_min - 273.15)}°C`;
-      return `H: ${high}  L: ${low}`;
+      return `H: ${high} L: ${low}`;
     },
 
     windSpeed(data) {

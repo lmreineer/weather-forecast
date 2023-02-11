@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable import/extensions */
 import {
   currentTemp,
@@ -17,6 +18,11 @@ import {
   sunset,
 } from './script/time.js';
 
+import {
+  day,
+  dayHighLow,
+} from './script/weather/dailyHourly.js';
+
 function addClass() {
   currentTemp.classList.add('dot-flashing');
   description.classList.add('dot-flashing');
@@ -30,6 +36,8 @@ function addClass() {
   humidity.classList.add('dot-flashing');
   airQuality.classList.add('dot-flashing');
   pressure.classList.add('dot-flashing');
+  day.forEach((d) => { d.classList.add('dot-flashing'); });
+  dayHighLow.forEach((hl) => { hl.classList.add('dot-flashing'); });
 }
 
 function removeClass() {
@@ -45,6 +53,8 @@ function removeClass() {
   humidity.classList.remove('dot-flashing');
   airQuality.classList.remove('dot-flashing');
   pressure.classList.remove('dot-flashing');
+  day.forEach((d) => { d.classList.remove('dot-flashing'); });
+  dayHighLow.forEach((hl) => { hl.classList.remove('dot-flashing'); });
 }
 
 function removeText() {
@@ -60,6 +70,8 @@ function removeText() {
   humidity.innerText = '';
   airQuality.innerText = '';
   pressure.innerText = '';
+  day.forEach((d) => { d.innerText = ''; });
+  dayHighLow.forEach((hl) => { hl.innerText = ''; });
 }
 
 const hourlyButton = document.querySelector('.hourly-button');
