@@ -92,3 +92,8 @@ loupe.addEventListener('click', () => {
     geocodeLocation();
   }
 });
+
+export {
+  search,
+  geocodeLocation,
+};

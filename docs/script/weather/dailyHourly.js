@@ -4,76 +4,65 @@
 const day = document.querySelectorAll('.day');
 const dayHighLow = document.querySelectorAll('.day-high-low');
 
-const assignDailyHourly = (function assignDetails() {
+function getDay(dailyData) {
+  const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  return weekdays[new Date(dailyData.datetime).getDay()];
+}
+
+function getHighLow(dailyData) {
+  return `${dailyData.tempmax}&degC / <span style="opacity: 0.7">${dailyData.tempmin}&degC</span>`;
+}
+
+const assignDaily = (function assignDetails() {
   return {
-    today(weatherData) {
-      const { days } = weatherData;
+    today(dailyData) {
       day[0].innerText = 'Today';
-      dayHighLow[0].innerHTML = `${days[0].tempmax}&degC / <span style="opacity: 0.7">${days[0].tempmin}&degC</span>`;
+      dayHighLow[0].innerHTML = getHighLow(dailyData[0]);
     },
 
-    secondDay(weatherData, weekdays) {
-      const { days } = weatherData;
-      const result = weekdays[new Date(weatherData.days[1].datetime).getDay()];
-
-      day[1].innerText = result;
-      dayHighLow[1].innerHTML = `${days[1].tempmax}&degC / <span style="opacity: 0.7">${days[1].tempmin}&degC</span>`;
+    secondDay(dailyData) {
+      day[1].innerText = getDay(dailyData[1]);
+      dayHighLow[1].innerHTML = getHighLow(dailyData[1]);
     },
 
-    thirdDay(weatherData, weekdays) {
-      const { days } = weatherData;
-      const result = weekdays[new Date(weatherData.days[2].datetime).getDay()];
-
-      day[2].innerText = result;
-      dayHighLow[2].innerHTML = `${days[2].tempmax}&degC / <span style="opacity: 0.7">${days[2].tempmin}&degC</span>`;
+    thirdDay(dailyData) {
+      day[2].innerText = getDay(dailyData[2]);
+      dayHighLow[2].innerHTML = getHighLow(dailyData[2]);
     },
 
-    fourthDay(weatherData, weekdays) {
-      const { days } = weatherData;
-      const result = weekdays[new Date(weatherData.days[3].datetime).getDay()];
-
-      day[3].innerText = result;
-      dayHighLow[3].innerHTML = `${days[3].tempmax}&degC / <span style="opacity: 0.7">${days[3].tempmin}&degC</span>`;
+    fourthDay(dailyData) {
+      day[3].innerText = getDay(dailyData[3]);
+      dayHighLow[3].innerHTML = getHighLow(dailyData[3]);
     },
 
-    fifthDay(weatherData, weekdays) {
-      const { days } = weatherData;
-      const result = weekdays[new Date(weatherData.days[4].datetime).getDay()];
-
-      day[4].innerText = result;
-      dayHighLow[4].innerHTML = `${days[4].tempmax}&degC / <span style="opacity: 0.7">${days[4].tempmin}&degC</span>`;
+    fifthDay(dailyData) {
+      day[4].innerText = getDay(dailyData[4]);
+      dayHighLow[4].innerHTML = getHighLow(dailyData[4]);
     },
 
-    sixthDay(weatherData, weekdays) {
-      const { days } = weatherData;
-      const result = weekdays[new Date(weatherData.days[5].datetime).getDay()];
-
-      day[5].innerText = result;
-      dayHighLow[5].innerHTML = `${days[5].tempmax}&degC / <span style="opacity: 0.7">${days[5].tempmin}&degC</span>`;
+    sixthDay(dailyData) {
+      day[5].innerText = getDay(dailyData[5]);
+      dayHighLow[5].innerHTML = getHighLow(dailyData[5]);
     },
 
-    seventhDay(weatherData, weekdays) {
-      const { days } = weatherData;
-      const result = weekdays[new Date(weatherData.days[6].datetime).getDay()];
-
-      day[6].innerText = result;
-      dayHighLow[6].innerHTML = `${days[6].tempmax}&degC / <span style="opacity: 0.7">${days[6].tempmin}&degC</span>`;
+    seventhDay(dailyData) {
+      day[6].innerText = getDay(dailyData[6]);
+      dayHighLow[6].innerHTML = getHighLow(dailyData[6]);
     },
   };
 }());
 
 // function for daily and hourly weather forecast below
 function applyDailyHourly(weatherData) {
-  assignDailyHourly.today(weatherData);
+  const dailyData = weatherData.days;
 
-  const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-  assignDailyHourly.secondDay(weatherData, weekdays);
-  assignDailyHourly.thirdDay(weatherData, weekdays);
-  assignDailyHourly.fourthDay(weatherData, weekdays);
-  assignDailyHourly.fifthDay(weatherData, weekdays);
-  assignDailyHourly.sixthDay(weatherData, weekdays);
-  assignDailyHourly.seventhDay(weatherData, weekdays);
+  assignDaily.today(dailyData);
+  assignDaily.secondDay(dailyData);
+  assignDaily.thirdDay(dailyData);
+  assignDaily.fourthDay(dailyData);
+  assignDaily.fifthDay(dailyData);
+  assignDaily.sixthDay(dailyData);
+  assignDaily.seventhDay(dailyData);
 }
 
 export {
