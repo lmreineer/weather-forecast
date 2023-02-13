@@ -10,6 +10,7 @@ import {
 import {
   geoapify,
   visualCrossing,
+  ipgeolocation,
 } from './apiKeys.js';
 
 import {
@@ -21,15 +22,15 @@ import {
 } from './weather/currentWeather.js';
 
 import {
-  applyDailyHourly,
-} from './weather/dailyHourly.js';
+  applyDaily,
+} from './weather/daily.js';
+
+import {
+  applyHourly,
+} from './weather/hourly.js';
 
 // check current weather
-function checkCurrently(locData) {
-  // assign latitude and longitude and use to check current weather
-  const lat = locData.features[0].geometry.coordinates[1];
-  const lon = locData.features[0].geometry.coordinates[0];
-
+function checkCurrently(lat, lon) {
   const weatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}?unitGroup=metric&key=${visualCrossing}`;
 
   fetch(weatherAPI)
@@ -37,8 +38,19 @@ function checkCurrently(locData) {
     .then((weatherData) => {
       // execute to check current weather
       applyCurrently(weatherData);
-      // execute to check daily and hourly weather forecast
-      applyDailyHourly(weatherData);
+      // execute to initially apply daily weather forecast on first time page load
+      applyDaily(weatherData);
+
+      // initially use current hour API to check current hour and pick hours that is greater than it
+      const hourAPI = `https://api.ipgeolocation.io/astronomy?apiKey=${ipgeolocation}&lat=${lat}&long=${lon}`;
+
+      fetch(hourAPI)
+        .then((response) => response.json())
+        .then((hourData) => {
+          // initially execute to apply hours that has not been passed yet by current hour
+          applyHourly(weatherData, hourData);
+        })
+        .catch((error) => console.error(error));
 
       // remove preload animation when weather details are applied
       removeClass();
@@ -61,6 +73,10 @@ function geocodeLocation() {
   fetch(geocodeAPI)
     .then((response) => response.json())
     .then((locData) => {
+      // assign latitude and longitude and use to execute current weather and time
+      const lat = locData.features[0].geometry.coordinates[1];
+      const lon = locData.features[0].geometry.coordinates[0];
+
       const countryInput = locData.query.parsed.country;
       const cityInput = locData.query.parsed.city;
       const locationsFound = locData.features.length;
@@ -75,7 +91,7 @@ function geocodeLocation() {
         // execute to configure map location based on input
         applyLocation(locData);
         // then execute to check current weather
-        checkCurrently(locData);
+        checkCurrently(lat, lon);
       }
     })
     .catch((error) => console.error(error));

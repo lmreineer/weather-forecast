@@ -52,9 +52,10 @@ const assignDaily = (function assignDetails() {
   };
 }());
 
-// function for daily and hourly weather forecast below
-function applyDailyHourly(weatherData) {
+// function for daily weather forecast below
+function applyDaily(weatherData) {
   const dailyData = weatherData.days;
+  const hourlyData = dailyData[0].hours[5].datetime.slice(0, 5);
 
   assignDaily.today(dailyData);
   assignDaily.secondDay(dailyData);
@@ -66,5 +67,5 @@ function applyDailyHourly(weatherData) {
 }
 
 export {
-  applyDailyHourly,
+  applyDaily,
 };
