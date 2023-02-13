@@ -13,10 +13,11 @@
     <script src="https://kit.fontawesome.com/dd2a44ac1d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
     <script type="module" src="main.js" defer></script>
+    <script type="module" src="./script/onload.js"></script>
+    <script type="module" src="./script/mapConfigs.js"></script>
+    <script type="module" src="./script/apiFunctions.js" defer></script>
     <script type="module" src="./script/location.js" defer></script>
-    <script type="module" src="./script/weather/currently.js" defer></script>
-    <script type="module" src="./script/weather/dailyHourly.js" defer></script>
-    <script type="module" src="./script/time.js" defer></script>
+    <script type="module" src="./script/weather/currentWeather.js" defer></script>
 </head>
 
 <body>
@@ -28,8 +29,7 @@
                         <div class="above">
                             <h1>Currently</h1>
                             <h2 class="current-temp"></h2>
-                            <p class="current-desc">
-                            </p>
+                            <p class="current-desc"></p>
                         </div>
                         <div class="below">
                             <p class="feels-like"></p>
@@ -43,11 +43,11 @@
                 </div>
 
                 <div class="side-details">
-                    <p class="current-time"></p>
+                    <p class="latest-report"></p>
                     <p class="sunrise"></p>
                     <p class="sunset"></p>
                     <p class="humidity"></p>
-                    <p class="air-quality"></p>
+                    <p class="dew-point"></p>
                     <p class="pressure"></p>
                 </div>
             </div>
@@ -63,7 +63,7 @@
                             <button class="submit" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                         </tr>
                     </table>
-                    <p class="error" style="visibility: hidden;">No results found</p>
+                    <p class="error" style="visibility: hidden;">No results found.<br>Try searching for a city, state, or zip code.</p>
                     <div id="map"></div>
                 </div>
             </div>
@@ -77,51 +77,51 @@
             <div class="forecast">
                 <table class="daily">
                     <th>
-                        <h2 class="day">Day</h2>
+                        <h2 class="day"></h2>
                         <img class="day-image" src="../res/cloudy.svg">
-                        <h2 class="day-high-low">28C/30C</h2>
+                        <h2 class="day-high-low"></h2>
                     </th>
                 </table>
                 <table class="daily">
                     <th>
-                        <h2 class="day">Day</h2>
+                        <h2 class="day"></h2>
                         <img class="day-image" src="../res/cloudy.svg">
-                        <h2 class="day-high-low">28C/30C</h2>
+                        <h2 class="day-high-low"></h2>
                     </th>
                 </table>
                 <table class="daily">
                     <th>
-                        <h2 class="day">Day</h2>
+                        <h2 class="day"></h2>
                         <img class="day-image" src="../res/cloudy.svg">
-                        <h2 class="day-high-low">28C/30C</h2>
+                        <h2 class="day-high-low"></h2>
                     </th>
                 </table>
                 <table class="daily">
                     <th>
-                        <h2 class="day">Day</h2>
+                        <h2 class="day"></h2>
                         <img class="day-image" src="../res/cloudy.svg">
-                        <h2 class="day-high-low">28C/30C</h2>
+                        <h2 class="day-high-low"></h2>
                     </th>
                 </table>
                 <table class="daily">
                     <th>
-                        <h2 class="day">Day</h2>
+                        <h2 class="day"></h2>
                         <img class="day-image" src="../res/cloudy.svg">
-                        <h2 class="day-high-low">28C/30C</h2>
+                        <h2 class="day-high-low"></h2>
                     </th>
                 </table>
                 <table class="daily">
                     <th>
-                        <h2 class="day">Day</h2>
+                        <h2 class="day"></h2>
                         <img class="day-image" src="../res/cloudy.svg">
-                        <h2 class="day-high-low">28C/30C</h2>
+                        <h2 class="day-high-low"></h2>
                     </th>
                 </table>
                 <table class="daily">
                     <th>
-                        <h2 class="day">Day</h2>
+                        <h2 class="day"></h2>
                         <img class="day-image" src="../res/cloudy.svg">
-                        <h2 class="day-high-low">28C/30C</h2>
+                        <h2 class="day-high-low"></h2>
                     </th>
                 </table>
             </div>

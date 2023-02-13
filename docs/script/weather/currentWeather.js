@@ -1,0 +1,115 @@
+/* eslint-disable no-undef */
+/* eslint-disable import/extensions */
+/* eslint-disable import/prefer-default-export */
+
+const currentTemp = document.querySelector('.current-temp');
+const currentImage = document.querySelector('.current-image');
+const description = document.querySelector('.current-desc');
+const feelsLike = document.querySelector('.feels-like');
+const highLow = document.querySelector('.high-low');
+const wind = document.querySelector('.wind');
+const latestReport = document.querySelector('.latest-report');
+const sunrise = document.querySelector('.sunrise');
+const sunset = document.querySelector('.sunset');
+const humidity = document.querySelector('.humidity');
+const dewPoint = document.querySelector('.dew-point');
+const pressure = document.querySelector('.pressure');
+
+const assignCurrently = (function assignDetails() {
+  return {
+    currentTemp(conditions) {
+      const temp = `${Math.round(conditions.temp)}&degC`;
+      currentTemp.innerHTML = temp;
+    },
+
+    description(conditions) {
+      description.innerText = conditions.conditions;
+    },
+
+    feelsLike(conditions) {
+      const temp = `${Math.round(conditions.feelslike)}&degC`;
+      feelsLike.innerHTML = `Feels like: ${temp}`;
+    },
+
+    highLow(weatherData) {
+      const high = `${Math.round(weatherData.days[0].tempmax)}&degC`;
+      const low = `${Math.round(weatherData.days[0].tempmin)}&degC`;
+      highLow.innerHTML = `H: ${high} L: ${low}`;
+    },
+
+    wind(conditions) {
+      const speed = Math.round(conditions.windspeed);
+      const degrees = conditions.winddir;
+      const directions = ['North', 'NNE', 'North East', 'ENE', 'East',
+        'ESE', 'South East', 'SSE', 'South',
+        'SSW', 'South West', 'WSW', 'West',
+        'WNW', 'North West', 'NNW'];
+      let section = Math.round(degrees / 22.5 + 0.5);
+      section %= 16;
+
+      wind.innerText = `Wind: ${speed} km/h ${directions[section]}`;
+    },
+
+    latestReport(conditions) {
+      const time = conditions.datetime.slice(0, 5);
+      latestReport.innerText = `Latest report: ${time}`;
+    },
+
+    sunTimes(conditions) {
+      const sunriseTime = conditions.sunrise.slice(0, 5);
+      const sunsetTime = conditions.sunset.slice(0, 5);
+      sunrise.innerText = `Sunset: ${sunriseTime}`;
+      sunset.innerText = `Sunrise: ${sunsetTime}`;
+    },
+
+    humidity(conditions) {
+      const value = Math.round(conditions.humidity);
+      humidity.innerText = `Humidity: ${value}%`;
+    },
+
+    dewPoint(conditions) {
+      const value = Math.round(conditions.dew);
+      dewPoint.innerHTML = `Dew point: ${value}&degC`;
+    },
+
+    pressure(conditions) {
+      pressure.innerText = `Pressure: ${conditions.pressure} mbar`;
+    },
+  };
+}());
+
+// function for current weather above
+function applyCurrently(weatherData) {
+  // assign to current conditions
+  const conditions = weatherData.currentConditions;
+
+  assignCurrently.currentTemp(conditions);
+  assignCurrently.description(conditions);
+  assignCurrently.feelsLike(conditions);
+  assignCurrently.wind(conditions);
+
+  // high low only available to daily forecast
+  assignCurrently.highLow(weatherData);
+
+  assignCurrently.latestReport(conditions);
+  assignCurrently.sunTimes(conditions);
+  assignCurrently.humidity(conditions);
+  assignCurrently.dewPoint(conditions);
+  assignCurrently.pressure(conditions);
+}
+
+export {
+  applyCurrently,
+  currentTemp,
+  currentImage,
+  description,
+  feelsLike,
+  highLow,
+  wind,
+  latestReport,
+  sunrise,
+  sunset,
+  humidity,
+  dewPoint,
+  pressure,
+};
