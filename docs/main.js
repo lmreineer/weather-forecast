@@ -2,7 +2,7 @@
 /* eslint-disable import/extensions */
 import {
   currentTemp,
-  currentImage,
+  icons,
   description,
   feelsLike,
   highLow,
@@ -15,16 +15,18 @@ import {
   pressure,
 } from './script/weather/currentWeather.js';
 
-// refer to below elements from DOM
+// elements for daily and hourly forecast
 const day = document.querySelectorAll('.day');
 const dayHighLow = document.querySelectorAll('.day-high-low');
 
 function addClass() {
+  // pick the following elements from currently section
+  icons[0].classList.add('dot-flashing');
+  highLow[0].classList.add('dot-flashing');
+
   currentTemp.classList.add('dot-flashing');
-  currentImage.classList.add('dot-flashing');
   description.classList.add('dot-flashing');
   feelsLike.classList.add('dot-flashing');
-  highLow.classList.add('dot-flashing');
   wind.classList.add('dot-flashing');
   latestReport.classList.add('dot-flashing');
   sunrise.classList.add('dot-flashing');
@@ -32,16 +34,19 @@ function addClass() {
   humidity.classList.add('dot-flashing');
   dewPoint.classList.add('dot-flashing');
   pressure.classList.add('dot-flashing');
+
   day.forEach((d) => { d.classList.add('dot-flashing'); });
   dayHighLow.forEach((hl) => { hl.classList.add('dot-flashing'); });
 }
 
 function removeClass() {
+  // pick the following elements from currently section
+  icons[0].classList.remove('dot-flashing');
+  highLow[0].classList.remove('dot-flashing');
+
   currentTemp.classList.remove('dot-flashing');
-  currentImage.classList.remove('dot-flashing');
   description.classList.remove('dot-flashing');
   feelsLike.classList.remove('dot-flashing');
-  highLow.classList.remove('dot-flashing');
   wind.classList.remove('dot-flashing');
   latestReport.classList.remove('dot-flashing');
   sunrise.classList.remove('dot-flashing');
@@ -54,11 +59,13 @@ function removeClass() {
 }
 
 function removeText() {
+  // pick the following elements from currently section
+  icons[0].innerText = '';
+  highLow[0].innerText = '';
+
   currentTemp.innerText = '';
-  currentImage.innerText = '';
   description.innerText = '';
   feelsLike.innerText = '';
-  highLow.innerText = '';
   wind.innerText = '';
   latestReport.innerText = '';
   sunrise.innerText = '';

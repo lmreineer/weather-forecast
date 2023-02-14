@@ -7,7 +7,7 @@ import {
 
 function editLocationTitle(properties) {
   // put location name to HTML
-  const currentLocation = document.querySelector('.current-location');
+  const currentLocation = document.querySelector('.location');
   const anyDigit = /\d/gm;
   // remove any number (prevents any postal codes)
   const initialLocation = properties.address_line1.replace(anyDigit, '').trimEnd();

@@ -2,11 +2,11 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/prefer-default-export */
 
-const currentTemp = document.querySelector('.current-temp');
-const currentImage = document.querySelector('.current-image');
-const description = document.querySelector('.current-desc');
+const currentTemp = document.querySelector('.temp');
+const icons = document.querySelectorAll('.icon');
+const description = document.querySelector('.desc');
 const feelsLike = document.querySelector('.feels-like');
-const highLow = document.querySelector('.high-low');
+const highLow = document.querySelectorAll('.high-low');
 const wind = document.querySelector('.wind');
 const latestReport = document.querySelector('.latest-report');
 const sunrise = document.querySelector('.sunrise');
@@ -34,7 +34,8 @@ const assignCurrently = (function assignDetails() {
     highLow(weatherData) {
       const high = `${Math.round(weatherData.days[0].tempmax)}&degC`;
       const low = `${Math.round(weatherData.days[0].tempmin)}&degC`;
-      highLow.innerHTML = `H: ${high} L: ${low}`;
+      // pick the highLow element from currently section
+      highLow[0].innerHTML = `H: ${high} L: ${low}`;
     },
 
     wind(conditions) {
@@ -101,7 +102,7 @@ function applyCurrently(weatherData) {
 export {
   applyCurrently,
   currentTemp,
-  currentImage,
+  icons,
   description,
   feelsLike,
   highLow,
