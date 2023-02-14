@@ -2,10 +2,10 @@
 /* eslint-disable import/extensions */
 import {
   currentTemp,
-  icons,
+  currentIcon,
   description,
   feelsLike,
-  highLow,
+  currentHighLow,
   wind,
   latestReport,
   sunrise,
@@ -15,19 +15,18 @@ import {
   pressure,
 } from './script/weather/currentWeather.js';
 
-// elements for daily and hourly forecast
-const day = document.querySelectorAll('.day');
-const dayHighLow = document.querySelectorAll('.day-high-low');
+// day or hour time for daily and hourly forecast
+const timeUnit = document.querySelectorAll('.time-unit');
+// daily and hourly's high low
+const futureHighLow = document.querySelectorAll('.future-hl');
 
 function addClass() {
-  // pick the following elements from currently section
-  icons[0].classList.add('dot-flashing');
-  highLow[0].classList.add('dot-flashing');
-
   currentTemp.classList.add('dot-flashing');
   description.classList.add('dot-flashing');
   feelsLike.classList.add('dot-flashing');
+  currentHighLow.classList.add('dot-flashing');
   wind.classList.add('dot-flashing');
+  currentIcon.classList.add('dot-flashing');
   latestReport.classList.add('dot-flashing');
   sunrise.classList.add('dot-flashing');
   sunset.classList.add('dot-flashing');
@@ -35,46 +34,44 @@ function addClass() {
   dewPoint.classList.add('dot-flashing');
   pressure.classList.add('dot-flashing');
 
-  day.forEach((d) => { d.classList.add('dot-flashing'); });
-  dayHighLow.forEach((hl) => { hl.classList.add('dot-flashing'); });
+  timeUnit.forEach((t) => { t.classList.add('dot-flashing'); });
+  futureHighLow.forEach((hl) => { hl.classList.add('dot-flashing'); });
 }
 
 function removeClass() {
-  // pick the following elements from currently section
-  icons[0].classList.remove('dot-flashing');
-  highLow[0].classList.remove('dot-flashing');
-
   currentTemp.classList.remove('dot-flashing');
   description.classList.remove('dot-flashing');
   feelsLike.classList.remove('dot-flashing');
+  currentHighLow.classList.remove('dot-flashing');
   wind.classList.remove('dot-flashing');
+  currentIcon.classList.remove('dot-flashing');
   latestReport.classList.remove('dot-flashing');
   sunrise.classList.remove('dot-flashing');
   sunset.classList.remove('dot-flashing');
   humidity.classList.remove('dot-flashing');
   dewPoint.classList.remove('dot-flashing');
   pressure.classList.remove('dot-flashing');
-  day.forEach((d) => { d.classList.remove('dot-flashing'); });
-  dayHighLow.forEach((hl) => { hl.classList.remove('dot-flashing'); });
+
+  timeUnit.forEach((t) => { t.classList.remove('dot-flashing'); });
+  futureHighLow.forEach((hl) => { hl.classList.remove('dot-flashing'); });
 }
 
 function removeText() {
-  // pick the following elements from currently section
-  icons[0].innerText = '';
-  highLow[0].innerText = '';
-
   currentTemp.innerText = '';
   description.innerText = '';
   feelsLike.innerText = '';
+  currentHighLow.innerText = '';
   wind.innerText = '';
+  currentIcon.innerText = '';
   latestReport.innerText = '';
   sunrise.innerText = '';
   sunset.innerText = '';
   humidity.innerText = '';
   dewPoint.innerText = '';
   pressure.innerText = '';
-  day.forEach((d) => { d.innerText = ''; });
-  dayHighLow.forEach((hl) => { hl.innerText = ''; });
+
+  timeUnit.forEach((t) => { t.innerText = ''; });
+  futureHighLow.forEach((hl) => { hl.innerText = ''; });
 }
 
 const hourlyButton = document.querySelector('.hourly-button');

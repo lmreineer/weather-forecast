@@ -121,7 +121,7 @@ input[type="search"]::-webkit-search-cancel-button {
     user-select: none;
 }
 
-.forecast {
+.future {
     display: flex;
     justify-content: space-around;
 }

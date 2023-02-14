@@ -1,9 +1,11 @@
 /* eslint-disable import/prefer-default-export */
 
+// usage for checking if main temp is higher than highest temp
+const currentTemp = document.querySelector('.temp');
+
 // elements for daily and hourly forecast
-const time = document.querySelectorAll('.time');
-// daily and hourly's high low
-const highLow = document.querySelectorAll('.high-low');
+const timeUnit = document.querySelectorAll('.time-unit');
+const futureHighLow = document.querySelectorAll('.future-hl');
 
 function getDay(dailyData) {
   const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -17,38 +19,44 @@ function getHighLow(dailyData) {
 const assignDaily = (function assignDetails() {
   return {
     today(dailyData) {
-      time[0].innerText = 'Today';
-      highLow[1].innerHTML = getHighLow(dailyData[0]);
+      timeUnit[0].innerText = 'Today';
+      futureHighLow[0].innerHTML = getHighLow(dailyData[0]);
+
+      // if main temp is higher than highest temp, make highest temp equal to main temp
+      if (currentTemp.innerHTML > `${dailyData[0].tempmax}&degC`) {
+        const todayHighLow = `${currentTemp.innerHTML} / <span style="opacity: 0.7">${Math.round(dailyData[0].tempmin)}&degC</span>`;
+        futureHighLow[0].innerHTML = todayHighLow;
+      }
     },
 
     secondDay(dailyData) {
-      time[1].innerText = getDay(dailyData[1]);
-      highLow[2].innerHTML = getHighLow(dailyData[1]);
+      timeUnit[1].innerText = getDay(dailyData[1]);
+      futureHighLow[1].innerHTML = getHighLow(dailyData[1]);
     },
 
     thirdDay(dailyData) {
-      time[2].innerText = getDay(dailyData[2]);
-      highLow[3].innerHTML = getHighLow(dailyData[2]);
+      timeUnit[2].innerText = getDay(dailyData[2]);
+      futureHighLow[2].innerHTML = getHighLow(dailyData[2]);
     },
 
     fourthDay(dailyData) {
-      time[3].innerText = getDay(dailyData[3]);
-      highLow[4].innerHTML = getHighLow(dailyData[3]);
+      timeUnit[3].innerText = getDay(dailyData[3]);
+      futureHighLow[3].innerHTML = getHighLow(dailyData[3]);
     },
 
     fifthDay(dailyData) {
-      time[4].innerText = getDay(dailyData[4]);
-      highLow[5].innerHTML = getHighLow(dailyData[4]);
+      timeUnit[4].innerText = getDay(dailyData[4]);
+      futureHighLow[4].innerHTML = getHighLow(dailyData[4]);
     },
 
     sixthDay(dailyData) {
-      time[5].innerText = getDay(dailyData[5]);
-      highLow[6].innerHTML = getHighLow(dailyData[5]);
+      timeUnit[5].innerText = getDay(dailyData[5]);
+      futureHighLow[5].innerHTML = getHighLow(dailyData[5]);
     },
 
     seventhDay(dailyData) {
-      time[6].innerText = getDay(dailyData[6]);
-      highLow[7].innerHTML = getHighLow(dailyData[6]);
+      timeUnit[6].innerText = getDay(dailyData[6]);
+      futureHighLow[6].innerHTML = getHighLow(dailyData[6]);
     },
   };
 }());

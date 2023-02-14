@@ -73,25 +73,33 @@ function geocodeLocation() {
   fetch(geocodeAPI)
     .then((response) => response.json())
     .then((locData) => {
-      // assign latitude and longitude and use to execute current weather and time
-      const lat = locData.features[0].geometry.coordinates[1];
-      const lon = locData.features[0].geometry.coordinates[0];
-
-      const countryInput = locData.query.parsed.country;
-      const cityInput = locData.query.parsed.city;
-      const locationsFound = locData.features.length;
-      // show error if country is inputted but city is not inputted or no location results found
-      if ((countryInput !== undefined && cityInput === undefined)
-      || locationsFound === 0) {
+      // show error if location name is not found
+      if (locData.features[0] === undefined || locData.query.parsed === undefined) {
         errorMessage.style.visibility = 'visible';
         removeClass();
-        // hide error and check the weather otherwise
+        // else run the following code
       } else {
-        errorMessage.style.visibility = 'hidden';
-        // execute to configure map location based on input
-        applyLocation(locData);
-        // then execute to check current weather
-        checkCurrently(lat, lon);
+        // assign latitude and longitude and use to execute current weather and time
+        const lat = locData.features[0].geometry.coordinates[1];
+        const lon = locData.features[0].geometry.coordinates[0];
+
+        const countryInput = locData.query.parsed.country;
+        const cityInput = locData.query.parsed.city;
+        const locationsFound = locData.features.length;
+
+        // show error if country is inputted but city is not inputted or no location results found
+        if ((countryInput !== undefined && cityInput === undefined)
+        || locationsFound === 0) {
+          errorMessage.style.visibility = 'visible';
+          removeClass();
+          // hide error and check the weather otherwise
+        } else {
+          errorMessage.style.visibility = 'hidden';
+          // execute to configure map location based on input
+          applyLocation(locData);
+          // then execute to check current weather
+          checkCurrently(lat, lon);
+        }
       }
     })
     .catch((error) => console.error(error));
