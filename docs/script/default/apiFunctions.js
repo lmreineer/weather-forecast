@@ -5,29 +5,24 @@ import {
   addClass,
   removeClass,
   removeText,
-} from '../main.js';
+} from '../animation.js';
 
 import {
   geoapify,
   visualCrossing,
-  ipgeolocation,
-} from './apiKeys.js';
+} from '../apiKeys.js';
 
 import {
   applyLocation,
-} from './location.js';
+} from '../location/locationTitle.js';
 
 import {
   applyCurrently,
-} from './weather/currentWeather.js';
+} from '../weather/currentWeather.js';
 
 import {
   applyDaily,
-} from './weather/daily.js';
-
-import {
-  applyHourly,
-} from './weather/hourly.js';
+} from '../weather/daily.js';
 
 // check current weather
 function checkCurrently(lat, lon) {
@@ -40,18 +35,6 @@ function checkCurrently(lat, lon) {
       applyCurrently(weatherData);
       // execute to initially apply daily weather forecast on first time page load
       applyDaily(weatherData);
-
-      // initially use current hour API to check current hour and pick hours that is greater than it
-      const hourAPI = `https://api.ipgeolocation.io/astronomy?apiKey=${ipgeolocation}&lat=${lat}&long=${lon}`;
-
-      fetch(hourAPI)
-        .then((response) => response.json())
-        .then((hourData) => {
-          // initially execute to apply hours that has not been passed yet by current hour
-          applyHourly(weatherData, hourData);
-        })
-        .catch((error) => console.error(error));
-
       // remove preload animation when weather details are applied
       removeClass();
     })
@@ -77,7 +60,7 @@ function geocodeLocation() {
       if (locData.features[0] === undefined || locData.query.parsed === undefined) {
         errorMessage.style.visibility = 'visible';
         removeClass();
-        // else run the following code
+        // else run the main purpose
       } else {
         // assign latitude and longitude and use to execute current weather and time
         const lat = locData.features[0].geometry.coordinates[1];

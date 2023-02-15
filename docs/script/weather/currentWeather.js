@@ -78,7 +78,7 @@ const assignCurrently = (function assignDetails() {
     },
 
     pressure(conditions) {
-      pressure.innerText = `Pressure: ${conditions.pressure} mbar`;
+      pressure.innerText = `Pressure: ${Math.round(conditions.pressure)} mbar`;
     },
   };
 }());

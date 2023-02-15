@@ -1,24 +1,28 @@
+/* eslint-disable import/extensions */
 /* eslint-disable import/prefer-default-export */
 
-// elements for daily and hourly forecast
-const time = document.querySelectorAll('.time');
-// daily and hourly's high low
-const highLow = document.querySelectorAll('.high-low');
-// container of day and daiyHighLow
-const timeRange = document.querySelectorAll('.time-range');
+import {
+  ipgeolocation,
+} from '../apiKeys.js';
 
-function clickHourly() {
-  timeRange.forEach((el) => {
-    const dailyEls = el;
-    dailyEls.innerHTML = `
-    <th>
-      <h2></h2>
-      <img src="../res/cloudy.svg">
-      <h2></h2>
-    </th>
-    `;
-  });
-}
+import {
+  search,
+} from '../apiFunctions.js';
+
+// elements for daily and hourly forecast
+const timeUnit = document.querySelectorAll('.time-unit');
+const futureHighLow = document.querySelectorAll('.future-hl');
+// future weather groups
+const groups = document.querySelectorAll('.group');
+
+const assignHourly = (function assignDetails() {
+  return {
+    today(dailyData) {
+      timeUnit[0].innerText = 'Today';
+      futureHighLow[0].innerHTML = getHighLow(dailyData[0]);
+    },
+  };
+}());
 
 // function for hourly weather forecast below
 function applyHourly(weatherData, timeData) {
@@ -42,7 +46,7 @@ function applyHourly(weatherData, timeData) {
 
   // if it's 23:00, show hours for the next day
   if (currentHour === '23') {
-    console.log(returnLesser);
+    console.log(returnLesser[0]);
   } else {
     console.log(returnLarger);
   }
@@ -51,7 +55,7 @@ function applyHourly(weatherData, timeData) {
 const hourlyButton = document.querySelector('.hourly-button');
 
 hourlyButton.addEventListener('click', () => {
-  clickHourly();
+  console.log('s');
 });
 
 export {

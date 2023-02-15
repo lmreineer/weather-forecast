@@ -13,7 +13,7 @@ import {
   humidity,
   dewPoint,
   pressure,
-} from './script/weather/currentWeather.js';
+} from './weather/currentWeather.js';
 
 // day or hour time for daily and hourly forecast
 const timeUnit = document.querySelectorAll('.time-unit');
