@@ -1,6 +1,4 @@
-/* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
-/* eslint-disable no-console */
 
 import {
   initHourly,
@@ -9,6 +7,11 @@ import {
 import {
   initDaily,
 } from './apiFunctions/dailyApi.js';
+
+import {
+  addClass,
+  removeText,
+} from './animations.js';
 
 // toggle switches
 let clicked = false;
@@ -19,6 +22,10 @@ const locationTitle = document.querySelector('.location');
 
 hourlyButton.addEventListener('click', () => {
   if (!clicked) {
+    // add preload animation and remove existing text from HTML
+    addClass();
+    removeText();
+
     search.value = locationTitle.innerText;
     initHourly();
     search.value = '';
@@ -30,6 +37,10 @@ const dailyButton = document.querySelector('.daily-button');
 
 dailyButton.addEventListener('click', () => {
   if (clicked) {
+    // add preload animation and remove existing text from HTML
+    addClass();
+    removeText();
+
     search.value = locationTitle.innerText;
     initDaily();
     search.value = '';

@@ -1,12 +1,6 @@
 /* eslint-disable import/prefer-default-export */
-/* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
 /* eslint-disable no-console */
-
-import {
-  addClass,
-  removeText,
-} from '../animations.js';
 
 import {
   geoapify,
@@ -17,8 +11,17 @@ import {
   applyDaily,
 } from '../../daily.js';
 
+import {
+  addClass,
+  removeText,
+} from '../animations.js';
+
 // check current weather
 function checkWeather(lat, lon) {
+  // continue preload animation and remove existing text from HTML
+  addClass();
+  removeText();
+
   const weatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}?unitGroup=metric&key=${visualCrossing}`;
 
   fetch(weatherAPI)
@@ -33,10 +36,6 @@ const search = document.querySelector('.search');
 
 // initialize daily
 function initDaily() {
-  // add preload animation and remove existing text from HTML
-  addClass();
-  removeText();
-
   const geocodeAPI = `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(search.value)}&apiKey=${geoapify}`;
 
   fetch(geocodeAPI)
