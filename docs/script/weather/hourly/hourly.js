@@ -32,8 +32,8 @@ function applyHourly(weatherData, timeData) {
     hours.push(hourData);
   });
 
-  // get current hour based on input
-  const currentHour = timeData.current_time;
+  // get current hour based on input and format it to hour only
+  const currentHour = timeData.current_time.slice(0, 2);
   // filter hours that is greater than the current hour
   const returnLarger = hours.filter((n) => n > currentHour);
   // filter hours that is lesser than the current hour
@@ -55,11 +55,6 @@ function applyHourly(weatherData, timeData) {
     start = hourlyData.length - returnLesser.length;
     end = hourlyData.length + returnLesser.length;
     hoursDisplayed = hourlyData.slice(start, end);
-    // apply details to each sets
-    for (const [i] of hoursDisplayed.entries()) {
-      timeUnit[i].innerText = getHour(hoursDisplayed[i]);
-      futureTemp[i].innerHTML = getTemp(hoursDisplayed[i]);
-    }
   }
 }
 

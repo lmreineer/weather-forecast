@@ -10,6 +10,7 @@ import {
 import {
   geoapify,
   visualCrossing,
+  ipgeolocation,
 } from '../apiKeys.js';
 
 import {
@@ -24,6 +25,14 @@ import {
   applyDaily,
 } from '../weather/daily.js';
 
+import {
+  clicked,
+} from '../weather/hourly/execApis.js';
+
+import {
+  applyHourly,
+} from '../weather/hourly/hourly.js';
+
 // check current weather
 function checkCurrently(lat, lon) {
   const weatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}?unitGroup=metric&key=${visualCrossing}`;
@@ -33,8 +42,24 @@ function checkCurrently(lat, lon) {
     .then((weatherData) => {
       // execute to check current weather
       applyCurrently(weatherData);
-      // execute to initially apply daily weather forecast on first time page load
-      applyDaily(weatherData);
+
+      // if hourly button is not clicked
+      if (!clicked) {
+        // execute to initially apply daily weather forecast on first time page load
+        applyDaily(weatherData);
+      } else if (clicked) {
+        // check hourly forecast when tab is focused on hourly button
+        const hourAPI = `https://api.ipgeolocation.io/astronomy?apiKey=${ipgeolocation}&lat=${lat}&long=${lon}`;
+
+        fetch(hourAPI)
+          .then((response) => response.json())
+          .then((hourData) => {
+          // execute to apply hours
+            applyHourly(weatherData, hourData);
+          })
+          .catch((error) => console.error(error));
+      }
+
       // remove preload animation when weather details are applied
       removeClass();
     })

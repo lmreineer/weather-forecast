@@ -28,7 +28,7 @@ function checkWeather(lat, lon) {
   fetch(weatherAPI)
     .then((response) => response.json())
     .then((weatherData) => {
-      // initially use current hour API to see current hour and pick hours that is greater than it
+      // use current hour API to see current hour and pick hours that is greater than it
       const hourAPI = `https://api.ipgeolocation.io/astronomy?apiKey=${ipgeolocation}&lat=${lat}&long=${lon}`;
 
       fetch(hourAPI)
@@ -38,7 +38,6 @@ function checkWeather(lat, lon) {
           applyHourly(weatherData, hourData);
         })
         .catch((error) => console.error(error));
-      // remove preload animation when weather details are applied
     })
     .catch((error) => console.error(error));
 }

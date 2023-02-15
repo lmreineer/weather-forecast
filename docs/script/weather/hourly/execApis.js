@@ -1,3 +1,5 @@
+/* eslint-disable import/no-mutable-exports */
+/* eslint-disable import/prefer-default-export */
 /* eslint-disable import/extensions */
 
 import {
@@ -47,3 +49,7 @@ dailyButton.addEventListener('click', () => {
     clicked = false;
   }
 });
+
+export {
+  clicked,
+};
