@@ -1,5 +1,10 @@
+/* eslint-disable import/extensions */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable import/prefer-default-export */
+
+import {
+  removeClass,
+} from './hourly/animations.js';
 
 // usage for checking if main temp is higher than highest temp
 const currentTemp = document.querySelector('.temp');
@@ -19,6 +24,9 @@ function getHighLow(dailyData) {
 
 // function for daily weather forecast below
 function applyDaily(weatherData) {
+  // remove the animation immediately before applying details
+  removeClass();
+
   // slice into a length of weekday
   const dailyData = weatherData.days.slice(0, 7);
 

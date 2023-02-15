@@ -2,6 +2,10 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/prefer-default-export */
 
+import {
+  removeClass,
+} from './animations.js';
+
 // elements for daily and hourly forecast
 const timeUnit = document.querySelectorAll('.time-unit');
 const futureTemp = document.querySelectorAll('.future-temp');
@@ -16,6 +20,9 @@ function getTemp(hoursDisplayed) {
 
 // function for hourly weather forecast below
 function applyHourly(weatherData, timeData) {
+  // remove the animation immediately before applying details
+  removeClass();
+
   // declare datas for hours
   const hourlyData = weatherData.days[0].hours;
   const hours = [];
