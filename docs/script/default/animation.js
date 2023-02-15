@@ -13,12 +13,13 @@ import {
   humidity,
   dewPoint,
   pressure,
-} from './weather/currentWeather.js';
+} from '../weather/currentWeather.js';
 
 // day or hour time for daily and hourly forecast
 const timeUnit = document.querySelectorAll('.time-unit');
+const futureIcon = document.querySelectorAll('.future-icon');
 // daily and hourly's high low
-const futureHighLow = document.querySelectorAll('.future-hl');
+const futureTemp = document.querySelectorAll('.future-temp');
 
 function addClass() {
   currentTemp.classList.add('dot-flashing');
@@ -35,7 +36,8 @@ function addClass() {
   pressure.classList.add('dot-flashing');
 
   timeUnit.forEach((t) => { t.classList.add('dot-flashing'); });
-  futureHighLow.forEach((hl) => { hl.classList.add('dot-flashing'); });
+  futureIcon.forEach((fi) => { fi.classList.add('dot-flashing'); });
+  futureTemp.forEach((tmp) => { tmp.classList.add('dot-flashing'); });
 }
 
 function removeClass() {
@@ -53,7 +55,8 @@ function removeClass() {
   pressure.classList.remove('dot-flashing');
 
   timeUnit.forEach((t) => { t.classList.remove('dot-flashing'); });
-  futureHighLow.forEach((hl) => { hl.classList.remove('dot-flashing'); });
+  futureIcon.forEach((fi) => { fi.classList.remove('dot-flashing'); });
+  futureTemp.forEach((tmp) => { tmp.classList.remove('dot-flashing'); });
 }
 
 function removeText() {
@@ -71,7 +74,8 @@ function removeText() {
   pressure.innerText = '';
 
   timeUnit.forEach((t) => { t.innerText = ''; });
-  futureHighLow.forEach((hl) => { hl.innerText = ''; });
+  futureIcon.forEach((fi) => { fi.innerText = ''; });
+  futureTemp.forEach((tmp) => { tmp.innerText = ''; });
 }
 
 const hourlyButton = document.querySelector('.hourly-button');

@@ -5,7 +5,7 @@ import {
   addClass,
   removeClass,
   removeText,
-} from '../animation.js';
+} from './animation.js';
 
 import {
   geoapify,
