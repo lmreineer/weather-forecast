@@ -12,15 +12,13 @@ import {
 } from '../../daily.js';
 
 import {
-  addClass,
-  removeText,
+  addAnimation,
 } from '../animations.js';
 
 // check current weather
 function checkWeather(lat, lon) {
   // continue preload animation and remove existing text from HTML
-  addClass();
-  removeText();
+  addAnimation();
 
   const weatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}?unitGroup=metric&key=${visualCrossing}`;
 

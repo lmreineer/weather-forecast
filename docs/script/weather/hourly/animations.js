@@ -1,28 +1,34 @@
+/* eslint-disable import/prefer-default-export */
 /* eslint-disable no-param-reassign */
 /* eslint-disable import/extensions */
 
-// hour time for hourly forecast
-const timeUnit = document.querySelectorAll('.time-unit');
-const futureIcon = document.querySelectorAll('.future-icon');
-// hourly's high low
-const futureTemp = document.querySelectorAll('.future-temp');
+function addAnimation() {
+  // hour time for hourly forecast
+  const timeUnit = document.querySelectorAll('.time-unit');
+  const futureIcon = document.querySelectorAll('.future-icon');
+  // hourly's temp
+  const futureTemp = document.querySelectorAll('.future-temp');
 
-function addClass() {
+  // add preloading animation
   timeUnit.forEach((t) => { t.classList.add('dot-flashing'); });
   futureIcon.forEach((fi) => { fi.classList.add('dot-flashing'); });
   futureTemp.forEach((tmp) => { tmp.classList.add('dot-flashing'); });
-}
-
-function removeClass() {
-  timeUnit.forEach((t) => { t.classList.remove('dot-flashing'); });
-  futureIcon.forEach((fi) => { fi.classList.remove('dot-flashing'); });
-  futureTemp.forEach((tmp) => { tmp.classList.remove('dot-flashing'); });
-}
-
-function removeText() {
+  // remove text
   timeUnit.forEach((t) => { t.innerText = ''; });
   futureIcon.forEach((fi) => { fi.innerText = ''; });
   futureTemp.forEach((tmp) => { tmp.innerText = ''; });
+}
+
+function removeAnimation() {
+  // hour time for hourly forecast
+  const timeUnit = document.querySelectorAll('.time-unit');
+  const futureIcon = document.querySelectorAll('.future-icon');
+  // hourly's temp
+  const futureTemp = document.querySelectorAll('.future-temp');
+
+  timeUnit.forEach((t) => { t.classList.remove('dot-flashing'); });
+  futureIcon.forEach((fi) => { fi.classList.remove('dot-flashing'); });
+  futureTemp.forEach((tmp) => { tmp.classList.remove('dot-flashing'); });
 }
 
 const hourlyButton = document.querySelector('.hourly-button');
@@ -39,7 +45,6 @@ dailyButton.addEventListener('click', () => {
 });
 
 export {
-  addClass,
-  removeClass,
-  removeText,
+  addAnimation,
+  removeAnimation,
 };
