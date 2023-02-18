@@ -69,15 +69,12 @@
     border-radius: 5px 0 0 5px;
 }
 
-input[type="search"]::-ms-clear {
-    display: none;
-}
-
 input[type="search"]::-webkit-search-cancel-button {
     display: none;
 }
 
 .submit {
+    display: inline;
     border-left: none;
     background-color: white;
     border-radius: 5px 0 0 5px;
@@ -105,20 +102,47 @@ input[type="search"]::-webkit-search-cancel-button {
     border-top: 1px solid black;
 }
 
-.buttons {
+.upper {
     display: flex;
-}
-
-.daily-button {
-    border: 1px solid black;
+    justify-content: space-between;
 }
 
 .daily-button,
 .hourly-button {
     margin-right: 5rem;
     padding: 1rem;
-    cursor: pointer;
     user-select: none;
+    font-size: 1rem;
+}
+
+.buttons,
+.arrows {
+    display: flex;
+}
+
+.daily-button,
+.hourly-button,
+.arrow {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+/* default tab on first time page load */
+.daily-button {
+    border: 1px solid black;
+}
+
+.arrow {
+    margin-left: 5rem;
+}
+
+.arrow:hover {
+    color: gray;
+}
+
+.arrow:active {
+    color: black;
 }
 
 .future {

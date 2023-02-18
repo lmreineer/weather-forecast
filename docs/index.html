@@ -15,7 +15,7 @@
     <script type="module" src="./script/currently/animation.js" defer></script>
     <script type="module" src="./script/onload.js"></script>
     <script type="module" src="./script/location/mapConfigs.js"></script>
-    <script type="module" src="./script/currently/apiFunctions.js" defer></script>     <!-- default api functions -->
+    <script type="module" src="./script/currently/apiFunctions.js" defer></script> <!-- default api functions -->
     <script type="module" src="./script/location/locationTitle.js" defer></script>
     <script type="module" src="./script/currently/currentWeather.js" defer></script>
     <script type="module" src="./script/future/execution/execApis.js" defer></script> <!-- hourly's api functions -->
@@ -57,12 +57,10 @@
                 <div class="map">
                     <h1 class="location">London, United Kingdom</h1>
                     <table>
-                        <tr>
-                            <input class="search" type="search" placeholder="Search" spellcheck="false">
-                        </tr>
-                        <tr>
-                            <button class="submit" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                        </tr>
+                        <input class="search" type="search" placeholder="Search" spellcheck="false">
+                        <button class="submit">
+                            <div class="fa-solid fa-magnifying-glass"></div>
+                        </button>
                     </table>
                     <p class="error" style="visibility: hidden;">No results found.<br>Try searching for a city, state,
                         or zip code.</p>
@@ -72,9 +70,15 @@
         </div>
 
         <div class="bottom">
-            <div class="buttons">
-                <h2 class="daily-button">Daily</h2>
-                <h2 class="hourly-button">Hourly</h2>
+            <div class="upper">
+                <div class="buttons">
+                    <button class="daily-button">Daily</button>
+                    <button class="hourly-button">Hourly</button>
+                </div>
+                <div class="arrows">
+                    <button class="arrow left-arrow fa-solid fa-arrow-left fa-lg" disabled="true"></button>
+                    <button class="arrow right-arrow fa-solid fa-arrow-right fa-lg" disabled="true"></button>
+                </div>
             </div>
             <div class="future">
                 <table class="group">
