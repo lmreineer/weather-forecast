@@ -10,7 +10,6 @@ import {
 import {
   geoapify,
   visualCrossing,
-  ipgeolocation,
 } from '../apiKeys.js';
 
 import {
@@ -19,19 +18,7 @@ import {
 
 import {
   applyCurrently,
-} from '../weather/currentWeather.js';
-
-import {
-  applyDaily,
-} from '../weather/daily.js';
-
-import {
-  clicked,
-} from '../weather/hourly/execApis.js';
-
-import {
-  applyHourly,
-} from '../weather/hourly/hourly.js';
+} from './currentWeather.js';
 
 // check current weather
 function checkCurrently(lat, lon) {
@@ -42,23 +29,6 @@ function checkCurrently(lat, lon) {
     .then((weatherData) => {
       // execute to check current weather
       applyCurrently(weatherData);
-
-      // if hourly button is not clicked
-      if (!clicked) {
-        // execute to initially apply daily weather forecast on first time page load
-        applyDaily(weatherData);
-      } else if (clicked) {
-        // check hourly forecast when tab is focused on hourly button
-        const hourAPI = `https://api.ipgeolocation.io/astronomy?apiKey=${ipgeolocation}&lat=${lat}&long=${lon}`;
-
-        fetch(hourAPI)
-          .then((response) => response.json())
-          .then((hourData) => {
-          // execute to apply hours
-            applyHourly(weatherData, hourData);
-          })
-          .catch((error) => console.error(error));
-      }
 
       // remove preload animation when weather details are applied
       removeClass();

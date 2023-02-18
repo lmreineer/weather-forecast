@@ -10,17 +10,14 @@ import {
 
 import {
   applyHourly,
-} from '../hourly.js';
+} from '../../hourly.js';
 
 import {
-  addAnimation,
-} from '../animations.js';
+  removeAnimation,
+} from '../../animations.js';
 
 // check current weather
 function checkWeather(lat, lon) {
-  // continue preload animation and remove existing text from HTML
-  addAnimation();
-
   const weatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}?unitGroup=metric&key=${visualCrossing}`;
 
   fetch(weatherAPI)
@@ -34,6 +31,9 @@ function checkWeather(lat, lon) {
         .then((hourData) => {
           // initially execute to apply hours that has not been passed yet by current hour
           applyHourly(weatherData, hourData);
+
+          // remove animation after applying details
+          removeAnimation();
         })
         .catch((error) => console.error(error));
     })
@@ -49,7 +49,6 @@ function initHourly() {
   fetch(geocodeAPI)
     .then((response) => response.json())
     .then((locData) => {
-      // show error if location name is not found
       // assign latitude and longitude and use to execute time
       const lat = locData.features[0].geometry.coordinates[1];
       const lon = locData.features[0].geometry.coordinates[0];

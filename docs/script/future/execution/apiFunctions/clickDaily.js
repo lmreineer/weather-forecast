@@ -12,20 +12,20 @@ import {
 } from '../../daily.js';
 
 import {
-  addAnimation,
-} from '../animations.js';
+  removeAnimation,
+} from '../../animations.js';
 
 // check current weather
 function checkWeather(lat, lon) {
-  // continue preload animation and remove existing text from HTML
-  addAnimation();
-
   const weatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}?unitGroup=metric&key=${visualCrossing}`;
 
   fetch(weatherAPI)
     .then((response) => response.json())
     .then((weatherData) => {
       applyDaily(weatherData);
+
+      // remove animation after applying details
+      removeAnimation();
     })
     .catch((error) => console.error(error));
 }

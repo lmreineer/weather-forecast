@@ -1,6 +1,4 @@
-/* eslint-disable import/prefer-default-export */
 /* eslint-disable no-param-reassign */
-/* eslint-disable import/extensions */
 
 function addAnimation() {
   // hour time for hourly forecast
@@ -9,14 +7,10 @@ function addAnimation() {
   // hourly's temp
   const futureTemp = document.querySelectorAll('.future-temp');
 
-  // add preloading animation
-  timeUnit.forEach((t) => { t.classList.add('dot-flashing'); });
-  futureIcon.forEach((fi) => { fi.classList.add('dot-flashing'); });
-  futureTemp.forEach((tmp) => { tmp.classList.add('dot-flashing'); });
-  // remove text
-  timeUnit.forEach((t) => { t.innerText = ''; });
-  futureIcon.forEach((fi) => { fi.innerText = ''; });
-  futureTemp.forEach((tmp) => { tmp.innerText = ''; });
+  // add preloading animation and remove text
+  timeUnit.forEach((t) => { t.classList.add('dot-flashing'); t.innerText = ''; });
+  futureIcon.forEach((fi) => { fi.classList.add('dot-flashing'); fi.innerText = ''; });
+  futureTemp.forEach((tmp) => { tmp.classList.add('dot-flashing'); tmp.innerText = ''; });
 }
 
 function removeAnimation() {

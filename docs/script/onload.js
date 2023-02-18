@@ -1,9 +1,9 @@
-/* eslint-disable import/extensions */
+// /* eslint-disable import/extensions */
 
 // import {
 //   search,
 //   geocodeLocation,
-// } from './apiFunctions.js';
+// } from './currently/apiFunctions.js';
 
 // window.addEventListener('load', () => {
 //   search.value = 'London, United Kingdom';

@@ -1,5 +1,5 @@
-/* eslint-disable no-restricted-syntax */
 /* eslint-disable import/extensions */
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable import/prefer-default-export */
 
 import {
@@ -44,9 +44,6 @@ function formatGroups() {
 
 // function for hourly weather forecast below
 function applyHourly(weatherData, timeData) {
-  // remove the animation immediately before applying details
-  removeAnimation();
-
   const group = document.querySelectorAll('.group');
   // calculation for how many groups to be added
   const calc = 7 - group.length;

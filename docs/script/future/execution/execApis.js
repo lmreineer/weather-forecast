@@ -1,69 +1,69 @@
-/* eslint-disable import/no-mutable-exports */
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable import/extensions */
 
 import {
   initHourly,
-} from './apiFunctions/hourlyApi.js';
+} from './apiFunctions/clickHourly.js';
 
 import {
   initDaily,
-} from './apiFunctions/dailyApi.js';
+} from './apiFunctions/clickDaily.js';
 
 import {
   addAnimation,
-} from './animations.js';
+} from '../animations.js';
 
 // toggle switches
 let clicked = false;
 
 const search = document.querySelector('.search');
+const loupe = document.querySelector('.fa-magnifying-glass');
 
-// reload timeUnit element to check if there is newly added group
+function checkClicks() {
+  if (!clicked) {
+    // add preload animation and remove existing text from HTML
+    addAnimation();
+
+    initDaily();
+  } else if (clicked) {
+    // add preload animation and remove existing text from HTML
+    addAnimation();
+
+    initHourly();
+  }
+}
+
 search.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
-    addAnimation();
+    checkClicks();
   }
 });
 
-const loupe = document.querySelector('.fa-magnifying-glass');
-
-// reload timeUnit element to check if there is newly added group
 loupe.addEventListener('click', () => {
   if (search.value !== '') {
-    addAnimation();
+    checkClicks();
   }
 });
 
 const hourlyButton = document.querySelector('.hourly-button');
-const locationTitle = document.querySelector('.location');
+const dailyButton = document.querySelector('.daily-button');
 
 hourlyButton.addEventListener('click', () => {
   if (!clicked) {
     // add preload animation and remove existing text from HTML
     addAnimation();
 
-    search.value = locationTitle.innerText;
     initHourly();
-    search.value = '';
     clicked = true;
   }
 });
-
-const dailyButton = document.querySelector('.daily-button');
 
 dailyButton.addEventListener('click', () => {
   if (clicked) {
     // add preload animation and remove existing text from HTML
     addAnimation();
 
-    search.value = locationTitle.innerText;
     initDaily();
-    search.value = '';
     clicked = false;
   }
 });
-
-export {
-  clicked,
-};
