@@ -47,13 +47,17 @@ loupe.addEventListener('click', () => {
 
 const hourlyButton = document.querySelector('.hourly-button');
 const dailyButton = document.querySelector('.daily-button');
+const locationTitle = document.querySelector('.location');
 
 hourlyButton.addEventListener('click', () => {
   if (!clicked) {
     // add preload animation and remove existing text from HTML
     addAnimation();
 
+    search.value = locationTitle.innerText;
     initHourly();
+    search.value = '';
+
     clicked = true;
   }
 });
@@ -63,7 +67,10 @@ dailyButton.addEventListener('click', () => {
     // add preload animation and remove existing text from HTML
     addAnimation();
 
+    search.value = locationTitle.innerText;
     initDaily();
+    search.value = '';
+
     clicked = false;
   }
 });

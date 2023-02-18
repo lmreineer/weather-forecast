@@ -2,10 +2,6 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable import/prefer-default-export */
 
-import {
-  removeAnimation,
-} from './animations.js';
-
 function getHour(hoursDisplayed) {
   return hoursDisplayed.datetime.slice(0, 5);
 }
