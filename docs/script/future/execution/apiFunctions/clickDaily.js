@@ -7,13 +7,9 @@ import {
   visualCrossing,
 } from '../../../apiKeys.js';
 
-import {
-  applyDaily,
-} from '../../daily.js';
+import { applyDaily } from '../../daily.js';
 
-import {
-  removeAnimation,
-} from '../../animations.js';
+import { removeAnimation } from '../../animations.js';
 
 // check current weather
 function checkWeather(lat, lon) {

@@ -12,13 +12,9 @@ import {
   visualCrossing,
 } from '../apiKeys.js';
 
-import {
-  applyLocation,
-} from '../location/locationTitle.js';
+import { applyLocation } from '../location/locationTitle.js';
 
-import {
-  applyCurrently,
-} from './currentWeather.js';
+import { applyCurrently } from './currentWeather.js';
 
 // check current weather
 function checkCurrently(lat, lon) {

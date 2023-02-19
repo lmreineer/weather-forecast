@@ -8,13 +8,9 @@ import {
   ipgeolocation,
 } from '../../../apiKeys.js';
 
-import {
-  applyHourly,
-} from '../../hourly.js';
+import { applyHourly } from '../../hourly.js';
 
-import {
-  removeAnimation,
-} from '../../animations.js';
+import { removeAnimation } from '../../animations.js';
 
 // check current weather
 function checkWeather(lat, lon) {

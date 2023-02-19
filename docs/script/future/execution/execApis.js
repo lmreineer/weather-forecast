@@ -1,19 +1,14 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable import/extensions */
 
-import {
-  initHourly,
-} from './apiFunctions/clickHourly.js';
+import { initHourly } from './apiFunctions/clickHourly.js';
 
-import {
-  initDaily,
-} from './apiFunctions/clickDaily.js';
+import { initDaily } from './apiFunctions/clickDaily.js';
 
-import {
-  addAnimation,
-} from '../animations.js';
+import { addAnimation } from '../animations.js';
 
 // toggle switches
+// eslint-disable-next-line import/no-mutable-exports
 let clicked = false;
 
 const search = document.querySelector('.search');
@@ -74,3 +69,5 @@ dailyButton.addEventListener('click', () => {
     clicked = false;
   }
 });
+
+export { clicked };

@@ -9,32 +9,18 @@
 }
 
 .container {
-    flex-direction: column;
-    height: 100vh;
+    margin-top: 4rem;
 }
 
-.container,
 .top,
-.currently {
+.currently,
+.left,
+.right {
     display: flex;
 }
 
 .top {
-    justify-content: space-between;
-}
-
-.left {
-    margin-left: 15rem;
-}
-
-.right {
-    margin-right: 15rem;
-}
-
-.left,
-.right {
-    margin-top: 3rem;
-    display: flex;
+    justify-content: space-around;
 }
 
 .currently {
@@ -48,20 +34,20 @@
 
 .list,
 .details {
-    width: 15rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    width: 15rem;
 }
 
-.list p,
-.details {
+.list,
+.details,
+.map {
     line-height: 2rem;
 }
 
 .map {
     text-align: center;
-    line-height: 2rem;
 }
 
 .search {
@@ -74,7 +60,6 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .submit {
-    display: inline;
     border-left: none;
     background-color: white;
     border-radius: 5px 0 0 5px;
@@ -90,34 +75,29 @@ input[type="search"]::-webkit-search-cancel-button {
 
 #map {
     height: 15rem;
-    width: 35rem;
+    width: 30rem;
+}
+
+.bottom,
+.upper {
+    display: flex;
 }
 
 .bottom {
-    display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    margin: 4rem;
-    flex: 1;
+    margin: 5rem;
     border-top: 1px solid black;
 }
 
 .upper {
-    display: flex;
     justify-content: space-between;
 }
 
 .daily-button,
 .hourly-button {
-    margin-right: 5rem;
-    padding: 1rem;
-    user-select: none;
     font-size: 1rem;
-}
-
-.buttons,
-.arrows {
-    display: flex;
+    user-select: none;
+    padding: 1rem;
 }
 
 .daily-button,
@@ -130,6 +110,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
 /* default tab on first time page load */
 .daily-button {
+    margin-right: 5rem;
     border: 1px solid black;
 }
 
@@ -150,6 +131,12 @@ input[type="search"]::-webkit-search-cancel-button {
     justify-content: space-around;
 }
 
+.upper,
+.future {
+    margin: 2rem;
+}
+
+/* animation */
 .dot-flashing {
     position: relative;
     margin: 1rem;

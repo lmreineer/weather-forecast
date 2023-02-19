@@ -1,9 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable import/extensions */
 
-import {
-  findMapLocation,
-} from './mapConfigs.js';
+import { findMapLocation } from './mapConfigs.js';
 
 function editLocationTitle(properties) {
   // put location name to HTML
