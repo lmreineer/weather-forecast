@@ -85,7 +85,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .bottom {
     flex-direction: column;
-    margin: 5rem;
+    margin: 5rem 5rem 0 5rem;
     border-top: 1px solid black;
 }
 

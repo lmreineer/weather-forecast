@@ -103,7 +103,9 @@ function applyHourly(weatherData, timeData) {
     for (const [i] of hoursDisplayed.entries()) {
       timeUnit[i].innerText = getHour(hoursDisplayed[i]);
       futureTemp[i].innerHTML = getTemp(hoursDisplayed[i]);
-      console.log(returnLarger);
+      if (returnLarger.length > 7) {
+        console.log(returnLarger.length);
+      }
     }
   }
 
