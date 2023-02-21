@@ -61,8 +61,8 @@ const assignCurrently = (function assignDetails() {
     sunTimes(conditions) {
       const sunriseTime = conditions.sunrise.slice(0, 5);
       const sunsetTime = conditions.sunset.slice(0, 5);
-      sunrise.innerText = `Sunset: ${sunriseTime}`;
-      sunset.innerText = `Sunrise: ${sunsetTime}`;
+      sunrise.innerText = `Sunrise: ${sunriseTime}`;
+      sunset.innerText = `Sunset: ${sunsetTime}`;
     },
 
     humidity(conditions) {
