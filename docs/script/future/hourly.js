@@ -10,60 +10,30 @@ function getTemp(hoursDisplayed) {
   return `${Math.round(hoursDisplayed.temp)}&degC`;
 }
 
-// remove groups that has no details in it
-function removeGroups(timeUnit) {
-  const group = document.querySelectorAll('.group');
-  // filter empty details
-  const empty = Array.from(timeUnit).filter((t) => t.innerHTML === '');
+const group = document.querySelectorAll('.group');
 
-  if (empty.length !== 0) {
-  // stop slicing after slicing it the first time
-    if (group.length === 7) {
-      // start and end of an index that makes it equal to the group element that is also empty
-      const start = group.length - empty.length;
-      const end = group.length + empty.length;
-      // determine the group that has empty details
-      const emptyEls = Array.from(group).slice(start, end);
-      // remove each empty element
-      emptyEls.forEach((el) => el.remove());
-    // check if new location has been changed and more details became empty
-    } else if (group.length < 7) {
-    // filter the text's innerHTML if there is none
-      const emptyEls = Array.from(group).filter((el) => el.children[0].children[0].children[0].children[0].innerHTML === '');
-      emptyEls.forEach((el) => el.remove());
-    }
-  }
-}
+function getTotalGroups(n, hours) {
+  // reset total groups after removing
+  group.forEach((g) => {
+    const grp = g;
+    grp.style.display = 'flex';
+  });
 
-// on page refresh, see if there is a missing group caused by removing groups
-function addGroups() {
-  const group = document.querySelectorAll('.group');
-  // if each group are less than a total of seven
-  if (group.length < 7) {
-    // calculate how many groups to be added
-    const calc = 7 - group.length;
-    for (let i = 0; i < calc; i += 1) {
-      const table = document.createElement('table');
-      table.classList.add('group');
-      table.innerHTML = `
-      <tbody>
-        <tr>
-          <th>
-            <h2 class="time-unit"></h2>
-            <img class="future-icon" src="../res/cloudy.svg">
-            <h2 class="future-temp"></h2>
-          </th>
-        </tr>
-      </tbody>
-      `;
-      document.querySelector('.future').appendChild(table);
-    }
+  // use n as total hours able to display then calculate total groups to remove
+  const totalRemoval = n - hours.length;
+  // put six to correlate with nodeList index then calculate starting index
+  let final = 6 - totalRemoval;
+
+  // use total for number of iteration
+  for (let i = 0; i < totalRemoval; i += 1) {
+    // use starting index and continue
+    group[final += 1].style.display = 'none';
   }
 }
 
 // make the actual hour data equal to filtered returnLarger or returnLesser
 function sliceHours(hourlyData, range) {
-  // start and end of index that equals to hours
+  // start and end of index that is equal to hours to be displayed
   const start = hourlyData.length - range.length;
   const end = hourlyData.length + range.length;
   return hourlyData.slice(start, end);
@@ -75,26 +45,73 @@ const leftArrow = document.querySelector('.left-arrow');
 // count clicks
 let counter = 0;
 
+// show arrows depending on the current page
+function showArrows(hours) {
+  // set right arrow on first page
+  rightArrow.style.display = 'inline';
+  leftArrow.style.display = 'none';
+
+  // if clicked once
+  if (counter === 1) {
+    // if total hours takes more than two pages
+    if (hours.length < 21) {
+      // show both arrows
+      rightArrow.style.display = 'inline';
+      leftArrow.style.display = 'inline';
+      // else if it takes two pages only
+    } else {
+      // show left arrow only
+      rightArrow.style.display = 'none';
+      leftArrow.style.display = 'inline';
+    }
+    // use 14 as total number of groups able to display
+    getTotalGroups(14, hours);
+    // if clicked twice
+  } else if (counter === 2) {
+    // if total hours takes more than two pages
+    if (hours.length < 21) {
+      // show left arrow only
+      rightArrow.style.display = 'none';
+      leftArrow.style.display = 'inline';
+      // use 21 as total number of groups able to display
+      getTotalGroups(21, hours);
+      // else if it takes more than three pages
+    } else {
+      rightArrow.style.display = 'inline';
+      leftArrow.style.display = 'inline';
+    }
+  } else if (counter === 3) {
+    // if it takes more than three pages
+    if (hours.length > 21) {
+      // show left arrow only
+      rightArrow.style.display = 'none';
+      leftArrow.style.display = 'inline';
+      // use 28 as total number of groups able to display
+      getTotalGroups(28, hours);
+    }
+  }
+
+  // else if (counter === 2) {
+  //   rightArrow.style.display = 'none';
+  //   leftArrow.style.display = 'inline';
+
+  //   for (let i = 0; i < total; i += 1) {
+  //     group[final += 1].style.display = 'none';
+  //   }
+  // }
+}
+
 function controlPages(hours, time, temp, start, end) {
   let hoursDisplayed = hours;
+
+  // execute to show arrows
+  showArrows(hours);
+
   const timeUnit = time;
   const futureTemp = temp;
   // start and end of slice
   const s = start;
   const e = end;
-
-  // remove and add arrows depending on the current page
-  if (counter === 1 && hoursDisplayed.length > 14) {
-    rightArrow.style.display = 'inline';
-    leftArrow.style.display = 'inline';
-  } else if (counter === 0) {
-    // show arrow for next page
-    rightArrow.style.display = 'inline';
-    leftArrow.style.display = 'none';
-  } else {
-    rightArrow.style.display = 'none';
-    leftArrow.style.display = 'inline';
-  }
 
   // slice enough sets for a page
   hoursDisplayed = hoursDisplayed.slice(s, e);
@@ -107,9 +124,6 @@ function controlPages(hours, time, temp, start, end) {
 
 // function for hourly weather forecast below
 function applyHourly(weatherData, timeData) {
-  // execute to add potentially missing groups caused by removing groups
-  addGroups();
-
   // declare datas for hours
   const hourlyData = weatherData.days[0].hours;
   // make empty array
@@ -139,78 +153,53 @@ function applyHourly(weatherData, timeData) {
   if (currentHour === '23') {
     // filter hours that is lesser than the current hour
     returnLesser = hours.filter((n) => n < currentHour);
-    // return hours to be applied
+    // return hours for the next day
     hoursDisplayed = sliceHours(hourlyData, returnLesser);
   } else {
     // filter hours that is greater than the current hour
     returnLarger = hours.filter((n) => n > currentHour);
     // return hours to be applied
     hoursDisplayed = sliceHours(hourlyData, returnLarger);
-
-    // if it takes more than one page
-    if (hoursDisplayed.length > 7) {
-      controlPages(hoursDisplayed, timeUnit, futureTemp, 0, 7);
-
-      // control pages
-      rightArrow.addEventListener('click', () => {
-        if (counter === 0) {
-          counter = 1;
-          controlPages(hoursDisplayed, timeUnit, futureTemp, 7, 14);
-        } else {
-          counter = 2;
-          controlPages(hoursDisplayed, timeUnit, futureTemp, 14, 21);
-        }
-      });
-
-      // control pages
-      leftArrow.addEventListener('click', () => {
-        if (counter === 1) {
-          counter = 0;
-          controlPages(hoursDisplayed, timeUnit, futureTemp, 0, 7);
-        } else {
-          counter = 1;
-          controlPages(hoursDisplayed, timeUnit, futureTemp, 7, 14);
-        }
-      });
-    } else {
-      // apply details to each sets
-      for (const [i] of hoursDisplayed.entries()) {
-        timeUnit[i].innerText = getHour(hoursDisplayed[i]);
-        futureTemp[i].innerHTML = getTemp(hoursDisplayed[i]);
-      }
-    }
-
-    // if (hoursDisplayed.length > 7) {
-    //   // default first page
-    //   hoursDisplayed = pages.firstPage(hoursDisplayed);
-
-    //   rightArrow.addEventListener('click', () => {
-    //     // refresh hours to be applied
-    //     hoursDisplayed = sliceHours(hourlyData, returnLarger);
-    //     if (counter === 0) {
-    //       counter += 1;
-    //       // proceed to next page
-    //       pages.secondPage(hoursDisplayed, timeUnit, futureTemp);
-    //     } else if (counter === 1) {
-    //       pages.thirdPage(hoursDisplayed, timeUnit, futureTemp);
-    //       counter = 0;
-    //     }
-    //   });
-
-    //   leftArrow.addEventListener('click', () => {
-    //     hoursDisplayed = pages.firstPage(hoursDisplayed);
-
-    //     // apply details to each sets
-    //     for (const [i] of hoursDisplayed.entries()) {
-    //       timeUnit[i].innerText = getHour(hoursDisplayed[i]);
-    //       futureTemp[i].innerHTML = getTemp(hoursDisplayed[i]);
-    //     }
-    //   });
-    // }
   }
 
-  // execute to slice groups if there are only less than seven
-  removeGroups(timeUnit);
+  if (hoursDisplayed.length <= 7) {
+    // apply details to each sets
+    for (const [i] of hoursDisplayed.entries()) {
+      timeUnit[i].innerText = getHour(hoursDisplayed[i]);
+      futureTemp[i].innerHTML = getTemp(hoursDisplayed[i]);
+    }
+    // execute to get total groups to display for the first page
+    getTotalGroups(7, hoursDisplayed);
+    // if it takes more than one page
+  } else if (hoursDisplayed.length > 7) {
+    controlPages(hoursDisplayed, timeUnit, futureTemp, 0, 7);
+
+    // control pages
+    rightArrow.addEventListener('click', () => {
+      counter += 1;
+
+      if (counter === 1) {
+        controlPages(hoursDisplayed, timeUnit, futureTemp, 7, 14);
+      } else if (counter === 2) {
+        controlPages(hoursDisplayed, timeUnit, futureTemp, 14, 21);
+      } else {
+        controlPages(hoursDisplayed, timeUnit, futureTemp, 21, 23);
+      }
+    });
+    // control pages
+    leftArrow.addEventListener('click', () => {
+      if (counter === 1) {
+        counter -= 1;
+        controlPages(hoursDisplayed, timeUnit, futureTemp, 0, 7);
+      } else if (counter === 2) {
+        counter -= 1;
+        controlPages(hoursDisplayed, timeUnit, futureTemp, 7, 14);
+      } else {
+        counter -= 1;
+        controlPages(hoursDisplayed, timeUnit, futureTemp, 14, 21);
+      }
+    });
+  }
 }
 
 export {
