@@ -10,6 +10,26 @@ function getTemp(hoursDisplayed) {
   return `${Math.round(hoursDisplayed.temp)}&degC`;
 }
 
+// function to return hours for next day
+function returnNextDayHours(hours, currentHour, hourlyData) {
+  // filter lesser hours than current hour to be displayed
+  const hoursNextDay = hours.filter((n) => n < currentHour);
+  // start and end of index that is equal to hours to be displayed
+  const start = hourlyData.length - hoursNextDay.length;
+  const end = hourlyData.length + hoursNextDay.length;
+  return hourlyData.slice(start, end);
+}
+
+// function to return hours normally
+function returnNormalHours(hours, currentHour, hourlyData) {
+  // filter greater hours than current hour to be displayed
+  const hoursNextDay = hours.filter((n) => n > currentHour);
+  // start and end of index that is equal to hours to be displayed
+  const start = hourlyData.length - hoursNextDay.length;
+  const end = hourlyData.length + hoursNextDay.length;
+  return hourlyData.slice(start, end);
+}
+
 const group = document.querySelectorAll('.group');
 
 function getTotalGroups(n, hours) {
@@ -31,14 +51,6 @@ function getTotalGroups(n, hours) {
   }
 }
 
-// make the actual hour data equal to filtered returnLarger or returnLesser
-function sliceHours(hourlyData, range) {
-  // start and end of index that is equal to hours to be displayed
-  const start = hourlyData.length - range.length;
-  const end = hourlyData.length + range.length;
-  return hourlyData.slice(start, end);
-}
-
 // for clicking next page
 const rightArrow = document.querySelector('.right-arrow');
 const leftArrow = document.querySelector('.left-arrow');
@@ -51,7 +63,6 @@ function showArrows(hours) {
   rightArrow.style.display = 'inline';
   leftArrow.style.display = 'none';
 
-  // if clicked once
   if (counter === 1) {
     // if total hours takes more than two pages
     if (hours.length < 21) {
@@ -66,7 +77,6 @@ function showArrows(hours) {
     }
     // use 14 as total number of groups able to display
     getTotalGroups(14, hours);
-    // if clicked twice
   } else if (counter === 2) {
     // if total hours takes more than two pages
     if (hours.length < 21) {
@@ -90,15 +100,6 @@ function showArrows(hours) {
       getTotalGroups(28, hours);
     }
   }
-
-  // else if (counter === 2) {
-  //   rightArrow.style.display = 'none';
-  //   leftArrow.style.display = 'inline';
-
-  //   for (let i = 0; i < total; i += 1) {
-  //     group[final += 1].style.display = 'none';
-  //   }
-  // }
 }
 
 function controlPages(hours, time, temp, start, end) {
@@ -135,40 +136,32 @@ function applyHourly(weatherData, timeData) {
     hours.push(hourData);
   });
 
-  // get current hour data from API based and format it to hour format
+  // get current hour data from API and format it to hour format
   const currentHour = timeData.current_time.slice(0, 2);
+  let hoursDisplayed;
 
   // elements for daily and hourly forecast
   const timeUnit = document.querySelectorAll('.time-unit');
   const futureTemp = document.querySelectorAll('.future-temp');
 
-  // // count clicks
-  // let counter = 0;
-
-  let returnLarger;
-  let returnLesser;
-  let hoursDisplayed;
-
-  // if it's 23:00, show hours for the next day instead
-  if (currentHour === '23') {
-    // filter hours that is lesser than the current hour
-    returnLesser = hours.filter((n) => n < currentHour);
-    // return hours for the next day
-    hoursDisplayed = sliceHours(hourlyData, returnLesser);
-  } else {
-    // filter hours that is greater than the current hour
-    returnLarger = hours.filter((n) => n > currentHour);
-    // return hours to be applied
-    hoursDisplayed = sliceHours(hourlyData, returnLarger);
+  // if it is not 23:00 yet, show hours normally
+  if (currentHour !== '23') {
+  // return hours to be applied
+    hoursDisplayed = returnNormalHours(hours, currentHour, hourlyData);
+  // if it is 23:00, show hours for next day instead
+  } else if (currentHour === '23') {
+  // return hours to be applied
+    hoursDisplayed = returnNextDayHours(hours, currentHour, hourlyData);
   }
 
+  // if groups only take first page
   if (hoursDisplayed.length <= 7) {
-    // apply details to each sets
     for (const [i] of hoursDisplayed.entries()) {
       timeUnit[i].innerText = getHour(hoursDisplayed[i]);
       futureTemp[i].innerHTML = getTemp(hoursDisplayed[i]);
     }
-    // execute to get total groups to display for the first page
+
+    // use seven as total number of groups able to display
     getTotalGroups(7, hoursDisplayed);
     // if it takes more than one page
   } else if (hoursDisplayed.length > 7) {
