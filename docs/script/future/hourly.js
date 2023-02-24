@@ -1,14 +1,5 @@
-/* eslint-disable import/extensions */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable import/prefer-default-export */
-
-function getHour(hoursDisplayed) {
-  return hoursDisplayed.datetime.slice(0, 5);
-}
-
-function getTemp(hoursDisplayed) {
-  return `${Math.round(hoursDisplayed.temp)}&degC`;
-}
 
 // function to return hours for next day
 function returnNextDayHours(hours, currentHour, hourlyData) {
@@ -28,6 +19,24 @@ function returnNormalHours(hours, currentHour, hourlyData) {
   const start = hourlyData.length - hoursNextDay.length;
   const end = hourlyData.length + hoursNextDay.length;
   return hourlyData.slice(start, end);
+}
+
+function getHour(hoursDisplayed) {
+  return hoursDisplayed.datetime.slice(0, 5);
+}
+
+function getTemp(hoursDisplayed) {
+  return `${Math.round(hoursDisplayed.temp)}&degC`;
+}
+
+function applyGroupInfos(hoursDisplayed, time, temp) {
+  const timeUnit = time;
+  const futureTemp = temp;
+
+  for (const [i] of hoursDisplayed.entries()) {
+    timeUnit[i].innerText = getHour(hoursDisplayed[i]);
+    futureTemp[i].innerHTML = getTemp(hoursDisplayed[i]);
+  }
 }
 
 const group = document.querySelectorAll('.group');
@@ -59,16 +68,13 @@ let counter = 0;
 
 // show arrows depending on the current page
 function showArrows(hours) {
-  // set right arrow on first page
-  rightArrow.style.display = 'inline';
-  leftArrow.style.display = 'none';
-
   if (counter === 1) {
     // if total hours takes more than two pages
-    if (hours.length < 21) {
+    if (hours.length > 14) {
       // show both arrows
       rightArrow.style.display = 'inline';
       leftArrow.style.display = 'inline';
+
       // else if it takes two pages only
     } else {
       // show left arrow only
@@ -83,13 +89,14 @@ function showArrows(hours) {
       // show left arrow only
       rightArrow.style.display = 'none';
       leftArrow.style.display = 'inline';
-      // use 21 as total number of groups able to display
-      getTotalGroups(21, hours);
+
       // else if it takes more than three pages
     } else {
       rightArrow.style.display = 'inline';
       leftArrow.style.display = 'inline';
     }
+    // use 21 as total number of groups able to display
+    getTotalGroups(21, hours);
   } else if (counter === 3) {
     // if it takes more than three pages
     if (hours.length > 21) {
@@ -99,28 +106,29 @@ function showArrows(hours) {
       // use 28 as total number of groups able to display
       getTotalGroups(28, hours);
     }
+
+    // else if zero clicks, show first page
+  } else {
+    // set right arrow on first page
+    rightArrow.style.display = 'inline';
+    leftArrow.style.display = 'none';
+    // use seven as default number of groups for first page
+    getTotalGroups(7, hours);
   }
 }
 
-function controlPages(hours, time, temp, start, end) {
-  let hoursDisplayed = hours;
-
+function controlPages(hours, time, temp, s, e) {
   // execute to show arrows
   showArrows(hours);
 
+  let hoursDisplayed = hours;
   const timeUnit = time;
   const futureTemp = temp;
-  // start and end of slice
-  const s = start;
-  const e = end;
 
   // slice enough sets for a page
   hoursDisplayed = hoursDisplayed.slice(s, e);
-  // apply details to each sets
-  for (const [i] of hoursDisplayed.entries()) {
-    timeUnit[i].innerText = getHour(hoursDisplayed[i]);
-    futureTemp[i].innerHTML = getTemp(hoursDisplayed[i]);
-  }
+  // execute to apply details to each groups
+  applyGroupInfos(hoursDisplayed, timeUnit, futureTemp);
 }
 
 // function for hourly weather forecast below
@@ -156,39 +164,45 @@ function applyHourly(weatherData, timeData) {
 
   // if groups only take first page
   if (hoursDisplayed.length <= 7) {
-    for (const [i] of hoursDisplayed.entries()) {
-      timeUnit[i].innerText = getHour(hoursDisplayed[i]);
-      futureTemp[i].innerHTML = getTemp(hoursDisplayed[i]);
-    }
-
+    // execute to apply details to each groups
+    applyGroupInfos(hours, timeUnit, futureTemp);
     // use seven as total number of groups able to display
     getTotalGroups(7, hoursDisplayed);
+
     // if it takes more than one page
   } else if (hoursDisplayed.length > 7) {
+    // first page
     controlPages(hoursDisplayed, timeUnit, futureTemp, 0, 7);
 
-    // control pages
+    // control pages using arrow
     rightArrow.addEventListener('click', () => {
       counter += 1;
 
       if (counter === 1) {
+        // page two
         controlPages(hoursDisplayed, timeUnit, futureTemp, 7, 14);
       } else if (counter === 2) {
+        // page three
         controlPages(hoursDisplayed, timeUnit, futureTemp, 14, 21);
       } else {
+        // page four
         controlPages(hoursDisplayed, timeUnit, futureTemp, 21, 23);
       }
     });
-    // control pages
+
+    // control pages using arrow
     leftArrow.addEventListener('click', () => {
       if (counter === 1) {
         counter -= 1;
+        // return to page one
         controlPages(hoursDisplayed, timeUnit, futureTemp, 0, 7);
       } else if (counter === 2) {
         counter -= 1;
+        // return to page two
         controlPages(hoursDisplayed, timeUnit, futureTemp, 7, 14);
       } else {
         counter -= 1;
+        // return to page three
         controlPages(hoursDisplayed, timeUnit, futureTemp, 14, 21);
       }
     });
