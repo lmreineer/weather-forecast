@@ -33,6 +33,7 @@ function applyGroupInfos(hoursDisplayed, time, temp) {
   const timeUnit = time;
   const futureTemp = temp;
 
+  // apply infos ot each groups
   for (const [i] of hoursDisplayed.entries()) {
     timeUnit[i].innerText = getHour(hoursDisplayed[i]);
     futureTemp[i].innerHTML = getTemp(hoursDisplayed[i]);
@@ -125,7 +126,7 @@ function controlPages(hours, time, temp, s, e) {
   const timeUnit = time;
   const futureTemp = temp;
 
-  // slice enough sets for a page
+  // slice enough groups for a page
   hoursDisplayed = hoursDisplayed.slice(s, e);
   // execute to apply details to each groups
   applyGroupInfos(hoursDisplayed, timeUnit, futureTemp);
@@ -165,7 +166,7 @@ function applyHourly(weatherData, timeData) {
   // if groups only take first page
   if (hoursDisplayed.length <= 7) {
     // execute to apply details to each groups
-    applyGroupInfos(hours, timeUnit, futureTemp);
+    applyGroupInfos(hoursDisplayed, timeUnit, futureTemp);
     // use seven as total number of groups able to display
     getTotalGroups(7, hoursDisplayed);
 
