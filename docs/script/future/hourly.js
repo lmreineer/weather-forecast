@@ -40,20 +40,13 @@ function applyGroupInfos(hoursDisplayed, time, temp) {
   }
 }
 
-const group = document.querySelectorAll('.group');
-
 function getTotalGroups(n, hours) {
-  // reset total groups after removing
-  group.forEach((g) => {
-    const grp = g;
-    grp.style.display = 'flex';
-  });
-
   // use n as total hours able to display then calculate total groups to remove
   const totalRemoval = n - hours.length;
   // put six to correlate with nodeList index then calculate starting index
   let final = 6 - totalRemoval;
 
+  const group = document.querySelectorAll('.group');
   // use total for number of iteration
   for (let i = 0; i < totalRemoval; i += 1) {
     // use starting index and continue

@@ -2,8 +2,8 @@
 const timeUnit = document.querySelectorAll('.time-unit');
 const futureIcon = document.querySelectorAll('.future-icon');
 const futureTemp = document.querySelectorAll('.future-temp');
-// arrows
 const arrows = document.querySelectorAll('.arrow');
+const group = document.querySelectorAll('.group');
 
 function addAnimation() {
   // add preloading animation
@@ -25,9 +25,16 @@ function addAnimation() {
     temp.innerText = '';
   });
 
+  // remove arrows
   arrows.forEach((a) => {
     const arrow = a;
     arrow.style.display = 'none';
+  });
+
+  // refresh total groups after removing
+  group.forEach((g) => {
+    const grp = g;
+    grp.style.display = 'flex';
   });
 }
 
