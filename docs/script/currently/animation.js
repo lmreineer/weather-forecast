@@ -15,7 +15,7 @@ import {
   pressure,
 } from './currentWeather.js';
 
-function addClass() {
+function addAnimation() {
   currentTemp.classList.add('dot-flashing');
   description.classList.add('dot-flashing');
   feelsLike.classList.add('dot-flashing');
@@ -28,24 +28,8 @@ function addClass() {
   humidity.classList.add('dot-flashing');
   dewPoint.classList.add('dot-flashing');
   pressure.classList.add('dot-flashing');
-}
 
-function removeClass() {
-  currentTemp.classList.remove('dot-flashing');
-  description.classList.remove('dot-flashing');
-  feelsLike.classList.remove('dot-flashing');
-  currentHighLow.classList.remove('dot-flashing');
-  wind.classList.remove('dot-flashing');
-  currentIcon.classList.remove('dot-flashing');
-  latestReport.classList.remove('dot-flashing');
-  sunrise.classList.remove('dot-flashing');
-  sunset.classList.remove('dot-flashing');
-  humidity.classList.remove('dot-flashing');
-  dewPoint.classList.remove('dot-flashing');
-  pressure.classList.remove('dot-flashing');
-}
-
-function removeText() {
+  // remove texts
   currentTemp.innerText = '';
   description.innerText = '';
   feelsLike.innerText = '';
@@ -58,6 +42,21 @@ function removeText() {
   humidity.innerText = '';
   dewPoint.innerText = '';
   pressure.innerText = '';
+}
+
+function removeAnimation() {
+  currentTemp.classList.remove('dot-flashing');
+  description.classList.remove('dot-flashing');
+  feelsLike.classList.remove('dot-flashing');
+  currentHighLow.classList.remove('dot-flashing');
+  wind.classList.remove('dot-flashing');
+  currentIcon.classList.remove('dot-flashing');
+  latestReport.classList.remove('dot-flashing');
+  sunrise.classList.remove('dot-flashing');
+  sunset.classList.remove('dot-flashing');
+  humidity.classList.remove('dot-flashing');
+  dewPoint.classList.remove('dot-flashing');
+  pressure.classList.remove('dot-flashing');
 }
 
 const hourlyButton = document.querySelector('.hourly-button');
@@ -74,7 +73,6 @@ dailyButton.addEventListener('click', () => {
 });
 
 export {
-  addClass,
-  removeClass,
-  removeText,
+  addAnimation,
+  removeAnimation,
 };

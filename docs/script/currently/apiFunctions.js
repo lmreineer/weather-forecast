@@ -1,10 +1,9 @@
+/* eslint-disable import/prefer-default-export */
 /* eslint-disable import/extensions */
-/* eslint-disable no-console */
 
 import {
-  addClass,
-  removeClass,
-  removeText,
+  addAnimation,
+  removeAnimation,
 } from './animation.js';
 
 import {
@@ -13,7 +12,6 @@ import {
 } from '../apiKeys.js';
 
 import { applyLocation } from '../location/locationTitle.js';
-
 import { applyCurrently } from './currentWeather.js';
 
 // check current weather
@@ -23,75 +21,76 @@ function checkCurrently(lat, lon) {
   fetch(weatherAPI)
     .then((response) => response.json())
     .then((weatherData) => {
-      // execute to check current weather
       applyCurrently(weatherData);
+      // remove animation after applying infos
+      removeAnimation();
+    });
+}
 
-      // remove preload animation when weather details are applied
-      removeClass();
-    })
-    .catch((error) => console.error(error));
+const errorMessage = document.querySelector('.error');
+
+// function to show error message
+function showError() {
+  // show error message
+  errorMessage.style.visibility = 'visible';
+  removeAnimation();
 }
 
 const search = document.querySelector('.search');
-const loupe = document.querySelector('.fa-magnifying-glass');
-const errorMessage = document.querySelector('.error');
 
-// find latitude and longitude of location name based on input
 function geocodeLocation() {
-// add preload animation and remove existing text from HTML
-  addClass();
-  removeText();
-
   const geocodeAPI = `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(search.value)}&apiKey=${geoapify}`;
 
   fetch(geocodeAPI)
     .then((response) => response.json())
     .then((locData) => {
-      // show error if location name is not found
+      // if no locations are found
       if (locData.features[0] === undefined || locData.query.parsed === undefined) {
-        errorMessage.style.visibility = 'visible';
-        removeClass();
-        // else run the main purpose
+        // show error message
+        showError();
+
+        // else, show weather
       } else {
-        // assign latitude and longitude and use to execute current weather and time
+        // remove any error message
+        errorMessage.style.visibility = 'hidden';
+
         const lat = locData.features[0].geometry.coordinates[1];
         const lon = locData.features[0].geometry.coordinates[0];
-
-        const countryInput = locData.query.parsed.country;
-        const cityInput = locData.query.parsed.city;
-        const locationsFound = locData.features.length;
-
-        // show error if country is inputted but city is not inputted or no location results found
-        if ((countryInput !== undefined && cityInput === undefined)
-        || locationsFound === 0) {
-          errorMessage.style.visibility = 'visible';
-          removeClass();
-          // hide error and check the weather otherwise
-        } else {
-          errorMessage.style.visibility = 'hidden';
-          // execute to configure map location based on input
-          applyLocation(locData);
-          // then execute to check current weather
-          checkCurrently(lat, lon);
-        }
+        // execute to configure map location based on input
+        applyLocation(locData);
+        // execute to get weather data
+        checkCurrently(lat, lon);
       }
-    })
-    .catch((error) => console.error(error));
+    });
+}
+
+// function to check errors
+function checkError() {
+  // add preload animation and remove text
+  addAnimation();
+
+  // if search value is entered empty
+  if (search.value === '') {
+    showError();
+
+    // else, continue operations
+  } else {
+    geocodeLocation();
+  }
 }
 
 search.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
-    geocodeLocation();
+    checkError();
   }
 });
+
+const loupe = document.querySelector('.fa-magnifying-glass');
 
 loupe.addEventListener('click', () => {
   if (search.value !== '') {
-    geocodeLocation();
+    checkError();
   }
 });
 
-export {
-  search,
-  geocodeLocation,
-};
+export { geocodeLocation };

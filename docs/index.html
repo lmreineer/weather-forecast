@@ -13,12 +13,12 @@
     <script src="https://kit.fontawesome.com/dd2a44ac1d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
     <script type="module" src="./script/currently/animation.js" defer></script>
-    <script type="module" src="./script/onload.js"></script>
+    <script type="module" src="./script/currently/apiFunctions.js" defer></script> <!-- currently's api functions -->
     <script type="module" src="./script/location/mapConfigs.js"></script>
-    <script type="module" src="./script/currently/apiFunctions.js" defer></script> <!-- default api functions -->
     <script type="module" src="./script/location/locationTitle.js" defer></script>
     <script type="module" src="./script/currently/currentWeather.js" defer></script>
-    <script type="module" src="./script/future/execution/execApis.js" defer></script> <!-- hourly's api functions -->
+    <script type="module" src="./script/onload.js"></script>
+    <script type="module" src="./script/future/execution/execApis.js" defer></script> <!-- future's api functions -->
     <script type="module" src="./script/future/arrows.js" defer></script>
 </head>
 
@@ -63,8 +63,7 @@
                             <div class="fa-solid fa-magnifying-glass"></div>
                         </button>
                     </table>
-                    <p class="error" style="visibility: hidden;">No results found.<br>Try searching for a city, state,
-                        or zip code.</p>
+                    <p class="error" style="visibility: hidden;">No results found.</p>
                     <div id="map"></div>
                 </div>
             </div>

@@ -1,6 +1,5 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable import/extensions */
-/* eslint-disable no-console */
 
 import {
   geoapify,
@@ -8,10 +7,8 @@ import {
 } from '../../../apiKeys.js';
 
 import { applyDaily } from '../../daily.js';
+import { removeAnimation } from '../../animation.js';
 
-import { removeAnimation } from '../../animations.js';
-
-// check current weather
 function checkWeather(lat, lon) {
   const weatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}?unitGroup=metric&key=${visualCrossing}`;
 
@@ -19,14 +16,13 @@ function checkWeather(lat, lon) {
     .then((response) => response.json())
     .then((weatherData) => {
       applyDaily(weatherData);
-
-      // remove animation after applying details
+      // remove animation after applying infos
       removeAnimation();
-    })
-    .catch((error) => console.error(error));
+    });
 }
 
 const search = document.querySelector('.search');
+const errorMessage = document.querySelector('.error');
 
 // initialize daily
 function initDaily() {
@@ -35,13 +31,17 @@ function initDaily() {
   fetch(geocodeAPI)
     .then((response) => response.json())
     .then((locData) => {
-      // assign latitude and longitude and use to execute time
-      const lat = locData.features[0].geometry.coordinates[1];
-      const lon = locData.features[0].geometry.coordinates[0];
+      // if error is visible, stop operations
+      if (errorMessage.style.visibility === 'visible') {
+        removeAnimation();
 
-      checkWeather(lat, lon);
-    })
-    .catch((error) => console.error(error));
+        // else, show weather
+      } else {
+        const lat = locData.features[0].geometry.coordinates[1];
+        const lon = locData.features[0].geometry.coordinates[0];
+        checkWeather(lat, lon);
+      }
+    });
 }
 
 export {

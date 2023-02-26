@@ -3,7 +3,7 @@
 
 // function to return hours for next day
 function returnNextDayHours(hours, currentHour, hourlyData) {
-  // filter lesser hours than current hour to be displayed
+  // filter next day hours to be displayed
   const hoursNextDay = hours.filter((n) => n < currentHour);
   // start and end of index that is equal to hours to be displayed
   const start = hourlyData.length - hoursNextDay.length;
@@ -61,13 +61,13 @@ function getTotalGroups(n, hours) {
   }
 }
 
-// for clicking next page
+// elements for clicking next page
 const rightArrow = document.querySelector('.right-arrow');
 const leftArrow = document.querySelector('.left-arrow');
 // count clicks
 let counter = 0;
 
-// show arrows depending on the current page
+// function to show either or both arrows depending on the current page
 function showArrows(hours) {
   if (counter === 1) {
     // if total hours takes more than two pages
@@ -86,7 +86,7 @@ function showArrows(hours) {
     getTotalGroups(14, hours);
   } else if (counter === 2) {
     // if total hours takes more than two pages
-    if (hours.length < 21) {
+    if (hours.length <= 21) {
       // show left arrow only
       rightArrow.style.display = 'none';
       leftArrow.style.display = 'inline';
@@ -118,6 +118,7 @@ function showArrows(hours) {
   }
 }
 
+// function for page control
 function controlPages(hours, time, temp, s, e) {
   // execute to show arrows
   showArrows(hours);
@@ -132,84 +133,88 @@ function controlPages(hours, time, temp, s, e) {
   applyGroupInfos(hoursDisplayed, timeUnit, futureTemp);
 }
 
-// function for hourly weather forecast below
+// function for hourly weather forecast
 function applyHourly(weatherData, timeData) {
-  // declare datas for hours
-  const hourlyData = weatherData.days[0].hours;
-  // make empty array
-  const hours = [];
-  hourlyData.forEach((data) => {
-    // configure it into an hour format
-    const hourData = data.datetime.slice(0, 2);
-    // push it into an empty array
-    hours.push(hourData);
-  });
-
-  // get current hour data from API and format it to hour format
+  // get current hour data and slice to hour format
   const currentHour = timeData.current_time.slice(0, 2);
   let hoursDisplayed;
 
-  // elements for daily and hourly forecast
+  // get hourly weather data
+  const hourlyData = weatherData.days[0].hours;
+  // make empty array
+  const hours = [];
+
+  hourlyData.forEach((data) => {
+    // get twenty-four hours and slice to hour format
+    const hourData = data.datetime.slice(0, 2);
+    // push into empty array
+    hours.push(hourData);
+  });
+
+  // elements for informations
   const timeUnit = document.querySelectorAll('.time-unit');
   const futureTemp = document.querySelectorAll('.future-temp');
 
-  // if it is not 23:00 yet, show hours normally
+  // if current hour is not 23:00
   if (currentHour !== '23') {
-  // return hours to be applied
+    // return hours to be applied, normally
     hoursDisplayed = returnNormalHours(hours, currentHour, hourlyData);
-  // if it is 23:00, show hours for next day instead
+
+  // else if current hour is 23:00
   } else if (currentHour === '23') {
-  // return hours to be applied
+    // return hours to be applied, for next day instead
     hoursDisplayed = returnNextDayHours(hours, currentHour, hourlyData);
   }
 
   // if groups only take first page
   if (hoursDisplayed.length <= 7) {
-    // execute to apply details to each groups
+    // execute to apply infos to each groups
     applyGroupInfos(hoursDisplayed, timeUnit, futureTemp);
     // use seven as total number of groups able to display
     getTotalGroups(7, hoursDisplayed);
 
-    // if it takes more than one page
+    // else if it takes more than one page
   } else if (hoursDisplayed.length > 7) {
-    // first page
+    // execute for first page
     controlPages(hoursDisplayed, timeUnit, futureTemp, 0, 7);
 
-    // control pages using arrow
-    rightArrow.addEventListener('click', () => {
-      counter += 1;
-
-      if (counter === 1) {
-        // page two
-        controlPages(hoursDisplayed, timeUnit, futureTemp, 7, 14);
-      } else if (counter === 2) {
-        // page three
-        controlPages(hoursDisplayed, timeUnit, futureTemp, 14, 21);
-      } else {
-        // page four
-        controlPages(hoursDisplayed, timeUnit, futureTemp, 21, 23);
-      }
-    });
-
-    // control pages using arrow
-    leftArrow.addEventListener('click', () => {
-      if (counter === 1) {
-        counter -= 1;
-        // return to page one
-        controlPages(hoursDisplayed, timeUnit, futureTemp, 0, 7);
-      } else if (counter === 2) {
-        counter -= 1;
-        // return to page two
-        controlPages(hoursDisplayed, timeUnit, futureTemp, 7, 14);
-      } else {
-        counter -= 1;
-        // return to page three
-        controlPages(hoursDisplayed, timeUnit, futureTemp, 14, 21);
-      }
-    });
+    // control functions with arrows
+    if (counter === 1) {
+      // execute for second page
+      controlPages(hoursDisplayed, timeUnit, futureTemp, 7, 14);
+    } else if (counter === 2) {
+      // execute for third page
+      controlPages(hoursDisplayed, timeUnit, futureTemp, 14, 21);
+    } else if (counter === 3) {
+      // execute for fourth page
+      controlPages(hoursDisplayed, timeUnit, futureTemp, 21, 23);
+    }
   }
 }
 
-export {
-  applyHourly,
-};
+// control pages
+rightArrow.addEventListener('click', () => {
+  counter += 1;
+});
+
+// control pages
+leftArrow.addEventListener('click', () => {
+  counter -= 1;
+});
+
+const search = document.querySelector('.search');
+const loupe = document.querySelector('.fa-magnifying-glass');
+
+search.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    counter = 0;
+  }
+});
+
+loupe.addEventListener('click', () => {
+  if (search.value !== '') {
+    counter = 0;
+  }
+});
+
+export { applyHourly };

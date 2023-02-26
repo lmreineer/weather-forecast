@@ -9,7 +9,7 @@
 }
 
 .container {
-    margin-top: 4rem;
+    margin-top: 5rem;
 }
 
 .top,
@@ -48,6 +48,10 @@
 
 .map {
     text-align: center;
+}
+
+.location {
+    max-width: 30rem;
 }
 
 .search {

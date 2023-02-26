@@ -1,24 +1,22 @@
 /* eslint-disable import/extensions */
-// /* eslint-disable import/extensions */
 
-import {
-  search,
-  geocodeLocation,
-} from './currently/apiFunctions.js';
-
+import { geocodeLocation } from './currently/apiFunctions.js';
 import { initDaily } from './future/execution/apiFunctions/clickDaily.js';
+import { addAnimation as futureAnimation } from './future/animation.js';
+import { addAnimation as currentAnimation } from './currently/animation.js';
 
-import { addAnimation } from './future/animations.js';
-
+const search = document.querySelector('.search');
 const locationTitle = document.querySelector('.location');
 
 window.addEventListener('load', () => {
+  // search weather based on location title text
   search.value = locationTitle.innerText;
+  // add animation and initialize for current weather
+  currentAnimation();
   geocodeLocation();
 
-  // initialise daily forecast from below
-  addAnimation();
+  // add animation and initialize for daily forecast
+  futureAnimation();
   initDaily();
-
   search.value = '';
 });

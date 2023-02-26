@@ -1,73 +1,58 @@
-/* eslint-disable import/prefer-default-export */
 /* eslint-disable import/extensions */
 
 import { initHourly } from './apiFunctions/clickHourly.js';
-
 import { initDaily } from './apiFunctions/clickDaily.js';
-
-import { addAnimation } from '../animations.js';
+import { addAnimation } from '../animation.js';
 
 // toggle switches
-// eslint-disable-next-line import/no-mutable-exports
 let clicked = false;
 
-const search = document.querySelector('.search');
-const loupe = document.querySelector('.fa-magnifying-glass');
+function checkTabClicks() {
+  // add preload animation and remove text
+  addAnimation();
 
-function checkClicks() {
   if (!clicked) {
-    // add preload animation and remove existing text from HTML
-    addAnimation();
-
     initDaily();
   } else if (clicked) {
-    // add preload animation and remove existing text from HTML
-    addAnimation();
-
     initHourly();
   }
 }
 
+const search = document.querySelector('.search');
+const loupe = document.querySelector('.fa-magnifying-glass');
+
 search.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
-    checkClicks();
+    checkTabClicks();
   }
 });
 
 loupe.addEventListener('click', () => {
   if (search.value !== '') {
-    checkClicks();
+    checkTabClicks();
   }
 });
 
+const locationTitle = document.querySelector('.location');
 const hourlyButton = document.querySelector('.hourly-button');
 const dailyButton = document.querySelector('.daily-button');
-const locationTitle = document.querySelector('.location');
 
 hourlyButton.addEventListener('click', () => {
+  // search weather based on location title text
+  search.value = locationTitle.innerText;
   if (!clicked) {
-    // add preload animation and remove existing text from HTML
-    addAnimation();
-
-    search.value = locationTitle.innerText;
-    initHourly();
-    search.value = '';
-
     clicked = true;
+    checkTabClicks();
   }
+  search.value = '';
 });
 
 dailyButton.addEventListener('click', () => {
+  // search weather based on location title text
+  search.value = locationTitle.innerText;
   if (clicked) {
-    // add preload animation and remove existing text from HTML
-    addAnimation();
-
-    search.value = locationTitle.innerText;
-    initDaily();
-    search.value = '';
-
     clicked = false;
+    checkTabClicks();
   }
+  search.value = '';
 });
-
-export { clicked };

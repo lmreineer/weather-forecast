@@ -18,14 +18,14 @@ function optimizeMap() {
 
 optimizeMap();
 
-// find location on map based on input
+// find location input on map
 function findMapLocation(properties) {
-  // remove previous marker before moving to new location
+  // stop duplicating marker
   if (marker) {
     marker.remove();
   }
 
-  // declare latitude and longitude for styling maps
+  // declare lat and long for marking map location
   const latitude = properties.lat;
   const longitude = properties.lon;
   // put marker to new location input
@@ -34,6 +34,4 @@ function findMapLocation(properties) {
   map.panTo(new L.LatLng(latitude, longitude));
 }
 
-export {
-  findMapLocation,
-};
+export { findMapLocation };
