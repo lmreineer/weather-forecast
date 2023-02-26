@@ -195,8 +195,10 @@ leftArrow.addEventListener('click', () => {
   counter -= 1;
 });
 
+// turn page to one if searched or daily button is clicked
 const search = document.querySelector('.search');
 const loupe = document.querySelector('.fa-magnifying-glass');
+const dailyButton = document.querySelector('.daily-button');
 
 search.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
@@ -208,6 +210,10 @@ loupe.addEventListener('click', () => {
   if (search.value !== '') {
     counter = 0;
   }
+});
+
+dailyButton.addEventListener('click', () => {
+  counter = 0;
 });
 
 export { applyHourly };
