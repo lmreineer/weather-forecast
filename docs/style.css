@@ -8,6 +8,10 @@
     margin: 0;
 }
 
+img {
+    width: 5rem;
+}
+
 .container {
     margin-top: 5rem;
 }

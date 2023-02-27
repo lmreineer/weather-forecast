@@ -99,6 +99,11 @@ function applyCurrently(weatherData) {
   assignCurrently.humidity(conditions);
   assignCurrently.dewPoint(conditions);
   assignCurrently.pressure(conditions);
+
+  const { icon } = weatherData.currentConditions;
+  if (icon === 'clear-night') {
+    currentIcon.src = '../res/icon-set/clear-night.svg';
+  }
 }
 
 export {
