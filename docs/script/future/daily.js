@@ -6,12 +6,19 @@ const currentTemp = document.querySelector('.temp');
 
 // elements for daily and hourly forecast
 const timeUnit = document.querySelectorAll('.time-unit');
+const futureIcon = document.querySelectorAll('.future-icon');
 const futureTemp = document.querySelectorAll('.future-temp');
 
 function getDay(dailyData) {
   const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   // return days to be displayed
   return weekdays[new Date(dailyData.datetime).getDay()];
+}
+
+function getIcon(dailyData) {
+  console.log(dailyData);
+  const { icon } = dailyData;
+  return `../res/icon-set/${icon}.svg`;
 }
 
 function getHighLow(dailyData) {
@@ -42,6 +49,7 @@ function applyDaily(weatherData) {
   // apply infos to each groups
   for (const [i] of dailyData.entries()) {
     timeUnit[i].innerText = getDay(dailyData[i]);
+    futureIcon[i].src = getIcon(dailyData[i]);
     futureTemp[i].innerHTML = getHighLow(dailyData[i]);
   }
 

@@ -25,17 +25,24 @@ function getHour(hoursDisplayed) {
   return hoursDisplayed.datetime.slice(0, 5);
 }
 
+function getIcon(hoursDisplayed) {
+  const { icon } = hoursDisplayed;
+  return `../res/icon-set/${icon}.svg`;
+}
+
 function getTemp(hoursDisplayed) {
   return `${Math.round(hoursDisplayed.temp)}&degC`;
 }
 
 function applyGroupInfos(hoursDisplayed, time, temp) {
   const timeUnit = time;
+  const futureIcon = document.querySelectorAll('.future-icon');
   const futureTemp = temp;
 
   // apply infos ot each groups
   for (const [i] of hoursDisplayed.entries()) {
     timeUnit[i].innerText = getHour(hoursDisplayed[i]);
+    futureIcon[i].src = getIcon(hoursDisplayed[i]);
     futureTemp[i].innerHTML = getTemp(hoursDisplayed[i]);
   }
 }

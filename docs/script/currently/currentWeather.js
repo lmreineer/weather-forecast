@@ -20,6 +20,11 @@ const assignCurrently = (function assignDetails() {
       currentTemp.innerHTML = temp;
     },
 
+    currentIcon(conditions) {
+      const { icon } = conditions;
+      currentIcon.src = `../res/icon-set/${icon}.svg`;
+    },
+
     description(conditions) {
       description.innerText = conditions.conditions;
     },
@@ -87,6 +92,7 @@ function applyCurrently(weatherData) {
   const conditions = weatherData.currentConditions;
 
   assignCurrently.currentTemp(conditions);
+  assignCurrently.currentIcon(conditions);
   assignCurrently.description(conditions);
   assignCurrently.feelsLike(conditions);
   assignCurrently.wind(conditions);
@@ -99,11 +105,6 @@ function applyCurrently(weatherData) {
   assignCurrently.humidity(conditions);
   assignCurrently.dewPoint(conditions);
   assignCurrently.pressure(conditions);
-
-  const { icon } = weatherData.currentConditions;
-  if (icon === 'clear-night') {
-    currentIcon.src = '../res/icon-set/clear-night.svg';
-  }
 }
 
 export {
