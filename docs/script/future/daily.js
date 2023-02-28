@@ -16,7 +16,6 @@ function getDay(dailyData) {
 }
 
 function getIcon(dailyData) {
-  console.log(dailyData);
   const { icon } = dailyData;
   return `../res/icon-set/${icon}.svg`;
 }
