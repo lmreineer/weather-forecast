@@ -15,7 +15,6 @@ function addAnimation() {
 
   futureIcon.forEach((fi) => {
     const icon = fi;
-    icon.classList.add('dot-flashing');
     icon.src = '';
   });
 

@@ -37,7 +37,7 @@ const assignCurrently = (function assignDetails() {
     highLow(weatherData) {
       const high = `${Math.round(weatherData.days[0].tempmax)}&degC`;
       const low = `${Math.round(weatherData.days[0].tempmin)}&degC`;
-      currentHighLow.innerHTML = `H: ${high} L: ${low}`;
+      currentHighLow.innerHTML = `High: ${high} Low: ${low}`;
 
       // if main temp is higher than highest temp, make highest temp equal to main temp
       if (currentTemp.innerHTML > high) {

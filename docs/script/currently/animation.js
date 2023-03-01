@@ -18,8 +18,8 @@ import {
 function addAnimation() {
   // remove icon
   currentIcon.src = '';
+
   // add animations
-  currentIcon.classList.add('dot-flashing');
   currentTemp.classList.add('dot-flashing');
   description.classList.add('dot-flashing');
   feelsLike.classList.add('dot-flashing');
