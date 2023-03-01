@@ -16,12 +16,15 @@ import {
 } from './currentWeather.js';
 
 function addAnimation() {
+  // remove icon
+  currentIcon.src = '';
+  // add animations
+  currentIcon.classList.add('dot-flashing');
   currentTemp.classList.add('dot-flashing');
   description.classList.add('dot-flashing');
   feelsLike.classList.add('dot-flashing');
   currentHighLow.classList.add('dot-flashing');
   wind.classList.add('dot-flashing');
-  currentIcon.classList.add('dot-flashing');
   latestReport.classList.add('dot-flashing');
   sunrise.classList.add('dot-flashing');
   sunset.classList.add('dot-flashing');

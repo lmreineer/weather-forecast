@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Signika+Negative:wght@400;500&display=swap');
+
 *,
 *::before,
 *::after {
@@ -6,6 +8,8 @@
 
 * {
     margin: 0;
+    font-family: 'Signika Negative', sans-serif;
+    font-weight: 400;
 }
 
 img {
@@ -50,6 +54,10 @@ img {
     line-height: 2rem;
 }
 
+.currently-weather {
+    font-weight: 500;
+}
+
 .map {
     text-align: center;
 }
@@ -84,6 +92,11 @@ input[type="search"]::-webkit-search-cancel-button {
 #map {
     height: 15rem;
     width: 30rem;
+}
+
+.currently,
+#map {
+    border-radius: 2rem;
 }
 
 .upper {
@@ -155,7 +168,7 @@ input[type="search"]::-webkit-search-cancel-button {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-}   
+}
 
 /* animation */
 .dot-flashing {
