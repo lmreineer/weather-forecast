@@ -33,6 +33,11 @@ img {
 
 .currently {
     background-color: #F1F4F5;
+    border-radius: 2rem;
+}
+
+.details {
+    margin-left: 1.5rem;
 }
 
 .currently,
@@ -76,8 +81,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .submit {
-    border-left: none;
-    background-color: white;
+    background-color: #F1F4F5;
     border-radius: 5px 0 0 5px;
     border-radius: 0 5px 5px 0;
     cursor: pointer;
@@ -93,12 +97,12 @@ input[type="search"]::-webkit-search-cancel-button {
 #map {
     height: 15rem;
     width: 30rem;
+    border-radius: 1rem;
 }
 
 .currently,
 #map {
-    border: 1px solid black;
-    border-radius: 2rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
 .upper {
