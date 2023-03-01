@@ -17,7 +17,7 @@ img {
 }
 
 .container {
-    margin-top: 5rem;
+    margin-top: 3rem;
 }
 
 .top,
@@ -51,7 +51,7 @@ img {
 .list,
 .details,
 .map {
-    line-height: 2rem;
+    line-height: 3rem;
 }
 
 .currently-weather {
@@ -85,6 +85,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .search,
 .submit {
+    height: 2rem;
     outline: none;
     border-color: black;
 }
