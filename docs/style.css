@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Signika+Negative:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Port+Lligat+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
 
 *,
 *::before,
@@ -14,10 +16,15 @@
 
 img {
     width: 5rem;
+    filter: drop-shadow(10px 5px 2px gray);
 }
 
 .container {
     margin-top: 3rem;
+}
+
+.top {
+    justify-content: space-around;
 }
 
 .top,
@@ -27,22 +34,25 @@ img {
     display: flex;
 }
 
-.top {
-    justify-content: space-around;
-}
-
 .currently {
     background-color: #F1F4F5;
-    border-radius: 2rem;
+    border-radius: 0 2rem 2rem 0;
+    border-left: 10px solid #5A5B5C;
 }
 
-.details {
-    margin-left: 1.5rem;
+.current-icon {
+    margin-right: 1rem;
 }
 
 .currently,
 .details {
     padding: 1rem;
+}
+
+.temp,
+.below>p,
+.details>p {
+    font-family: 'Port Lligat Sans', sans-serif;
 }
 
 .list,
@@ -51,6 +61,11 @@ img {
     flex-direction: column;
     justify-content: space-between;
     width: 15rem;
+    margin-left: 1.5rem;
+}
+
+.map {
+    text-align: center;
 }
 
 .list,
@@ -59,21 +74,10 @@ img {
     line-height: 3rem;
 }
 
-.currently-weather {
-    font-weight: 500;
-}
-
-.map {
-    text-align: center;
-}
-
-.location {
-    max-width: 30rem;
-}
-
 .search {
     border-right: none;
     border-radius: 5px 0 0 5px;
+    width: 20rem;
 }
 
 input[type="search"]::-webkit-search-cancel-button {
@@ -96,7 +100,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
 #map {
     height: 15rem;
-    width: 30rem;
+    width: 40rem;
     border-radius: 1rem;
 }
 
@@ -109,15 +113,15 @@ input[type="search"]::-webkit-search-cancel-button {
     justify-content: space-between;
 }
 
+.bottom {
+    flex-direction: column;
+    margin: 3rem 5rem 0 5rem;
+    border-top: 1px solid black;
+}
+
 .bottom,
 .upper {
     display: flex;
-}
-
-.bottom {
-    flex-direction: column;
-    margin: 5rem 5rem 0 5rem;
-    border-top: 1px solid black;
 }
 
 .buttons,
@@ -140,6 +144,44 @@ input[type="search"]::-webkit-search-cancel-button {
     cursor: pointer;
 }
 
+.future {
+    display: flex;
+    justify-content: space-around;
+}
+
+.upper,
+.future {
+    margin: 2rem
+}
+
+.sub-group {
+    height: 13rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.time-unit {
+    font-size: 2rem;
+}
+
+.currently-header,
+.location,
+.time-unit {
+    font-weight: 500;
+}
+
+.temp,
+.future-temp,
+.future-temp>span {
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 2px;
+}
+
+.future-temp>span {
+    font-size: 1.25rem;
+}
+
 /* default tab on first time page load */
 .daily-button {
     border: 1px solid black;
@@ -157,23 +199,6 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .arrow:active {
     color: black;
-}
-
-.future {
-    display: flex;
-    justify-content: space-around;
-}
-
-.upper,
-.future {
-    margin: 2rem
-}
-
-.sub-group {
-    height: 10rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 }
 
 /* animation */
