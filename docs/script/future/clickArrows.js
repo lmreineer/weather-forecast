@@ -1,7 +1,7 @@
 /* eslint-disable import/extensions */
 
-import { addAnimation } from './animation.js';
-import { initHourly } from './execution/apiFunctions/clickHourly.js';
+import { addAnimation } from './hourlyDailyAnimation.js';
+import { initHourly } from './execution/api/execHourly.js';
 
 const search = document.querySelector('.search');
 const locationTitle = document.querySelector('.location');

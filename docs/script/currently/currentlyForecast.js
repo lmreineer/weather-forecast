@@ -16,7 +16,7 @@ const pressure = document.querySelector('.pressure');
 const assignCurrently = (function assignDetails() {
   return {
     currentTemp(conditions) {
-      const temp = `${Math.round(conditions.temp)}&degC`;
+      const temp = `${Math.round(conditions.temp)} &degC | <span class="convert-unit">&degF</span>`;
       currentTemp.innerHTML = temp;
     },
 
@@ -41,7 +41,9 @@ const assignCurrently = (function assignDetails() {
 
       // if main temp is higher than highest temp, make highest temp equal to main temp
       if (currentTemp.innerHTML > high) {
-        currentHighLow.innerHTML = `H: ${currentTemp.innerHTML} L: ${low}`;
+        // filter the main temp number
+        const temp = `${currentTemp.innerHTML.replace(/\D+/g, '')}&degC`;
+        currentHighLow.innerHTML = `High: ${temp} Low: ${low}`;
       }
     },
 
@@ -95,11 +97,8 @@ function applyCurrently(weatherData) {
   assignCurrently.currentIcon(conditions);
   assignCurrently.description(conditions);
   assignCurrently.feelsLike(conditions);
-  assignCurrently.wind(conditions);
-
-  // high low only available to daily forecast
   assignCurrently.highLow(weatherData);
-
+  assignCurrently.wind(conditions);
   assignCurrently.latestReport(conditions);
   assignCurrently.sunTimes(conditions);
   assignCurrently.humidity(conditions);

@@ -1,9 +1,9 @@
 /* eslint-disable import/extensions */
 
-import { geocodeLocation } from './currently/apiFunctions.js';
-import { initDaily } from './future/execution/apiFunctions/clickDaily.js';
-import { addAnimation as futureAnimation } from './future/animation.js';
-import { addAnimation as currentAnimation } from './currently/animation.js';
+import { geocodeLocation } from './currently/api.js';
+import { initDaily } from './future/execution/api/execDaily.js';
+import { addAnimation as futureAnimation } from './future/hourlyDailyAnimation.js';
+import { addAnimation as currentAnimation } from './currently/currentlyAnimation.js';
 
 const search = document.querySelector('.search');
 const locationTitle = document.querySelector('.location');

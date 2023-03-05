@@ -4,7 +4,7 @@
 import {
   addAnimation,
   removeAnimation,
-} from './animation.js';
+} from './currentlyAnimation.js';
 
 import {
   geoapify,
@@ -12,7 +12,7 @@ import {
 } from '../apiKeys.js';
 
 import { applyLocation } from '../location/locationTitle.js';
-import { applyCurrently } from './currentWeather.js';
+import { applyCurrently } from './currentlyForecast.js';
 
 // check current weather
 function checkCurrently(lat, lon) {

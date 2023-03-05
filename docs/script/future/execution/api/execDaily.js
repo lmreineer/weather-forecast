@@ -6,8 +6,8 @@ import {
   visualCrossing,
 } from '../../../apiKeys.js';
 
-import { applyDaily } from '../../daily.js';
-import { removeAnimation } from '../../animation.js';
+import { applyDaily } from '../../dailyForecast.js';
+import { removeAnimation } from '../../hourlyDailyAnimation.js';
 
 function checkWeather(lat, lon) {
   const weatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}?unitGroup=metric&key=${visualCrossing}`;

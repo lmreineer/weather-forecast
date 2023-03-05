@@ -1,8 +1,8 @@
 /* eslint-disable import/extensions */
 
-import { initHourly } from './apiFunctions/clickHourly.js';
-import { initDaily } from './apiFunctions/clickDaily.js';
-import { addAnimation } from '../animation.js';
+import { initHourly } from './api/execHourly.js';
+import { initDaily } from './api/execDaily.js';
+import { addAnimation } from '../hourlyDailyAnimation.js';
 
 // toggle switches
 let clicked = false;

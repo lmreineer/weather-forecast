@@ -7,8 +7,8 @@ import {
   ipgeolocation,
 } from '../../../apiKeys.js';
 
-import { applyHourly } from '../../hourly.js';
-import { removeAnimation } from '../../animation.js';
+import { applyHourly } from '../../hourlyForecast.js';
+import { removeAnimation } from '../../hourlyDailyAnimation.js';
 
 function checkWeather(lat, lon) {
   const weatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}?unitGroup=metric&key=${visualCrossing}`;

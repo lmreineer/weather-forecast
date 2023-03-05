@@ -13,7 +13,7 @@ import {
   humidity,
   dewPoint,
   pressure,
-} from './currentWeather.js';
+} from './currentlyForecast.js';
 
 function addAnimation() {
   // remove icon

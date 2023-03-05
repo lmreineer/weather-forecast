@@ -5,21 +5,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather</title>
+    <title>Weather Forecast</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
         integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
         integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
     <script src="https://kit.fontawesome.com/dd2a44ac1d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
-    <script type="module" src="./script/currently/animation.js" defer></script>
-    <script type="module" src="./script/currently/apiFunctions.js" defer></script> <!-- currently's api functions -->
+    <script type="module" src="./script/currently/currentlyAnimation.js" defer></script>
+    <script type="module" src="./script/currently/api.js" defer></script> <!-- currently's api functions -->
     <script type="module" src="./script/location/mapConfigs.js"></script>
     <script type="module" src="./script/location/locationTitle.js" defer></script>
-    <script type="module" src="./script/currently/currentWeather.js" defer></script>
+    <script type="module" src="./script/currently/currentlyForecast.js" defer></script>
     <script type="module" src="./script/onload.js"></script>
-    <script type="module" src="./script/future/execution/execApis.js" defer></script> <!-- future's api functions -->
-    <script type="module" src="./script/future/arrows.js" defer></script>
+    <script type="module" src="./script/future/execution/clickApis.js" defer></script> <!-- future's api functions -->
+    <script type="module" src="./script/future/clickArrows.js" defer></script>
+    <script type="module" src="./script/currently/unit-conversion/clickFahrenheit.js" defer></script>
 </head>
 
 <body>
@@ -30,7 +31,9 @@
                     <div class="list">
                         <div class="above">
                             <h1 class="currently-header">Currently</h1>
-                            <h2 class="temp"></h2>
+                            <h2 class="temp">
+                                <span class="convert-unit"></span>
+                            </h2>
                             <p class="desc"></p>
                         </div>
                         <div class="below">
