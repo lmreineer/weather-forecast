@@ -2,28 +2,27 @@
 /* eslint-disable import/extensions */
 
 import {
-  addAnimation,
-  removeAnimation,
-} from './currentlyAnimation.js';
+  addCurrentlyAnimation,
+  removeCurrentlyAnimation,
+} from '../currentlyAnimation.js';
 
 import {
   geoapify,
   visualCrossing,
-} from '../apiKeys.js';
+} from '../../apiKeys.js';
 
-import { applyLocation } from '../location/locationTitle.js';
-import { applyCurrently } from './currentlyForecast.js';
+import { applyLocation } from '../../location/locationTitle.js';
+import { applyCurrently } from '../currentlyDetails.js';
 
-// check current weather
-function checkCurrently(lat, lon) {
-  const weatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}?unitGroup=metric&key=${visualCrossing}`;
+function checkCurrentWeather(lat, lon) {
+  const currentWeatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}?unitGroup=metric&key=${visualCrossing}`;
 
-  fetch(weatherAPI)
+  fetch(currentWeatherAPI)
     .then((response) => response.json())
     .then((weatherData) => {
       applyCurrently(weatherData);
       // remove animation after applying infos
-      removeAnimation();
+      removeCurrentlyAnimation();
     });
 }
 
@@ -33,11 +32,12 @@ const errorMessage = document.querySelector('.error');
 function showError() {
   // show error message
   errorMessage.style.visibility = 'visible';
-  removeAnimation();
+  removeCurrentlyAnimation();
 }
 
 const search = document.querySelector('.search');
 
+// find lat and lon of location input
 function geocodeLocation() {
   const geocodeAPI = `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(search.value)}&apiKey=${geoapify}`;
 
@@ -59,7 +59,7 @@ function geocodeLocation() {
         // execute to configure map location based on input
         applyLocation(locData);
         // execute to get weather data
-        checkCurrently(lat, lon);
+        checkCurrentWeather(lat, lon);
       }
     });
 }
@@ -67,7 +67,7 @@ function geocodeLocation() {
 // function to check errors
 function checkError() {
   // add preload animation and remove text
-  addAnimation();
+  addCurrentlyAnimation();
 
   // if search value is entered empty
   if (search.value === '') {

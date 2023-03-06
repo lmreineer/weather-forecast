@@ -8,7 +8,7 @@ import {
 } from '../../../apiKeys.js';
 
 import { applyHourly } from '../../hourlyForecast.js';
-import { removeAnimation } from '../../hourlyDailyAnimation.js';
+import { removeHourlyDailyAnimation } from '../../hourlyDailyAnimation.js';
 
 function checkWeather(lat, lon) {
   const weatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}?unitGroup=metric&key=${visualCrossing}`;
@@ -24,7 +24,7 @@ function checkWeather(lat, lon) {
         .then((hourData) => {
           applyHourly(weatherData, hourData);
           // remove animation after applying infos
-          removeAnimation();
+          removeHourlyDailyAnimation();
         });
     });
 }
@@ -32,8 +32,7 @@ function checkWeather(lat, lon) {
 const errorMessage = document.querySelector('.error');
 const search = document.querySelector('.search');
 
-// initialize hourly
-function initHourly() {
+function initializeHourly() {
   const geocodeAPI = `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(search.value)}&apiKey=${geoapify}`;
 
   fetch(geocodeAPI)
@@ -41,7 +40,7 @@ function initHourly() {
     .then((locData) => {
       // if error is visible, stop operations
       if (errorMessage.style.visibility === 'visible') {
-        removeAnimation();
+        removeHourlyDailyAnimation();
 
         // else, show weather
       } else {
@@ -53,5 +52,5 @@ function initHourly() {
 }
 
 export {
-  initHourly,
+  initializeHourly,
 };

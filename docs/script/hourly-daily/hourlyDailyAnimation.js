@@ -5,7 +5,7 @@ const futureTemp = document.querySelectorAll('.future-temp');
 const arrows = document.querySelectorAll('.arrow');
 const group = document.querySelectorAll('.group');
 
-function addAnimation() {
+function addHourlyDailyAnimation() {
   // add preloading animation
   timeUnit.forEach((t) => {
     const time = t;
@@ -37,7 +37,7 @@ function addAnimation() {
   });
 }
 
-function removeAnimation() {
+function removeHourlyDailyAnimation() {
   timeUnit.forEach((t) => {
     t.classList.remove('dot-flashing');
   });
@@ -65,6 +65,6 @@ dailyButton.addEventListener('click', () => {
 });
 
 export {
-  addAnimation,
-  removeAnimation,
+  addHourlyDailyAnimation,
+  removeHourlyDailyAnimation,
 };

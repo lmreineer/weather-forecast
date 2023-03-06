@@ -1,20 +1,20 @@
 /* eslint-disable import/extensions */
 
-import { initHourly } from './api/execHourly.js';
-import { initDaily } from './api/execDaily.js';
-import { addAnimation } from '../hourlyDailyAnimation.js';
+import { initializeHourly } from './api/hourlyWeatherChecker.js';
+import { initializeDaily } from './api/dailyWeatherChecker.js';
+import { addHourlyDailyAnimation } from '../hourlyDailyAnimation.js';
 
 // toggle switches
 let clicked = false;
 
 function checkTabClicks() {
   // add preload animation and remove text
-  addAnimation();
+  addHourlyDailyAnimation();
 
   if (!clicked) {
-    initDaily();
+    initializeDaily();
   } else if (clicked) {
-    initHourly();
+    initializeHourly();
   }
 }
 

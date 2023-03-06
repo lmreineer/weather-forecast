@@ -13,7 +13,7 @@ const humidity = document.querySelector('.humidity');
 const dewPoint = document.querySelector('.dew-point');
 const pressure = document.querySelector('.pressure');
 
-const assignCurrently = (function assignDetails() {
+const details = (function assignDetails() {
   return {
     currentTemp(conditions) {
       const temp = `${Math.round(conditions.temp)} &degC | <span class="convert-unit">&degF</span>`;
@@ -35,15 +35,15 @@ const assignCurrently = (function assignDetails() {
     },
 
     highLow(weatherData) {
-      const high = `${Math.round(weatherData.days[0].tempmax)}&degC`;
-      const low = `${Math.round(weatherData.days[0].tempmin)}&degC`;
-      currentHighLow.innerHTML = `High: ${high} Low: ${low}`;
+      const highestTemp = `${Math.round(weatherData.days[0].tempmax)}&degC`;
+      const lowestTemp = `${Math.round(weatherData.days[0].tempmin)}&degC`;
+      currentHighLow.innerHTML = `High: ${highestTemp} Low: ${lowestTemp}`;
 
       // if main temp is higher than highest temp, make highest temp equal to main temp
-      if (currentTemp.innerHTML > high) {
+      if (currentTemp.innerHTML > highestTemp) {
         // filter the main temp number
         const temp = `${currentTemp.innerHTML.replace(/\D+/g, '')}&degC`;
-        currentHighLow.innerHTML = `High: ${temp} Low: ${low}`;
+        currentHighLow.innerHTML = `High: ${temp} Low: ${lowestTemp}`;
       }
     },
 
@@ -93,17 +93,17 @@ function applyCurrently(weatherData) {
   // assign to current conditions
   const conditions = weatherData.currentConditions;
 
-  assignCurrently.currentTemp(conditions);
-  assignCurrently.currentIcon(conditions);
-  assignCurrently.description(conditions);
-  assignCurrently.feelsLike(conditions);
-  assignCurrently.highLow(weatherData);
-  assignCurrently.wind(conditions);
-  assignCurrently.latestReport(conditions);
-  assignCurrently.sunTimes(conditions);
-  assignCurrently.humidity(conditions);
-  assignCurrently.dewPoint(conditions);
-  assignCurrently.pressure(conditions);
+  details.currentTemp(conditions);
+  details.currentIcon(conditions);
+  details.description(conditions);
+  details.feelsLike(conditions);
+  details.highLow(weatherData);
+  details.wind(conditions);
+  details.latestReport(conditions);
+  details.sunTimes(conditions);
+  details.humidity(conditions);
+  details.dewPoint(conditions);
+  details.pressure(conditions);
 }
 
 export {

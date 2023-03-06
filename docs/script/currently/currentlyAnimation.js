@@ -13,9 +13,9 @@ import {
   humidity,
   dewPoint,
   pressure,
-} from './currentlyForecast.js';
+} from './currentlyDetails.js';
 
-function addAnimation() {
+function addCurrentlyAnimation() {
   // remove icon
   currentIcon.src = '';
 
@@ -47,7 +47,7 @@ function addAnimation() {
   pressure.innerText = '';
 }
 
-function removeAnimation() {
+function removeCurrentlyAnimation() {
   currentTemp.classList.remove('dot-flashing');
   description.classList.remove('dot-flashing');
   feelsLike.classList.remove('dot-flashing');
@@ -76,6 +76,6 @@ dailyButton.addEventListener('click', () => {
 });
 
 export {
-  addAnimation,
-  removeAnimation,
+  addCurrentlyAnimation,
+  removeCurrentlyAnimation,
 };
