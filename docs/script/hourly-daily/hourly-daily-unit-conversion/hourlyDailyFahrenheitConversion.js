@@ -18,10 +18,12 @@ function applyTodayInfos(dailyData) {
 
   // put strings to correlate with current temp element
   const highestTemp = `${dailyData[0].tempmax}&degF`;
-  // if current temp is higher than today's highest temp
+  // if main temp is higher than highest temp
   if (currentTemp.innerHTML > highestTemp) {
-    // make highest temp equal to current temp
-    const todayHighLow = `${currentTemp.innerHTML} / <span style="opacity: 0.7">${Math.round(dailyData[0].tempmin)}&degF</span>`;
+    // filter the main temp number
+    const temp = `${currentTemp.innerHTML.replace(/\D+/g, '')}&degF`;
+    const todayHighLow = `${temp} / <span style="opacity: 0.7">${Math.round(dailyData[0].tempmin)}&degF</span>`;
+    // make highest temp equal to main temp
     futureTemp[0].innerHTML = todayHighLow;
   }
 }
