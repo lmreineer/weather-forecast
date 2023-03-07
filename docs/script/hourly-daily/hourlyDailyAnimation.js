@@ -9,7 +9,7 @@ function addHourlyDailyAnimation() {
   // add preloading animation
   timeUnit.forEach((t) => {
     const time = t;
-    time.classList.add('dot-flashing');
+    time.classList.add('lds-ring');
     time.innerText = '';
   });
 
@@ -20,7 +20,7 @@ function addHourlyDailyAnimation() {
 
   futureTemp.forEach((tmp) => {
     const temp = tmp;
-    temp.classList.add('dot-flashing');
+    temp.classList.add('lds-ring');
     temp.innerText = '';
   });
 
@@ -39,15 +39,15 @@ function addHourlyDailyAnimation() {
 
 function removeHourlyDailyAnimation() {
   timeUnit.forEach((t) => {
-    t.classList.remove('dot-flashing');
+    t.classList.remove('lds-ring');
   });
 
   futureIcon.forEach((fi) => {
-    fi.classList.remove('dot-flashing');
+    fi.classList.remove('lds-ring');
   });
 
   futureTemp.forEach((tmp) => {
-    tmp.classList.remove('dot-flashing');
+    tmp.classList.remove('lds-ring');
   });
 }
 

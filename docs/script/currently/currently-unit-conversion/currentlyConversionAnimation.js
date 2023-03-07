@@ -2,20 +2,23 @@
 
 import {
   currentTemp,
+  description,
 } from '../currentlyDetails.js';
-
-// remove animations?
 
 function addCurrentlyConversionAnimation() {
   // add animations
-  currentTemp.classList.add('dot-flashing');
+  currentTemp.classList.add('lds-ring');
+  // avoid description moving when animating
+  description.style.marginTop = '-0.45rem';
 
   // remove texts
   currentTemp.innerText = '';
 }
 
 function removeCurrentlyConversionAnimation() {
-  currentTemp.classList.remove('dot-flashing');
+  currentTemp.classList.remove('lds-ring');
+  // return back to original state
+  description.style.marginTop = '0';
 }
 
 export {

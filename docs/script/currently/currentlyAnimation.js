@@ -3,10 +3,7 @@
 import {
   currentTemp,
   currentIcon,
-  description,
   feelsLike,
-  currentHighLow,
-  wind,
   latestReport,
   sunrise,
   sunset,
@@ -20,25 +17,18 @@ function addCurrentlyAnimation() {
   currentIcon.src = '';
 
   // add animations
-  currentTemp.classList.add('dot-flashing');
-  description.classList.add('dot-flashing');
-  feelsLike.classList.add('dot-flashing');
-  currentHighLow.classList.add('dot-flashing');
-  wind.classList.add('dot-flashing');
-  latestReport.classList.add('dot-flashing');
-  sunrise.classList.add('dot-flashing');
-  sunset.classList.add('dot-flashing');
-  humidity.classList.add('dot-flashing');
-  dewPoint.classList.add('dot-flashing');
-  pressure.classList.add('dot-flashing');
+  currentTemp.classList.add('lds-ring');
+  feelsLike.classList.add('lds-ring');
+  latestReport.classList.add('lds-ring');
+  sunrise.classList.add('lds-ring');
+  sunset.classList.add('lds-ring');
+  humidity.classList.add('lds-ring');
+  dewPoint.classList.add('lds-ring');
+  pressure.classList.add('lds-ring');
 
   // remove texts
   currentTemp.innerText = '';
-  description.innerText = '';
   feelsLike.innerText = '';
-  currentHighLow.innerText = '';
-  wind.innerText = '';
-  currentIcon.innerText = '';
   latestReport.innerText = '';
   sunrise.innerText = '';
   sunset.innerText = '';
@@ -48,18 +38,14 @@ function addCurrentlyAnimation() {
 }
 
 function removeCurrentlyAnimation() {
-  currentTemp.classList.remove('dot-flashing');
-  description.classList.remove('dot-flashing');
-  feelsLike.classList.remove('dot-flashing');
-  currentHighLow.classList.remove('dot-flashing');
-  wind.classList.remove('dot-flashing');
-  currentIcon.classList.remove('dot-flashing');
-  latestReport.classList.remove('dot-flashing');
-  sunrise.classList.remove('dot-flashing');
-  sunset.classList.remove('dot-flashing');
-  humidity.classList.remove('dot-flashing');
-  dewPoint.classList.remove('dot-flashing');
-  pressure.classList.remove('dot-flashing');
+  currentTemp.classList.remove('lds-ring');
+  feelsLike.classList.remove('lds-ring');
+  latestReport.classList.remove('lds-ring');
+  sunrise.classList.remove('lds-ring');
+  sunset.classList.remove('lds-ring');
+  humidity.classList.remove('lds-ring');
+  dewPoint.classList.remove('lds-ring');
+  pressure.classList.remove('lds-ring');
 }
 
 const hourlyButton = document.querySelector('.hourly-button');
