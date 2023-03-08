@@ -9,29 +9,27 @@ import {
   removeHourlyDailyConversionAnimation,
 } from './hourlyDailyConversionAnimation.js';
 
-const futureTemp = document.querySelectorAll('.future-temp');
-// element from current weather
-const currentTemp = document.querySelector('.temp');
-
 function getHighLow(dailyData) {
   // return temp infos
   return `${Math.round(dailyData.tempmax)}&degC / <span style="opacity: 0.7">${Math.round(dailyData.tempmin)}&degC</span>`;
 }
 
+const futureTemp = document.querySelectorAll('.future-temp');
+// const currentTemp = document.querySelector('.temp');
+
 function applyTodayInfos(dailyData) {
-  // apply infos for today
   futureTemp[0].innerHTML = getHighLow(dailyData[0]);
 
-  // put strings to correlate with current temp element
-  const highestTemp = `${dailyData[0].tempmax}&degC`;
-  // if main temp is higher than highest temp
-  if (currentTemp.innerHTML > highestTemp) {
-    // filter the main temp number
-    const temp = `${currentTemp.innerHTML.replace(/\D+/g, '')}&degC`;
-    const todayHighLow = `${temp} / <span style="opacity: 0.7">${Math.round(dailyData[0].tempmin)}&degC</span>`;
-    // make highest temp equal to main temp
-    futureTemp[0].innerHTML = todayHighLow;
-  }
+  // // match up with current temp innerHTML
+  // const highestTemp = `${dailyData[0].tempmax}&degC`;
+  // // if main temp is higher than highest temp
+  // if (currentTemp.innerHTML > highestTemp) {
+  //   // filter the main temp number
+  //   const temp = `${currentTemp.innerHTML.replace(/\D+/g, '')}&degC`;
+  //   const todayHighLow = `${temp} / <span style="opacity: 0.7">${Math.round(dailyData[0].tempmin)}&degC</span>`;
+  //   // make highest temp equal to main temp
+  //   futureTemp[0].innerHTML = todayHighLow;
+  // }
 }
 
 function applyHourlyDailyCelcius(weatherData) {
@@ -43,14 +41,15 @@ function applyHourlyDailyCelcius(weatherData) {
     futureTemp[i].innerHTML = getHighLow(dailyData[i]);
   }
 
-  // execute to apply infos for today
+  // independently apply infos for today
   applyTodayInfos(dailyData);
 }
 
-const locationTitle = document.querySelector('.location');
-
 function checkHourlyDailyCelcius() {
+  // add preload animation
   addHourlyDailyConversionAnimation();
+
+  const locationTitle = document.querySelector('.location');
 
   const hourlyDailyCelciusAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationTitle.innerText}?unitGroup=metric&key=${visualCrossing}`;
 

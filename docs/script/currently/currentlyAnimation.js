@@ -2,6 +2,7 @@
 
 import {
   currentTemp,
+  description,
   currentIcon,
   feelsLike,
   currentHighLow,
@@ -15,10 +16,8 @@ import {
 } from './currentlyDetails.js';
 
 function addCurrentlyAnimation() {
-  // remove icon
   currentIcon.src = '';
 
-  // add animations
   currentTemp.classList.add('currently-animation');
   feelsLike.classList.add('currently-animation');
   currentHighLow.classList.add('currently-animation');
@@ -30,8 +29,8 @@ function addCurrentlyAnimation() {
   dewPoint.classList.add('currently-animation');
   pressure.classList.add('currently-animation');
 
-  // remove texts
   currentTemp.innerText = '';
+  description.innerText = '';
   feelsLike.innerText = '';
   currentHighLow.innerText = '';
   wind.innerText = '';

@@ -15,7 +15,7 @@ import {
   removeCurrentlyConversionAnimation,
 } from './currentlyConversionAnimation.js';
 
-const celcius = (function assigncelcius() {
+const celcius = (function assignCelcius() {
   return {
     currentTemp(conditions) {
       const temp = `${Math.round(conditions.temp)} &degC | <span class="convert-unit">&degF</span>`;
@@ -32,11 +32,11 @@ const celcius = (function assigncelcius() {
       const low = `${Math.round(weatherData.days[0].tempmin)}&degC`;
       currentHighLow.innerHTML = `High: ${high} Low: ${low}`;
 
-      // if main temp is higher than highest temp
+      // if current temp is higher than highest temp
       if (currentTemp.innerHTML > high) {
-        // filter the main temp number
+        // filter the current temp number
         const temp = `${currentTemp.innerHTML.replace(/\D+/g, '')}&degC`;
-        // make highest temp equal to main temp
+        // make highest temp equal to current temp
         currentHighLow.innerHTML = `High: ${temp} Low: ${low}`;
       }
     },
@@ -57,10 +57,11 @@ function applyCelcius(weatherData) {
   celcius.dewPoint(conditions);
 }
 
-const locationTitle = document.querySelector('.location');
-
 function checkCurrentlyCelcius() {
+  // add preload animation
   addCurrentlyConversionAnimation();
+
+  const locationTitle = document.querySelector('.location');
 
   const celciusAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationTitle.innerText}?unitGroup=metric&key=${visualCrossing}`;
 
@@ -68,6 +69,7 @@ function checkCurrentlyCelcius() {
     .then((response) => response.json())
     .then((weatherData) => {
       applyCelcius(weatherData);
+
       removeCurrentlyConversionAnimation();
     });
 }

@@ -1,19 +1,18 @@
 /* eslint-disable import/extensions */
 
 import { addHourlyDailyAnimation } from './hourlyDailyAnimation.js';
-import { initializeHourly } from './execution/api/hourlyWeatherChecker.js';
-
-const search = document.querySelector('.search');
-const locationTitle = document.querySelector('.location');
+import { geocodeLocationForHourly } from './execution/api/hourlyWeatherChecker.js';
 
 function useArrows() {
-  // add preload animation and remove text
+  // add preload animation
   addHourlyDailyAnimation();
 
-  // search weather based on location title text
+  const search = document.querySelector('.search');
+  const locationTitle = document.querySelector('.location');
+
   search.value = locationTitle.innerText;
-  initializeHourly();
-  search.value = '';
+
+  geocodeLocationForHourly();
 }
 
 const rightArrow = document.querySelector('.right-arrow');

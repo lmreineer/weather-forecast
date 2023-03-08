@@ -9,19 +9,17 @@ import {
 } from '../currentlyDetails.js';
 
 function addCurrentlyConversionAnimation() {
-  // add animations
   currentTemp.classList.add('currently-animation');
   feelsLike.classList.add('currently-animation');
   currentHighLow.classList.add('currently-animation');
   dewPoint.classList.add('currently-animation');
 
-  // remove texts
   currentTemp.innerText = '';
   feelsLike.innerText = '';
   currentHighLow.innerText = '';
   dewPoint.innerText = '';
 
-  // avoid description moving when animating
+  // avoid description element moving when animating
   description.style.marginTop = '0.25rem';
 }
 

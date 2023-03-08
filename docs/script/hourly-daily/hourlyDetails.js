@@ -1,24 +1,24 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable import/prefer-default-export */
 
-// function to return hours for next day
-function returnNextDayHours(hours, currentHour, hourlyData) {
+// return hours for next day
+function returnNextDayHours(hours, currentHour, hourlyWeatherData) {
   // filter next day hours to be displayed
   const hoursNextDay = hours.filter((n) => n < currentHour);
   // start and end of index that is equal to hours to be displayed
-  const start = hourlyData.length - hoursNextDay.length;
-  const end = hourlyData.length + hoursNextDay.length;
-  return hourlyData.slice(start, end);
+  const start = hourlyWeatherData.length - hoursNextDay.length;
+  const end = hourlyWeatherData.length + hoursNextDay.length;
+  return hourlyWeatherData.slice(start, end);
 }
 
-// function to return hours normally
-function returnNormalHours(hours, currentHour, hourlyData) {
+// return hours normally
+function returnNormalHours(hours, currentHour, hourlyWeatherData) {
   // filter greater hours than current hour to be displayed
   const hoursNextDay = hours.filter((n) => n > currentHour);
   // start and end of index that is equal to hours to be displayed
-  const start = hourlyData.length - hoursNextDay.length;
-  const end = hourlyData.length + hoursNextDay.length;
-  return hourlyData.slice(start, end);
+  const start = hourlyWeatherData.length - hoursNextDay.length;
+  const end = hourlyWeatherData.length + hoursNextDay.length;
+  return hourlyWeatherData.slice(start, end);
 }
 
 function getHour(hoursDisplayed) {
@@ -39,7 +39,7 @@ function applyGroupInfos(hoursDisplayed, time, temp) {
   const futureIcon = document.querySelectorAll('.future-icon');
   const futureTemp = temp;
 
-  // apply infos ot each groups
+  // apply infos to each groups
   for (const [i] of hoursDisplayed.entries()) {
     timeUnit[i].innerText = getHour(hoursDisplayed[i]);
     futureIcon[i].src = getIcon(hoursDisplayed[i]);
@@ -48,12 +48,13 @@ function applyGroupInfos(hoursDisplayed, time, temp) {
 }
 
 function getTotalGroups(n, hours) {
+  const group = document.querySelectorAll('.group');
+
   // use n as total hours able to display then calculate total groups to remove
   const totalRemoval = n - hours.length;
-  // put six to correlate with nodeList index then calculate starting index
+  // put six to match up with nodeList index then calculate starting index
   let final = 6 - totalRemoval;
 
-  const group = document.querySelectorAll('.group');
   // use total for number of iteration
   for (let i = 0; i < totalRemoval; i += 1) {
     // use starting index and continue
@@ -61,13 +62,13 @@ function getTotalGroups(n, hours) {
   }
 }
 
-// elements for clicking next page
 const rightArrow = document.querySelector('.right-arrow');
 const leftArrow = document.querySelector('.left-arrow');
+
 // count clicks
 let counter = 0;
 
-// function to show either or both arrows depending on the current page
+// show either or both arrows depending on the current page
 function showArrows(hours) {
   if (counter === 1) {
     // if total hours takes more than two pages
@@ -118,9 +119,8 @@ function showArrows(hours) {
   }
 }
 
-// function for page control
+// for page control
 function controlPages(hours, time, temp, s, e) {
-  // execute to show arrows
   showArrows(hours);
 
   let hoursDisplayed = hours;
@@ -129,47 +129,46 @@ function controlPages(hours, time, temp, s, e) {
 
   // slice enough groups for a page
   hoursDisplayed = hoursDisplayed.slice(s, e);
-  // execute to apply details to each groups
+
+  // apply infos to each groups
   applyGroupInfos(hoursDisplayed, timeUnit, futureTemp);
 }
 
-// function for hourly weather forecast
-function applyHourly(weatherData, timeData) {
-  // get current hour data and slice to hour format
+function applyHourlyDetails(weatherData, timeData) {
+  // slice current hour to hour format
   const currentHour = timeData.current_time.slice(0, 2);
+
   let hoursDisplayed;
 
-  // get hourly weather data
-  const hourlyData = weatherData.days[0].hours;
-  // make empty array
   const hours = [];
 
-  hourlyData.forEach((data) => {
-    // get twenty-four hours and slice to hour format
-    const hourData = data.datetime.slice(0, 2);
-    // push into empty array
-    hours.push(hourData);
-  });
+  const hourlyWeatherData = weatherData.days[0].hours;
 
-  // elements for informations
-  const timeUnit = document.querySelectorAll('.time-unit');
-  const futureTemp = document.querySelectorAll('.future-temp');
+  hourlyWeatherData.forEach((data) => {
+    // slice twenty-four hours to hour format
+    const twentyFourHours = data.datetime.slice(0, 2);
+    hours.push(twentyFourHours);
+  });
 
   // if current hour is not 23:00
   if (currentHour !== '23') {
     // return hours to be applied, normally
-    hoursDisplayed = returnNormalHours(hours, currentHour, hourlyData);
+    hoursDisplayed = returnNormalHours(hours, currentHour, hourlyWeatherData);
 
   // else if current hour is 23:00
   } else if (currentHour === '23') {
     // return hours to be applied, for next day instead
-    hoursDisplayed = returnNextDayHours(hours, currentHour, hourlyData);
+    hoursDisplayed = returnNextDayHours(hours, currentHour, hourlyWeatherData);
   }
+
+  const timeUnit = document.querySelectorAll('.time-unit');
+  const futureTemp = document.querySelectorAll('.future-temp');
 
   // if groups only take first page
   if (hoursDisplayed.length <= 7) {
-    // execute to apply infos to each groups
+    // apply infos to each groups
     applyGroupInfos(hoursDisplayed, timeUnit, futureTemp);
+
     // use seven as total number of groups able to display
     getTotalGroups(7, hoursDisplayed);
 
@@ -180,29 +179,27 @@ function applyHourly(weatherData, timeData) {
 
     // control functions with arrows
     if (counter === 1) {
-      // execute for second page
+      // for second page
       controlPages(hoursDisplayed, timeUnit, futureTemp, 7, 14);
     } else if (counter === 2) {
-      // execute for third page
+      // for third page
       controlPages(hoursDisplayed, timeUnit, futureTemp, 14, 21);
     } else if (counter === 3) {
-      // execute for fourth page
+      // for fourth page
       controlPages(hoursDisplayed, timeUnit, futureTemp, 21, 23);
     }
   }
 }
 
-// control pages
 rightArrow.addEventListener('click', () => {
   counter += 1;
 });
 
-// control pages
 leftArrow.addEventListener('click', () => {
   counter -= 1;
 });
 
-// turn page to one if searched or daily button is clicked
+// return page to one if searched or daily button is clicked
 const search = document.querySelector('.search');
 const loupe = document.querySelector('.fa-magnifying-glass');
 const dailyButton = document.querySelector('.daily-button');
@@ -223,4 +220,4 @@ dailyButton.addEventListener('click', () => {
   counter = 0;
 });
 
-export { applyHourly };
+export { applyHourlyDetails };

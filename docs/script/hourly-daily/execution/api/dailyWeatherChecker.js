@@ -6,43 +6,45 @@ import {
   visualCrossing,
 } from '../../../apiKeys.js';
 
-import { applyDaily } from '../../dailyForecast.js';
+import { applyDailyDetails } from '../../dailyDetails.js';
 import { removeHourlyDailyAnimation } from '../../hourlyDailyAnimation.js';
 
-function checkWeather(lat, lon) {
-  const weatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}?unitGroup=metric&key=${visualCrossing}`;
+function checkDailyWeather(lat, lon) {
+  const dailyWeatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}?unitGroup=metric&key=${visualCrossing}`;
 
-  fetch(weatherAPI)
+  fetch(dailyWeatherAPI)
     .then((response) => response.json())
     .then((weatherData) => {
-      applyDaily(weatherData);
-      // remove animation after applying infos
+      applyDailyDetails(weatherData);
+
       removeHourlyDailyAnimation();
     });
 }
 
-const search = document.querySelector('.search');
-const errorMessage = document.querySelector('.error');
+// find lat and lon of location input
+function geocodeLocationForDaily() {
+  const search = document.querySelector('.search');
+  const errorMessage = document.querySelector('.error');
 
-function initializeDaily() {
   const geocodeAPI = `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(search.value)}&apiKey=${geoapify}`;
 
   fetch(geocodeAPI)
     .then((response) => response.json())
     .then((locData) => {
-      // if error is visible, stop operations
+      // if error is visible
       if (errorMessage.style.visibility === 'visible') {
+        // stop operations
         removeHourlyDailyAnimation();
 
         // else, show weather
       } else {
         const lat = locData.features[0].geometry.coordinates[1];
         const lon = locData.features[0].geometry.coordinates[0];
-        checkWeather(lat, lon);
+        checkDailyWeather(lat, lon);
       }
     });
 }
 
 export {
-  initializeDaily,
+  geocodeLocationForDaily,
 };

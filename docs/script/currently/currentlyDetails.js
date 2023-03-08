@@ -38,13 +38,6 @@ const details = (function assignDetails() {
       const highestTemp = `${Math.round(weatherData.days[0].tempmax)}&degC`;
       const lowestTemp = `${Math.round(weatherData.days[0].tempmin)}&degC`;
       currentHighLow.innerHTML = `High: ${highestTemp} Low: ${lowestTemp}`;
-
-      // if main temp is higher than highest temp, make highest temp equal to main temp
-      if (currentTemp.innerHTML > highestTemp) {
-        // filter the main temp number
-        const temp = `${currentTemp.innerHTML.replace(/\D+/g, '')}&degC`;
-        currentHighLow.innerHTML = `High: ${temp} Low: ${lowestTemp}`;
-      }
     },
 
     wind(conditions) {
@@ -54,6 +47,7 @@ const details = (function assignDetails() {
         'ESE', 'South East', 'SSE', 'South',
         'SSW', 'South West', 'WSW', 'West',
         'WNW', 'North West', 'NNW'];
+
       let section = Math.round(degrees / 22.5 + 0.5);
       section %= 16;
 
@@ -88,8 +82,7 @@ const details = (function assignDetails() {
   };
 }());
 
-// function for current weather above
-function applyCurrently(weatherData) {
+function applyCurrentlyDetails(weatherData) {
   // assign to current conditions
   const conditions = weatherData.currentConditions;
 
@@ -107,7 +100,7 @@ function applyCurrently(weatherData) {
 }
 
 export {
-  applyCurrently,
+  applyCurrentlyDetails,
   currentTemp,
   currentIcon,
   description,

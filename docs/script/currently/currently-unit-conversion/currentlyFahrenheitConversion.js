@@ -15,7 +15,7 @@ import {
   removeCurrentlyConversionAnimation,
 } from './currentlyConversionAnimation.js';
 
-const currentlyFahrenheit = (function assignFahrenheit() {
+const fahrenheit = (function assignFahrenheit() {
   return {
     currentTemp(conditions) {
       const temp = `${Math.round(conditions.temp)} &degF | <span class="convert-unit">&degC</span>`;
@@ -32,10 +32,11 @@ const currentlyFahrenheit = (function assignFahrenheit() {
       const lowestTemp = `${Math.round(weatherData.days[0].tempmin)}&degF`;
       currentHighLow.innerHTML = `High: ${highestTemp} Low: ${lowestTemp}`;
 
-      // if main temp is higher than highest temp, make highest temp equal to main temp
+      // if current temp is higher than highest temp
       if (currentTemp.innerHTML > highestTemp) {
-        // filter the main temp number
+        // filter the current temp number
         const temp = `${currentTemp.innerHTML.replace(/\D+/g, '')}&degF`;
+        // make highest temp equal to current temp
         currentHighLow.innerHTML = `High: ${temp} Low: ${lowestTemp}`;
       }
     },
@@ -47,29 +48,28 @@ const currentlyFahrenheit = (function assignFahrenheit() {
   };
 }());
 
-// function for applying fahrenheit
-function applyCurrentlyFahrenheit(weatherData) {
-// assign to current conditions
+function applyFahrenheit(weatherData) {
   const conditions = weatherData.currentConditions;
 
-  currentlyFahrenheit.currentTemp(conditions);
-  currentlyFahrenheit.feelsLike(conditions);
-  currentlyFahrenheit.highLow(weatherData);
-  currentlyFahrenheit.dewPoint(conditions);
+  fahrenheit.currentTemp(conditions);
+  fahrenheit.feelsLike(conditions);
+  fahrenheit.highLow(weatherData);
+  fahrenheit.dewPoint(conditions);
 }
 
-const locationTitle = document.querySelector('.location');
-
-function checkCurrentlyFahrenheit() {
-  // add animation
+function checkFahrenheit() {
+  // add preload animation
   addCurrentlyConversionAnimation();
 
-  const currentlyFahrenheitAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationTitle.innerText}?key=${visualCrossing}`;
+  const locationTitle = document.querySelector('.location');
 
-  fetch(currentlyFahrenheitAPI)
+  const fahrenheitAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationTitle.innerText}?key=${visualCrossing}`;
+
+  fetch(fahrenheitAPI)
     .then((response) => response.json())
     .then((weatherData) => {
-      applyCurrentlyFahrenheit(weatherData);
+      applyFahrenheit(weatherData);
+
       removeCurrentlyConversionAnimation();
     });
 }
@@ -78,7 +78,7 @@ let clicked = false;
 
 currentTemp.addEventListener('click', () => {
   if (!clicked) {
-    checkCurrentlyFahrenheit();
+    checkFahrenheit();
     clicked = true;
   } else {
     checkCurrentlyCelcius();

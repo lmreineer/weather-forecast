@@ -14,6 +14,7 @@ function addHourlyDailyConversionAnimation() {
 function removeHourlyDailyConversionAnimation() {
   futureTemp.forEach((tmp) => { tmp.classList.remove('future-temp-animation'); });
 }
+
 export {
   addHourlyDailyConversionAnimation,
   removeHourlyDailyConversionAnimation,

@@ -12,7 +12,7 @@ import {
 } from '../../apiKeys.js';
 
 import { applyLocation } from '../../location/locationTitle.js';
-import { applyCurrently } from '../currentlyDetails.js';
+import { applyCurrentlyDetails } from '../currentlyDetails.js';
 
 function checkCurrentWeather(lat, lon) {
   const currentWeatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}?unitGroup=metric&key=${visualCrossing}`;
@@ -20,7 +20,7 @@ function checkCurrentWeather(lat, lon) {
   fetch(currentWeatherAPI)
     .then((response) => response.json())
     .then((weatherData) => {
-      applyCurrently(weatherData);
+      applyCurrentlyDetails(weatherData);
 
       removeCurrentlyAnimation();
     });
@@ -36,7 +36,7 @@ function showError() {
 const search = document.querySelector('.search');
 
 // find lat and lon of location input
-function geocodeLocation() {
+function geocodeLocationForCurrently() {
   const geocodeAPI = `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(search.value)}&apiKey=${geoapify}`;
 
   fetch(geocodeAPI)
@@ -44,36 +44,34 @@ function geocodeLocation() {
     .then((locData) => {
       // if no locations are found
       if (locData.features[0] === undefined || locData.query.parsed === undefined) {
-        // show error message
         showError();
 
         // else, show weather
       } else {
-        // remove any error message
         errorMessage.style.visibility = 'hidden';
 
         const lat = locData.features[0].geometry.coordinates[1];
         const lon = locData.features[0].geometry.coordinates[0];
-        // execute to configure map location based on input
+        // apply location on map
         applyLocation(locData);
-        // execute to get weather data
+
+        // get weather data
         checkCurrentWeather(lat, lon);
       }
     });
 }
 
-// function to check errors
 function checkError() {
-  // add preload animation and remove text
+  // add preload animation
   addCurrentlyAnimation();
 
-  // if search value is entered empty
+  // if search value is entered empty, show error
   if (search.value === '') {
     showError();
 
     // else, continue operations
   } else {
-    geocodeLocation();
+    geocodeLocationForCurrently();
   }
 }
 
@@ -91,4 +89,4 @@ loupe.addEventListener('click', () => {
   }
 });
 
-export { geocodeLocation };
+export { geocodeLocationForCurrently };

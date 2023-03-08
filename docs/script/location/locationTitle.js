@@ -3,11 +3,10 @@
 
 import { findMapLocation } from './mapConfigs.js';
 
-const currentLocation = document.querySelector('.location');
-
 function editLocationTitle(properties) {
   const locationInput = properties.address_line1;
   const { country } = properties;
+  const currentLocation = document.querySelector('.location');
 
   // if location input is a country
   if (locationInput === country) {
@@ -20,7 +19,6 @@ function editLocationTitle(properties) {
 }
 
 function applyLocation(data) {
-  // get location input data
   const { properties } = data.features[0];
 
   findMapLocation(properties);
