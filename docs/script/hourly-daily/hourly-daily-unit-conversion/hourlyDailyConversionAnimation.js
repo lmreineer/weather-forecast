@@ -1,17 +1,18 @@
-const futureTemp = document.querySelectorAll('.future-temp');
+/* eslint-disable import/extensions */
+
+import {
+  futureTemp,
+} from '../hourlyDailyAnimation.js';
 
 function addHourlyDailyConversionAnimation() {
   futureTemp.forEach((tmp) => {
     const temp = tmp;
-    temp.classList.add('future-temp-animation');
-    temp.innerText = '';
+    temp.innerHTML = '<div class="future-temp-animation"></div>';
   });
 }
 
 function removeHourlyDailyConversionAnimation() {
-  futureTemp.forEach((tmp) => {
-    tmp.classList.remove('future-temp-animation');
-  });
+  futureTemp.forEach((tmp) => { tmp.classList.remove('future-temp-animation'); });
 }
 export {
   addHourlyDailyConversionAnimation,

@@ -66,4 +66,5 @@ dailyButton.addEventListener('click', () => {
 export {
   addHourlyDailyAnimation,
   removeHourlyDailyAnimation,
+  futureTemp,
 };

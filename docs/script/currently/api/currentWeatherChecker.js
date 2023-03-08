@@ -21,16 +21,14 @@ function checkCurrentWeather(lat, lon) {
     .then((response) => response.json())
     .then((weatherData) => {
       applyCurrently(weatherData);
-      // remove animation after applying infos
+
       removeCurrentlyAnimation();
     });
 }
 
 const errorMessage = document.querySelector('.error');
 
-// function to show error message
 function showError() {
-  // show error message
   errorMessage.style.visibility = 'visible';
   removeCurrentlyAnimation();
 }

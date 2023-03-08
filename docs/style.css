@@ -183,6 +183,11 @@ input[type="search"]::-webkit-search-cancel-button {
     font-weight: 500;
 }
 
+.future-temp {
+    /* avoid elements moving while animating on conversion */
+    width: 10rem;
+}
+
 .temp,
 .temp>*,
 .future-temp,
