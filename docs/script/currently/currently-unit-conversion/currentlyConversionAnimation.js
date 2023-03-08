@@ -3,20 +3,34 @@
 import {
   currentTemp,
   description,
+  feelsLike,
+  currentHighLow,
+  dewPoint,
 } from '../currentlyDetails.js';
 
 function addCurrentlyConversionAnimation() {
   // add animations
-  currentTemp.classList.add('lds-ring');
-  // avoid description moving when animating
-  description.style.marginTop = '-0.45rem';
+  currentTemp.classList.add('currently-animation');
+  feelsLike.classList.add('currently-animation');
+  currentHighLow.classList.add('currently-animation');
+  dewPoint.classList.add('currently-animation');
 
   // remove texts
   currentTemp.innerText = '';
+  feelsLike.innerText = '';
+  currentHighLow.innerText = '';
+  dewPoint.innerText = '';
+
+  // avoid description moving when animating
+  description.style.marginTop = '0.25rem';
 }
 
 function removeCurrentlyConversionAnimation() {
-  currentTemp.classList.remove('lds-ring');
+  currentTemp.classList.remove('currently-animation');
+  feelsLike.classList.remove('currently-animation');
+  currentHighLow.classList.remove('currently-animation');
+  dewPoint.classList.remove('currently-animation');
+
   // return back to original state
   description.style.marginTop = '0';
 }

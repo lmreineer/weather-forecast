@@ -1,4 +1,3 @@
-// infos for future forecast
 const timeUnit = document.querySelectorAll('.time-unit');
 const futureIcon = document.querySelectorAll('.future-icon');
 const futureTemp = document.querySelectorAll('.future-temp');
@@ -9,7 +8,7 @@ function addHourlyDailyAnimation() {
   // add preloading animation
   timeUnit.forEach((t) => {
     const time = t;
-    time.classList.add('lds-ring');
+    time.classList.add('future-temp-animation');
     time.innerText = '';
   });
 
@@ -20,7 +19,7 @@ function addHourlyDailyAnimation() {
 
   futureTemp.forEach((tmp) => {
     const temp = tmp;
-    temp.classList.add('lds-ring');
+    temp.classList.add('future-temp-animation');
     temp.innerText = '';
   });
 
@@ -39,15 +38,15 @@ function addHourlyDailyAnimation() {
 
 function removeHourlyDailyAnimation() {
   timeUnit.forEach((t) => {
-    t.classList.remove('lds-ring');
+    t.classList.remove('future-temp-animation');
   });
 
   futureIcon.forEach((fi) => {
-    fi.classList.remove('lds-ring');
+    fi.classList.remove('future-temp-animation');
   });
 
   futureTemp.forEach((tmp) => {
-    tmp.classList.remove('lds-ring');
+    tmp.classList.remove('future-temp-animation');
   });
 }
 

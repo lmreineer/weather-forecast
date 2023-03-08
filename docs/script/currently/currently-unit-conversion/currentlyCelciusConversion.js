@@ -32,10 +32,11 @@ const celcius = (function assigncelcius() {
       const low = `${Math.round(weatherData.days[0].tempmin)}&degC`;
       currentHighLow.innerHTML = `High: ${high} Low: ${low}`;
 
-      // if main temp is higher than highest temp, make highest temp equal to main temp
+      // if main temp is higher than highest temp
       if (currentTemp.innerHTML > high) {
         // filter the main temp number
         const temp = `${currentTemp.innerHTML.replace(/\D+/g, '')}&degC`;
+        // make highest temp equal to main temp
         currentHighLow.innerHTML = `High: ${temp} Low: ${low}`;
       }
     },
@@ -47,9 +48,7 @@ const celcius = (function assigncelcius() {
   };
 }());
 
-// function for applying celcius
 function applyCelcius(weatherData) {
-// assign to current conditions
   const conditions = weatherData.currentConditions;
 
   celcius.currentTemp(conditions);
@@ -62,6 +61,7 @@ const locationTitle = document.querySelector('.location');
 
 function checkCurrentlyCelcius() {
   addCurrentlyConversionAnimation();
+
   const celciusAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationTitle.innerText}?unitGroup=metric&key=${visualCrossing}`;
 
   fetch(celciusAPI)

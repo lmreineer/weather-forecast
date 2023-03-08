@@ -2,6 +2,12 @@
 /* eslint-disable import/extensions */
 
 import { visualCrossing } from '../../apiKeys.js';
+import { checkHourlyDailyCelcius } from './hourlyDailyCelciusConversion.js';
+
+import {
+  addHourlyDailyConversionAnimation,
+  removeHourlyDailyConversionAnimation,
+} from './hourlyDailyConversionAnimation.js';
 
 const futureTemp = document.querySelectorAll('.future-temp');
 // element from current weather
@@ -44,12 +50,16 @@ function applyHourlyDailyFahrenheit(weatherData) {
 const locationTitle = document.querySelector('.location');
 
 function checkHourlyDailyFahrenheit() {
+  addHourlyDailyConversionAnimation();
+
   const hourlyDailyFahrenheitAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationTitle.innerText}?&key=${visualCrossing}`;
 
   fetch(hourlyDailyFahrenheitAPI)
     .then((response) => response.json())
     .then((weatherData) => {
       applyHourlyDailyFahrenheit(weatherData);
+
+      removeHourlyDailyConversionAnimation();
     });
 }
 
@@ -60,6 +70,7 @@ currentTemp.addEventListener('click', () => {
     checkHourlyDailyFahrenheit();
     clicked = true;
   } else {
+    checkHourlyDailyCelcius();
     clicked = false;
   }
 });
