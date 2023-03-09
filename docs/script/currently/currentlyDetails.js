@@ -34,12 +34,6 @@ const details = (function assignDetails() {
       feelsLike.innerHTML = `Feels like: ${temp}`;
     },
 
-    highLow(weatherData) {
-      const highestTemp = `${Math.round(weatherData.days[0].tempmax)}&degC`;
-      const lowestTemp = `${Math.round(weatherData.days[0].tempmin)}&degC`;
-      currentHighLow.innerHTML = `High: ${highestTemp} Low: ${lowestTemp}`;
-    },
-
     wind(conditions) {
       const speed = Math.round(conditions.windspeed);
       const degrees = conditions.winddir;
@@ -74,6 +68,12 @@ const details = (function assignDetails() {
     dewPoint(conditions) {
       const value = Math.round(conditions.dew);
       dewPoint.innerHTML = `Dew point: ${value}&degC`;
+    },
+
+    highLow(weatherData) {
+      const highestTemp = `${Math.round(weatherData.days[0].tempmax)}&degC`;
+      const lowestTemp = `${Math.round(weatherData.days[0].tempmin)}&degC`;
+      currentHighLow.innerHTML = `<span class="high">High: ${highestTemp}</span> <span class="low">Low: ${lowestTemp}</span>`;
     },
 
     pressure(conditions) {

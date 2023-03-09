@@ -2,7 +2,6 @@
 /* eslint-disable import/extensions */
 
 import {
-  geoapify,
   visualCrossing,
   ipgeolocation,
 } from '../../../apiKeys.js';
@@ -10,13 +9,15 @@ import {
 import { applyHourlyDetails } from '../../hourlyDetails.js';
 import { removeHourlyDailyAnimation } from '../../hourlyDailyAnimation.js';
 
-function checkHourlyWeather(lat, lon) {
-  const hourlyWeatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}?unitGroup=metric&key=${visualCrossing}`;
+function checkHourlyWeather() {
+  const locationTitle = document.querySelector('.location');
+
+  const hourlyWeatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationTitle.innerText}?unitGroup=metric&key=${visualCrossing}`;
 
   fetch(hourlyWeatherAPI)
     .then((response) => response.json())
     .then((weatherData) => {
-      const currentHourAPI = `https://api.ipgeolocation.io/astronomy?apiKey=${ipgeolocation}&lat=${lat}&long=${lon}`;
+      const currentHourAPI = `https://api.ipgeolocation.io/astronomy?apiKey=${ipgeolocation}&location=${locationTitle.innerText}`;
 
       fetch(currentHourAPI)
         .then((response) => response.json())
@@ -28,30 +29,22 @@ function checkHourlyWeather(lat, lon) {
     });
 }
 
-// find lat and lon of location input
-function geocodeLocationForHourly() {
-  const search = document.querySelector('.search');
-  const errorMessage = document.querySelector('.error');
+function checkErrorsForHourly() {
+  setTimeout(() => {
+    const errorMessage = document.querySelector('.error');
 
-  const geocodeAPI = `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(search.value)}&apiKey=${geoapify}`;
+    // if error is visible
+    if (errorMessage.style.visibility === 'visible') {
+      // stop operations
+      removeHourlyDailyAnimation();
 
-  fetch(geocodeAPI)
-    .then((response) => response.json())
-    .then((locData) => {
-      // if error is visible
-      if (errorMessage.style.visibility === 'visible') {
-        // stop operations
-        removeHourlyDailyAnimation();
-
-        // else, show weather
-      } else {
-        const lat = locData.features[0].geometry.coordinates[1];
-        const lon = locData.features[0].geometry.coordinates[0];
-        checkHourlyWeather(lat, lon);
-      }
-    });
+      // else, show weather
+    } else {
+      checkHourlyWeather();
+    }
+  }, 1000);
 }
 
 export {
-  geocodeLocationForHourly,
+  checkErrorsForHourly,
 };

@@ -10,7 +10,11 @@ function editLocationTitle(properties) {
 
   // if location input is a country
   if (locationInput === country) {
-    currentLocation.innerText = `${country}`;
+    currentLocation.innerText = country;
+
+    // if country is undefined
+  } else if (country === undefined) {
+    currentLocation.innerText = locationInput;
 
     // else, show city with country name
   } else {
@@ -18,11 +22,11 @@ function editLocationTitle(properties) {
   }
 }
 
-function applyLocation(data) {
+function applyLocationOnMap(data) {
   const { properties } = data.features[0];
 
   findMapLocation(properties);
   editLocationTitle(properties);
 }
 
-export { applyLocation };
+export { applyLocationOnMap };

@@ -1,7 +1,7 @@
 /* eslint-disable import/extensions */
 
-import { geocodeLocationForHourly } from './api/hourlyWeatherChecker.js';
-import { geocodeLocationForDaily } from './api/dailyWeatherChecker.js';
+import { checkErrorsForHourly } from './api/hourlyWeatherChecker.js';
+import { checkErrorsForDaily } from './api/dailyWeatherChecker.js';
 import { addHourlyDailyAnimation } from '../hourlyDailyAnimation.js';
 
 let clicked = false;
@@ -11,9 +11,9 @@ function checkTabClicks() {
   addHourlyDailyAnimation();
 
   if (!clicked) {
-    geocodeLocationForDaily();
+    checkErrorsForDaily();
   } else if (clicked) {
-    geocodeLocationForHourly();
+    checkErrorsForHourly();
   }
 }
 
@@ -32,26 +32,19 @@ loupe.addEventListener('click', () => {
   }
 });
 
-const locationTitle = document.querySelector('.location');
 const hourlyButton = document.querySelector('.hourly-button');
 const dailyButton = document.querySelector('.daily-button');
 
 hourlyButton.addEventListener('click', () => {
-  search.value = locationTitle.innerText;
-
   if (!clicked) {
     clicked = true;
     checkTabClicks();
-    search.value = '';
   }
 });
 
 dailyButton.addEventListener('click', () => {
-  search.value = locationTitle.innerText;
-
   if (clicked) {
     clicked = false;
     checkTabClicks();
-    search.value = '';
   }
 });

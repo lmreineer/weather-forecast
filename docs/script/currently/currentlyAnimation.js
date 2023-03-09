@@ -19,6 +19,7 @@ function addCurrentlyAnimation() {
   currentIcon.src = '';
 
   currentTemp.classList.add('currently-animation');
+  description.classList.add('currently-animation');
   feelsLike.classList.add('currently-animation');
   currentHighLow.classList.add('currently-animation');
   wind.classList.add('currently-animation');
@@ -44,6 +45,7 @@ function addCurrentlyAnimation() {
 
 function removeCurrentlyAnimation() {
   currentTemp.classList.remove('currently-animation');
+  description.classList.remove('currently-animation');
   feelsLike.classList.remove('currently-animation');
   currentHighLow.classList.remove('currently-animation');
   wind.classList.remove('currently-animation');

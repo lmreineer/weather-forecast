@@ -1,7 +1,7 @@
 /* eslint-disable import/extensions */
 
 import { addHourlyDailyAnimation } from './hourlyDailyAnimation.js';
-import { geocodeLocationForHourly } from './execution/api/hourlyWeatherChecker.js';
+import { checkErrorsForHourly } from './execution/api/hourlyWeatherChecker.js';
 
 function useArrows() {
   // add preload animation
@@ -12,7 +12,8 @@ function useArrows() {
 
   search.value = locationTitle.innerText;
 
-  geocodeLocationForHourly();
+  checkErrorsForHourly();
+  search.value = '';
 }
 
 const rightArrow = document.querySelector('.right-arrow');

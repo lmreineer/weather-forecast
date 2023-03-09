@@ -11,11 +11,21 @@ import {
   visualCrossing,
 } from '../../apiKeys.js';
 
-import { applyLocation } from '../../location/locationTitle.js';
+import { applyLocationOnMap } from '../../location/locationTitle.js';
 import { applyCurrentlyDetails } from '../currentlyDetails.js';
 
-function checkCurrentWeather(lat, lon) {
-  const currentWeatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}?unitGroup=metric&key=${visualCrossing}`;
+const errorMessage = document.querySelector('.error');
+
+function showWeatherError() {
+  errorMessage.style.visibility = 'visible';
+  errorMessage.innerText = 'Weather information is unavailable on location.';
+  removeCurrentlyAnimation();
+}
+
+function checkCurrentWeather() {
+  const locationTitle = document.querySelector('.location');
+
+  const currentWeatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationTitle.innerText}?unitGroup=metric&key=${visualCrossing}`;
 
   fetch(currentWeatherAPI)
     .then((response) => response.json())
@@ -23,51 +33,40 @@ function checkCurrentWeather(lat, lon) {
       applyCurrentlyDetails(weatherData);
 
       removeCurrentlyAnimation();
-    });
-}
-
-const errorMessage = document.querySelector('.error');
-
-function showError() {
-  errorMessage.style.visibility = 'visible';
-  removeCurrentlyAnimation();
+    })
+    .catch(() => showWeatherError());
 }
 
 const search = document.querySelector('.search');
 
-// find lat and lon of location input
+function showLocationError() {
+  errorMessage.style.visibility = 'visible';
+  errorMessage.innerText = 'No locations found.';
+  removeCurrentlyAnimation();
+}
+
 function geocodeLocationForCurrently() {
   const geocodeAPI = `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(search.value)}&apiKey=${geoapify}`;
 
   fetch(geocodeAPI)
     .then((response) => response.json())
     .then((locData) => {
-      // if no locations are found
-      if (locData.features[0] === undefined || locData.query.parsed === undefined) {
-        showError();
+      errorMessage.style.visibility = 'hidden';
 
-        // else, show weather
-      } else {
-        errorMessage.style.visibility = 'hidden';
+      applyLocationOnMap(locData);
 
-        const lat = locData.features[0].geometry.coordinates[1];
-        const lon = locData.features[0].geometry.coordinates[0];
-        // apply location on map
-        applyLocation(locData);
-
-        // get weather data
-        checkCurrentWeather(lat, lon);
-      }
-    });
+      checkCurrentWeather();
+    })
+    .catch(() => showLocationError());
 }
 
 function checkError() {
   // add preload animation
   addCurrentlyAnimation();
 
-  // if search value is entered empty, show error
+  // if search value is entered empty
   if (search.value === '') {
-    showError();
+    showLocationError();
 
     // else, continue operations
   } else {
@@ -89,4 +88,4 @@ loupe.addEventListener('click', () => {
   }
 });
 
-export { geocodeLocationForCurrently };
+export { checkCurrentWeather };

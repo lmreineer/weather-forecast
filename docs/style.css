@@ -53,6 +53,7 @@ img {
 }
 
 .below>p,
+.current-hl>*,
 .details>p {
     font-family: 'Port Lligat Sans', sans-serif;
 }
