@@ -6,9 +6,11 @@ import { addHourlyDailyAnimation } from './hourly-daily/hourlyDailyAnimation.js'
 import { checkDailyWeather } from './hourly-daily/execution/api/dailyWeatherChecker.js';
 
 window.addEventListener('load', () => {
+  // currently section
   addCurrentlyAnimation();
   checkCurrentWeather();
 
+  // daily section
   addHourlyDailyAnimation();
   checkDailyWeather();
 });

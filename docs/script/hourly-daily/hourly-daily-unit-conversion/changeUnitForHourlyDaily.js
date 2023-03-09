@@ -6,9 +6,11 @@ import {
 } from './hourlyDailyConversionAnimation.js';
 
 import { visualCrossing } from '../../apiKeys.js';
-import { applyUnitForHourlyDaily } from './hourlyDailyUnitConversion.js';
+import { applyUnitForDaily } from './dailyUnitConversion.js';
+import { applyUnitForHourly } from './hourlyUnitConversion.js';
 
-let clicked = false;
+let hourlyTabClicked = false;
+let currentTempClicked = false;
 
 function changeHourlyDailyUnit() {
   // add preload animation
@@ -18,19 +20,20 @@ function changeHourlyDailyUnit() {
 
   let hourlyDailyUnitAPI;
 
-  if (!clicked) {
+  if (!currentTempClicked) {
     // fahrenheit
     hourlyDailyUnitAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationTitle.innerText}?&key=${visualCrossing}`;
 
     fetch(hourlyDailyUnitAPI)
       .then((response) => response.json())
       .then((weatherData) => {
-        applyUnitForHourlyDaily(weatherData, 'F');
+        applyUnitForDaily(weatherData, 'F');
+        applyUnitForHourly();
 
         removeHourlyDailyConversionAnimation();
       });
 
-    clicked = true;
+    currentTempClicked = true;
   } else {
     // celcius
     hourlyDailyUnitAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationTitle.innerText}?unitGroup=metric&key=${visualCrossing}`;
@@ -38,14 +41,29 @@ function changeHourlyDailyUnit() {
     fetch(hourlyDailyUnitAPI)
       .then((response) => response.json())
       .then((weatherData) => {
-        applyUnitForHourlyDaily(weatherData, 'C');
+        applyUnitForDaily(weatherData, 'C');
 
         removeHourlyDailyConversionAnimation();
       });
 
-    clicked = false;
+    currentTempClicked = false;
   }
 }
+
+const hourlyButton = document.querySelector('.hourly-button');
+const dailyButton = document.querySelector('.daily-button');
+
+hourlyButton.addEventListener('click', () => {
+  if (!hourlyTabClicked) {
+    hourlyTabClicked = true;
+  }
+});
+
+dailyButton.addEventListener('click', () => {
+  if (hourlyTabClicked) {
+    hourlyTabClicked = false;
+  }
+});
 
 const currentTemp = document.querySelector('.temp');
 

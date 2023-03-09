@@ -12,7 +12,7 @@ function applyTodayInfos(dailyData, scale) {
   futureTemp[0].innerHTML = getHighLow(dailyData[0], scale);
 }
 
-function applyUnitForHourlyDaily(weatherData, scale) {
+function applyUnitForDaily(weatherData, scale) {
   // slice into length of weekday
   const dailyData = weatherData.days.slice(0, 7);
 
@@ -24,4 +24,6 @@ function applyUnitForHourlyDaily(weatherData, scale) {
   applyTodayInfos(dailyData, scale);
 }
 
-export { applyUnitForHourlyDaily };
+export {
+  applyUnitForDaily,
+};

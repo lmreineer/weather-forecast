@@ -4,15 +4,15 @@ import { checkErrorsForHourly } from './api/hourlyWeatherChecker.js';
 import { checkErrorsForDaily } from './api/dailyWeatherChecker.js';
 import { addHourlyDailyAnimation } from '../hourlyDailyAnimation.js';
 
-let clicked = false;
+let hourlyTabClicked = false;
 
 function checkTabClicks() {
   // add preload animation
   addHourlyDailyAnimation();
 
-  if (!clicked) {
+  if (!hourlyTabClicked) {
     checkErrorsForDaily();
-  } else if (clicked) {
+  } else if (hourlyTabClicked) {
     checkErrorsForHourly();
   }
 }
@@ -36,15 +36,15 @@ const hourlyButton = document.querySelector('.hourly-button');
 const dailyButton = document.querySelector('.daily-button');
 
 hourlyButton.addEventListener('click', () => {
-  if (!clicked) {
-    clicked = true;
+  if (!hourlyTabClicked) {
+    hourlyTabClicked = true;
     checkTabClicks();
   }
 });
 
 dailyButton.addEventListener('click', () => {
-  if (clicked) {
-    clicked = false;
+  if (hourlyTabClicked) {
+    hourlyTabClicked = false;
     checkTabClicks();
   }
 });
