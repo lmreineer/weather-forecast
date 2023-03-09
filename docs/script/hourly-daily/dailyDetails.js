@@ -18,22 +18,10 @@ function getHighLow(dailyData) {
 
 const timeUnit = document.querySelectorAll('.time-unit');
 const futureTemp = document.querySelectorAll('.future-temp');
-// const currentTemp = document.querySelector('.temp');
 
 function applyTodayInfos(dailyData) {
   timeUnit[0].innerText = 'Today';
   futureTemp[0].innerHTML = getHighLow(dailyData[0]);
-
-  // // put strings to correlate with current temp element
-  // const highestTemp = `${dailyData[0].tempmax}&degC`;
-  // // if main temp is higher than highest temp
-  // if (currentTemp.innerHTML > highestTemp) {
-  //   // filter the main temp number
-  //   const temp = `${currentTemp.innerHTML.replace(/\D+/g, '')}&degC`;
-  //   const todayHighLow = `${temp} / <span style="opacity: 0.7">${Math.round(dailyData[0].tempmin)}&degC</span>`;
-  //   // make highest temp equal to main temp
-  //   futureTemp[0].innerHTML = todayHighLow;
-  // }
 }
 
 function applyDailyDetails(weatherData) {

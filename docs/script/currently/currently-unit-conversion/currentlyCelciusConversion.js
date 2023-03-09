@@ -31,14 +31,6 @@ const celcius = (function assignCelcius() {
       const high = `${Math.round(weatherData.days[0].tempmax)}&degC`;
       const low = `${Math.round(weatherData.days[0].tempmin)}&degC`;
       currentHighLow.innerHTML = `High: ${high} Low: ${low}`;
-
-      // if current temp is higher than highest temp
-      if (currentTemp.innerHTML > high) {
-        // filter the current temp number
-        const temp = `${currentTemp.innerHTML.replace(/\D+/g, '')}&degC`;
-        // make highest temp equal to current temp
-        currentHighLow.innerHTML = `High: ${temp} Low: ${low}`;
-      }
     },
 
     dewPoint(conditions) {
