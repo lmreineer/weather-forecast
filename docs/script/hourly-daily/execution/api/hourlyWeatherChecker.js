@@ -45,6 +45,20 @@ function checkErrorsForHourly() {
   }, 1000);
 }
 
+// const currentTemp = document.querySelector('.temp');
+
+// let clicked = false;
+
+// currentTemp.addEventListener('click', () => {
+//   if (!clicked) {
+//     checkFahrenheit();
+//     clicked = true;
+//   } else {
+//     checkCurrentlyCelcius();
+//     clicked = false;
+//   }
+// });
+
 export {
   checkErrorsForHourly,
 };
