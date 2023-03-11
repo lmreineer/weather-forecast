@@ -49,12 +49,12 @@ const dailyButton = document.querySelector('.daily-button');
 
 hourlyButton.addEventListener('click', () => {
   hourlyButton.style.border = '1px solid black';
-  dailyButton.style.border = 'none';
+  dailyButton.style.border = '1px solid #FAFBFB';
 });
 
 dailyButton.addEventListener('click', () => {
   dailyButton.style.border = '1px solid black';
-  hourlyButton.style.border = 'none';
+  hourlyButton.style.border = '1px solid #FAFBFB';
 });
 
 export {

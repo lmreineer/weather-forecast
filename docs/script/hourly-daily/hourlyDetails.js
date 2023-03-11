@@ -1,5 +1,4 @@
 /* eslint-disable no-restricted-syntax */
-/* eslint-disable import/prefer-default-export */
 
 // return hours for next day
 function returnNextDayHours(hours, currentHour, hourlyWeatherData) {

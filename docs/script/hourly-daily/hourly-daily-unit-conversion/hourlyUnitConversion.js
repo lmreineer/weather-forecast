@@ -30,12 +30,17 @@ function getTemp(hoursDisplayed, scale) {
   return `${Math.round(hoursDisplayed.temp)}&deg${scale}`;
 }
 
+let dailyButtonClicked = false;
+
 function applyGroupInfos(hoursDisplayed, temp, scale) {
   const futureTemp = temp;
 
   // apply infos to each groups
   for (const [i] of futureTemp.entries()) {
-    futureTemp[i].innerHTML = getTemp(hoursDisplayed[i], scale);
+    // avoid overwriting preload animation with text
+    if (!dailyButtonClicked) {
+      futureTemp[i].innerHTML = getTemp(hoursDisplayed[i], scale);
+    }
   }
 }
 
@@ -171,6 +176,21 @@ function checkHourlyCelcius() {
         });
     });
 }
+
+const hourlyButton = document.querySelector('.hourly-button');
+const dailyButton = document.querySelector('.daily-button');
+
+hourlyButton.addEventListener('click', () => {
+  if (dailyButtonClicked) {
+    dailyButtonClicked = false;
+  }
+});
+
+dailyButton.addEventListener('click', () => {
+  if (!dailyButtonClicked) {
+    dailyButtonClicked = true;
+  }
+});
 
 export {
   checkHourlyFahrenheit,

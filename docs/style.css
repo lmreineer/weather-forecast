@@ -14,6 +14,10 @@
     font-weight: 400;
 }
 
+body {
+    background-color: #FAFBFB;
+}
+
 img {
     width: 5rem;
     filter: drop-shadow(0 5px 5px gray);
@@ -144,7 +148,7 @@ input[type="search"]::-webkit-search-cancel-button {
 .buttons,
 .arrows {
     display: inline-flex;
-}
+}   
 
 .daily-button,
 .hourly-button {

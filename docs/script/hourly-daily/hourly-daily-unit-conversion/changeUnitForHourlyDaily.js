@@ -12,7 +12,7 @@ import {
   checkHourlyCelcius,
 } from './hourlyUnitConversion.js';
 
-let hourlyTabClicked = false;
+let hourlyButtonClicked = false;
 let currentTempClicked = false;
 
 function changeHourlyDailyUnit() {
@@ -21,7 +21,7 @@ function changeHourlyDailyUnit() {
 
   if (!currentTempClicked) {
     // fahrenheit
-    if (hourlyTabClicked) {
+    if (hourlyButtonClicked) {
       checkHourlyFahrenheit();
     } else {
       checkDailyFahrenheit();
@@ -30,7 +30,7 @@ function changeHourlyDailyUnit() {
     currentTempClicked = true;
   } else {
     // celcius
-    if (hourlyTabClicked) {
+    if (hourlyButtonClicked) {
       checkHourlyCelcius();
     } else {
       checkDailyCelcius();
@@ -44,14 +44,14 @@ const hourlyButton = document.querySelector('.hourly-button');
 const dailyButton = document.querySelector('.daily-button');
 
 hourlyButton.addEventListener('click', () => {
-  if (!hourlyTabClicked) {
-    hourlyTabClicked = true;
+  if (!hourlyButtonClicked) {
+    hourlyButtonClicked = true;
   }
 });
 
 dailyButton.addEventListener('click', () => {
-  if (hourlyTabClicked) {
-    hourlyTabClicked = false;
+  if (hourlyButtonClicked) {
+    hourlyButtonClicked = false;
   }
 });
 

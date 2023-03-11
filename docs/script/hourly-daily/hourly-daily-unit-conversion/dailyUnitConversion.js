@@ -4,14 +4,21 @@
 import { visualCrossing } from '../../apiKeys.js';
 
 function getHighLow(dailyData, scale) {
-  // return temp infos
-  return `${Math.round(dailyData.tempmax)}&deg${scale} / <span style="opacity: 0.7">${Math.round(dailyData.tempmin)}&deg${scale}</span>`;
+  const high = Math.round(dailyData.tempmax);
+  const low = Math.round(dailyData.tempmin);
+  const highLow = `${high}&deg${scale} / <span style="opacity: 0.7">${low}&deg${scale}</span>`;
+  return highLow;
 }
+
+let hourlyButtonClicked = false;
 
 const futureTemp = document.querySelectorAll('.future-temp');
 
 function applyTodayInfos(dailyData, scale) {
-  futureTemp[0].innerHTML = getHighLow(dailyData[0], scale);
+  // avoid overwriting preload animation with text
+  if (!hourlyButtonClicked) {
+    futureTemp[0].innerHTML = getHighLow(dailyData[0], scale);
+  }
 }
 
 function applyUnitForDaily(weatherData, scale) {
@@ -20,7 +27,10 @@ function applyUnitForDaily(weatherData, scale) {
 
   // apply infos to each groups
   for (const [i] of dailyData.entries()) {
-    futureTemp[i].innerHTML = getHighLow(dailyData[i], scale);
+    // avoid overwriting preload animation with text
+    if (!hourlyButtonClicked) {
+      futureTemp[i].innerHTML = getHighLow(dailyData[i], scale);
+    }
   }
 
   applyTodayInfos(dailyData, scale);
@@ -49,6 +59,21 @@ function checkDailyCelcius() {
       applyUnitForDaily(weatherData, 'C');
     });
 }
+
+const hourlyButton = document.querySelector('.hourly-button');
+const dailyButton = document.querySelector('.daily-button');
+
+hourlyButton.addEventListener('click', () => {
+  if (!hourlyButtonClicked) {
+    hourlyButtonClicked = true;
+  }
+});
+
+dailyButton.addEventListener('click', () => {
+  if (hourlyButtonClicked) {
+    hourlyButtonClicked = false;
+  }
+});
 
 export {
   checkDailyFahrenheit,

@@ -1,18 +1,19 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
 
 import { checkErrorsForHourly } from './api/hourlyWeatherChecker.js';
 import { checkErrorsForDaily } from './api/dailyWeatherChecker.js';
 import { addHourlyDailyAnimation } from '../hourlyDailyAnimation.js';
 
-let hourlyTabClicked = false;
+let hourlyButtonClicked = false;
 
 function checkTabClicks() {
   // add preload animation
   addHourlyDailyAnimation();
 
-  if (!hourlyTabClicked) {
+  if (!hourlyButtonClicked) {
     checkErrorsForDaily();
-  } else if (hourlyTabClicked) {
+  } else if (hourlyButtonClicked) {
     checkErrorsForHourly();
   }
 }
@@ -36,15 +37,15 @@ const hourlyButton = document.querySelector('.hourly-button');
 const dailyButton = document.querySelector('.daily-button');
 
 hourlyButton.addEventListener('click', () => {
-  if (!hourlyTabClicked) {
-    hourlyTabClicked = true;
+  if (!hourlyButtonClicked) {
+    hourlyButtonClicked = true;
     checkTabClicks();
   }
 });
 
 dailyButton.addEventListener('click', () => {
-  if (hourlyTabClicked) {
-    hourlyTabClicked = false;
+  if (hourlyButtonClicked) {
+    hourlyButtonClicked = false;
     checkTabClicks();
   }
 });
