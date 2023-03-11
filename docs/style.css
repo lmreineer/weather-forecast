@@ -148,7 +148,7 @@ input[type="search"]::-webkit-search-cancel-button {
 .buttons,
 .arrows {
     display: inline-flex;
-}   
+}
 
 .daily-button,
 .hourly-button {
@@ -209,6 +209,10 @@ input[type="search"]::-webkit-search-cancel-button {
 .daily-button {
     border: 1px solid black;
     margin-right: 5rem;
+}
+
+.hourly-button {
+    border: 1px solid #FAFBFB;
 }
 
 .arrow {

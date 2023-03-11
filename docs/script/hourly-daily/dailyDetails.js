@@ -35,8 +35,9 @@ function applyTodayInfos(dailyData) {
   timeUnit[0].innerText = 'Today';
   futureTemp[0].innerHTML = getCelciusHighLow(dailyData[0]);
 
-  // if fahrenheit is converted before clicking hourly tab
+  // if fahrenheit is converted before clicking daily tab
   if (currentTempClicked) {
+    // get fahrenheit temp initially
     futureTemp[0].innerHTML = getFahrenheitHighLow(dailyData[0]);
   } else {
     futureTemp[0].innerHTML = getCelciusHighLow(dailyData[0]);
@@ -65,8 +66,8 @@ function applyDailyDetails(weatherData) {
   applyTodayInfos(dailyData);
 }
 
+// check if fahrenheit is converted before clicking hourly button
 const currentTemp = document.querySelector('.temp');
-
 currentTemp.addEventListener('click', () => {
   if (!currentTempClicked) {
     currentTempClicked = true;

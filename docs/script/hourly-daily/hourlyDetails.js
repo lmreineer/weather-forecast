@@ -51,8 +51,9 @@ function applyGroupInfos(hoursDisplayed, time, temp) {
     timeUnit[i].innerText = getHour(hoursDisplayed[i]);
     futureIcon[i].src = getIcon(hoursDisplayed[i]);
 
-    // if fahrenheit is converted before clicking hourly tab
+    // if fahrenheit is converted before clicking hourly button
     if (currentTempClicked) {
+      // get fahrenheit temp initially
       futureTemp[i].innerHTML = getFahrenheitTemp(hoursDisplayed[i]);
     } else {
       futureTemp[i].innerHTML = getCelciusTemp(hoursDisplayed[i]);
@@ -233,8 +234,8 @@ dailyButton.addEventListener('click', () => {
   counter = 0;
 });
 
+// check if fahrenheit is converted before clicking hourly button
 const currentTemp = document.querySelector('.temp');
-
 currentTemp.addEventListener('click', () => {
   if (!currentTempClicked) {
     currentTempClicked = true;
