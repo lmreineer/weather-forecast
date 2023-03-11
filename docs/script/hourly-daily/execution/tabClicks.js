@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
 
 import { checkErrorsForHourly } from './api/hourlyWeatherChecker.js';

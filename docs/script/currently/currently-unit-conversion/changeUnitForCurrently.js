@@ -5,7 +5,7 @@ import {
   removeCurrentlyConversionAnimation,
 } from './currentlyConversionAnimation.js';
 
-import { visualCrossing } from '../../apiKeys.js';
+import { vcng } from '../../lesClés.js';
 import { currentTemp } from '../currentlyDetails.js';
 import { applyUnitForCurrently } from './currentlyUnitConversion.js';
 
@@ -21,7 +21,7 @@ function changeCurrentlyUnit() {
 
   if (!currentTempClicked) {
     // fahrenheit
-    currentlyUnitAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationTitle.innerText}?&key=${visualCrossing}`;
+    currentlyUnitAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationTitle.innerText}?&key=${vcng}`;
 
     fetch(currentlyUnitAPI)
       .then((response) => response.json())
@@ -34,7 +34,7 @@ function changeCurrentlyUnit() {
     currentTempClicked = true;
   } else {
     // celcius
-    currentlyUnitAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationTitle.innerText}?unitGroup=metric&key=${visualCrossing}`;
+    currentlyUnitAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationTitle.innerText}?unitGroup=metric&key=${vcng}`;
 
     fetch(currentlyUnitAPI)
       .then((response) => response.json())
