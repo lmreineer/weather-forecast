@@ -22,7 +22,7 @@ const details = (function assignDetails() {
 
     currentIcon(conditions) {
       const { icon } = conditions;
-      currentIcon.src = `/res/icon-set/${icon}.svg`;
+      currentIcon.src = `../../res/icon-set/${icon}.svg`;
     },
 
     description(conditions) {
