@@ -15,29 +15,13 @@ const pressure = document.querySelector('.pressure');
 
 const details = (function assignDetails() {
   return {
-    currentTemp(conditions) {
-      const temp = `${Math.round(conditions.temp)} &degC | <span class="convert-unit">&degF</span>`;
-      currentTemp.innerHTML = temp;
-    },
-
     currentIcon(conditions) {
       const { icon } = conditions;
-      currentIcon.src = `../res./icon-set/${icon}.svg`;
+      currentIcon.src = `.././res/icon-set/${icon}.svg`;
     },
 
     description(conditions) {
       description.innerText = conditions.conditions;
-    },
-
-    feelsLike(conditions) {
-      const temp = `${Math.round(conditions.feelslike)}&degC`;
-      feelsLike.innerHTML = `Feels like: ${temp}`;
-    },
-
-    highLow(weatherData) {
-      const highestTemp = `${Math.round(weatherData.days[0].tempmax)}&degC`;
-      const lowestTemp = `${Math.round(weatherData.days[0].tempmin)}&degC`;
-      currentHighLow.innerHTML = `<span class="high">High: ${highestTemp}</span> <span class="low">Low: ${lowestTemp}</span>`;
     },
 
     wind(conditions) {
@@ -71,33 +55,104 @@ const details = (function assignDetails() {
       humidity.innerText = `Humidity: ${value}%`;
     },
 
-    dewPoint(conditions) {
-      const value = Math.round(conditions.dew);
-      dewPoint.innerHTML = `Dew point: ${value}&degC`;
-    },
-
     pressure(conditions) {
       pressure.innerText = `Pressure: ${Math.round(conditions.pressure)} mbar`;
     },
   };
 }());
 
+const detailsWithCelcius = (function assignDetails() {
+  return {
+    currentTempCelcius(conditions) {
+      const celciusTemp = Math.round(conditions.temp);
+      const currentTempCelcius = `${celciusTemp} &degC | <span class="convert-unit">&degF</span>`;
+      currentTemp.innerHTML = currentTempCelcius;
+    },
+
+    feelsLikeCelcius(conditions) {
+      const temp = `${Math.round(conditions.feelslike)}&degC`;
+      feelsLike.innerHTML = `Feels like: ${temp}`;
+    },
+
+    highLowCelcius(weatherData) {
+      const highestTemp = `${Math.round(weatherData.days[0].tempmax)}&degC`;
+      const lowestTemp = `${Math.round(weatherData.days[0].tempmin)}&degC`;
+      currentHighLow.innerHTML = `<span class="high">High: ${highestTemp}</span> <span class="low">Low: ${lowestTemp}</span>`;
+    },
+
+    dewPointCelcius(conditions) {
+      const value = Math.round(conditions.dew);
+      dewPoint.innerHTML = `Dew point: ${value}&degC`;
+    },
+  };
+}());
+
+const detailsWithFahrenheit = (function assignDetails() {
+  return {
+    currentTempFahrenheit(conditions) {
+      const temp = Math.round(conditions.temp * (9 / 5) + 32);
+      const currentTempFahrenheit = `${temp} &degF | <span class="convert-unit">&degC</span>`;
+      currentTemp.innerHTML = currentTempFahrenheit;
+    },
+
+    feelsLikeFahrenheit(conditions) {
+      const feelsLikeTemp = Math.round(conditions.feelslike * (9 / 5) + 32);
+      const feelsLikeFahrenheit = `${feelsLikeTemp}&degF`;
+      feelsLike.innerHTML = `Feels like: ${feelsLikeFahrenheit}`;
+    },
+
+    highLowFahrenheit(weatherData) {
+      const highest = Math.round(weatherData.days[0].tempmax * (9 / 5) + 32);
+      const highestTempFahrenheit = `${highest}&degF`;
+      const lowest = Math.round(weatherData.days[0].tempmin * (9 / 5) + 32);
+      const lowestTempFahrenheit = `${lowest}&degF`;
+      currentHighLow.innerHTML = `<span class="high">High: ${highestTempFahrenheit}</span> <span class="low">Low: ${lowestTempFahrenheit}</span>`;
+    },
+
+    dewPointFahrenheit(conditions) {
+      const dewPointTemp = Math.round(conditions.dew * (9 / 5) + 32);
+      const dewPointFahrenheit = dewPointTemp;
+      dewPoint.innerHTML = `Dew point: ${dewPointFahrenheit}&degF`;
+    },
+  };
+}());
+
+let currentTempClicked = false;
+
 function applyCurrentlyDetails(weatherData) {
   // assign to current conditions
   const conditions = weatherData.currentConditions;
 
-  details.currentTemp(conditions);
+  // if fahrenheit is converted
+  if (currentTempClicked) {
+    detailsWithFahrenheit.currentTempFahrenheit(conditions);
+    detailsWithFahrenheit.feelsLikeFahrenheit(conditions);
+    detailsWithFahrenheit.highLowFahrenheit(weatherData);
+    detailsWithFahrenheit.dewPointFahrenheit(conditions);
+  } else {
+    detailsWithCelcius.currentTempCelcius(conditions);
+    detailsWithCelcius.feelsLikeCelcius(conditions);
+    detailsWithCelcius.highLowCelcius(weatherData);
+    detailsWithCelcius.dewPointCelcius(conditions);
+  }
+
   details.currentIcon(conditions);
   details.description(conditions);
-  details.feelsLike(conditions);
-  details.highLow(weatherData);
   details.wind(conditions);
   details.latestReport(conditions);
   details.sunTimes(conditions);
   details.humidity(conditions);
-  details.dewPoint(conditions);
   details.pressure(conditions);
 }
+
+// check if currentTemp element is clicked
+currentTemp.addEventListener('click', () => {
+  if (!currentTempClicked) {
+    currentTempClicked = true;
+  } else {
+    currentTempClicked = false;
+  }
+});
 
 export {
   applyCurrentlyDetails,

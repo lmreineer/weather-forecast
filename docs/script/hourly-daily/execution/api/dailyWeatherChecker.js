@@ -19,19 +19,21 @@ function checkDailyWeather() {
 }
 
 function checkErrorsForDaily() {
-  setTimeout(() => {
-    const errorMessage = document.querySelector('.error');
+  const errorMessage = document.querySelector('.error');
 
-    // if error is visible
-    if (errorMessage.style.visibility === 'visible') {
-      // stop operations
-      removeHourlyDailyAnimation();
+  // if error is visible
+  if (errorMessage.style.visibility === 'visible') {
+    // stop operations
+    removeHourlyDailyAnimation();
 
-      // else, show weather
-    } else {
-      checkDailyWeather();
-    }
-  }, 1000);
+    // else, show weather
+  } else {
+    checkDailyWeather();
+
+    // remove search value in case of tab clicks
+    const search = document.querySelector('.search');
+    search.value = '';
+  }
 }
 
 export {

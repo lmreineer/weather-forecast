@@ -4,15 +4,16 @@ import { addHourlyDailyAnimation } from './hourlyDailyAnimation.js';
 import { checkErrorsForHourly } from './execution/api/hourlyWeatherChecker.js';
 
 function useArrows() {
-  // add preload animation
-  addHourlyDailyAnimation();
-
   const search = document.querySelector('.search');
   const locationTitle = document.querySelector('.location');
 
   search.value = locationTitle.innerText;
 
+  // add preload animation
+  addHourlyDailyAnimation();
+
   checkErrorsForHourly();
+
   search.value = '';
 }
 

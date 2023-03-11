@@ -51,8 +51,6 @@ function geocodeLocationForCurrently() {
   fetch(geocodeAPI)
     .then((response) => response.json())
     .then((locData) => {
-      errorMessage.style.visibility = 'hidden';
-
       applyLocationOnMap(locData);
 
       checkCurrentWeather();
@@ -61,6 +59,8 @@ function geocodeLocationForCurrently() {
 }
 
 function checkError() {
+  errorMessage.style.visibility = 'hidden';
+
   // add preload animation
   addCurrentlyAnimation();
 

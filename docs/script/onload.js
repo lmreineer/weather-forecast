@@ -6,6 +6,11 @@ import { addHourlyDailyAnimation } from './hourly-daily/hourlyDailyAnimation.js'
 import { checkDailyWeather } from './hourly-daily/execution/api/dailyWeatherChecker.js';
 
 window.addEventListener('load', () => {
+  const search = document.querySelector('.search');
+  const locationTitle = document.querySelector('.location');
+
+  search.value = locationTitle.innerText;
+
   // currently section
   addCurrentlyAnimation();
   checkCurrentWeather();
@@ -13,4 +18,6 @@ window.addEventListener('load', () => {
   // daily section
   addHourlyDailyAnimation();
   checkDailyWeather();
+
+  search.value = '';
 });

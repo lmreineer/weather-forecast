@@ -106,7 +106,7 @@ function applyUnitForHourly(weatherData, timeData, scale) {
   // if groups only take first page
   if (hoursDisplayed.length <= 7) {
     // apply infos to each groups
-    applyGroupInfos(hoursDisplayed, futureTemp);
+    applyGroupInfos(hoursDisplayed, futureTemp, scale);
 
     // use seven as total number of groups able to display
     getTotalGroups(7, hoursDisplayed);

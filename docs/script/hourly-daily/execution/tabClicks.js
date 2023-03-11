@@ -1,8 +1,14 @@
 /* eslint-disable import/extensions */
 
-import { checkErrorsForHourly } from './api/hourlyWeatherChecker.js';
+import {
+  checkErrorsForHourly,
+  hourlyWeatherChecker,
+} from './api/hourlyWeatherChecker.js';
+
 import { checkErrorsForDaily } from './api/dailyWeatherChecker.js';
 import { addHourlyDailyAnimation } from '../hourlyDailyAnimation.js';
+
+const search = document.querySelector('.search');
 
 let hourlyButtonClicked = false;
 
@@ -17,7 +23,6 @@ function checkTabClicks() {
   }
 }
 
-const search = document.querySelector('.search');
 const loupe = document.querySelector('.fa-magnifying-glass');
 
 search.addEventListener('keydown', (e) => {
@@ -38,11 +43,20 @@ const dailyButton = document.querySelector('.daily-button');
 hourlyButton.addEventListener('click', () => {
   if (!hourlyButtonClicked) {
     hourlyButtonClicked = true;
-    checkTabClicks();
+
+    // add preload animation
+    addHourlyDailyAnimation();
+    // set initial location on button click for hourly
+    hourlyWeatherChecker.setInitialLocationOnTabClick();
   }
 });
 
 dailyButton.addEventListener('click', () => {
+  const locationTitle = document.querySelector('.location');
+
+  // set initial location on button click for daily
+  search.value = locationTitle.innerText;
+
   if (hourlyButtonClicked) {
     hourlyButtonClicked = false;
     checkTabClicks();

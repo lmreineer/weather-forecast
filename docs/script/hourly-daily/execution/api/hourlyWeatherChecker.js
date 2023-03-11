@@ -9,42 +9,78 @@ import {
 import { applyHourlyDetails } from '../../hourlyDetails.js';
 import { removeHourlyDailyAnimation } from '../../hourlyDailyAnimation.js';
 
-function checkHourlyWeather() {
-  const locationTitle = document.querySelector('.location');
+const hourlyWeatherChecker = (function setTwoMethods() {
+  return {
+    // for setting location when hourly button is clicked
+    setInitialLocationOnTabClick() {
+      const locationTitle = document.querySelector('.location');
+      const search = document.querySelector('.search');
 
-  const hourlyWeatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationTitle.innerText}?unitGroup=metric&key=${vcng}`;
+      search.value = locationTitle.innerText;
 
-  fetch(hourlyWeatherAPI)
-    .then((response) => response.json())
-    .then((weatherData) => {
-      const currentHourAPI = `https://api.ipgeolocation.io/astronomy?apiKey=${ipglcn}&location=${locationTitle.innerText}`;
+      const hourlyWeatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${search.value}?unitGroup=metric&key=${vcng}`;
 
-      fetch(currentHourAPI)
+      // avoid displaying on screen
+      search.value = '';
+
+      fetch(hourlyWeatherAPI)
         .then((response) => response.json())
-        .then((hourData) => {
-          applyHourlyDetails(weatherData, hourData);
+        .then((weatherData) => {
+          search.value = locationTitle.innerText;
 
-          removeHourlyDailyAnimation();
+          const currentHourAPI = `https://api.ipgeolocation.io/astronomy?apiKey=${ipglcn}&location=${search.value}`;
+
+          // avoid displaying on screen
+          search.value = '';
+
+          fetch(currentHourAPI)
+            .then((response) => response.json())
+            .then((hourData) => {
+              applyHourlyDetails(weatherData, hourData);
+
+              removeHourlyDailyAnimation();
+            });
         });
-    });
-}
+    },
+
+    // for using enter or clicking loupe image when searching location using search bar
+    useSearchBarForLocation() {
+      const search = document.querySelector('.search');
+
+      const hourlyWeatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${search.value}?unitGroup=metric&key=${vcng}`;
+
+      fetch(hourlyWeatherAPI)
+        .then((response) => response.json())
+        .then((weatherData) => {
+          const currentHourAPI = `https://api.ipgeolocation.io/astronomy?apiKey=${ipglcn}&location=${search.value}`;
+
+          fetch(currentHourAPI)
+            .then((response) => response.json())
+            .then((hourData) => {
+              applyHourlyDetails(weatherData, hourData);
+
+              removeHourlyDailyAnimation();
+            });
+        });
+    },
+  };
+}());
 
 function checkErrorsForHourly() {
-  setTimeout(() => {
-    const errorMessage = document.querySelector('.error');
+  const errorMessage = document.querySelector('.error');
 
-    // if error is visible
-    if (errorMessage.style.visibility === 'visible') {
-      // stop operations
-      removeHourlyDailyAnimation();
+  // if error is visible
+  if (errorMessage.style.visibility === 'visible') {
+    // stop operations
+    removeHourlyDailyAnimation();
 
-      // else, show weather
-    } else {
-      checkHourlyWeather();
-    }
-  }, 1000);
+    // else, show weather
+  } else {
+    hourlyWeatherChecker.useSearchBarForLocation();
+  }
 }
 
 export {
   checkErrorsForHourly,
+  hourlyWeatherChecker,
 };
