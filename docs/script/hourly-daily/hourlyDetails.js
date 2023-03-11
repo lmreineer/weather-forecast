@@ -30,9 +30,17 @@ function getIcon(hoursDisplayed) {
   return `../res/icon-set/${icon}.svg`;
 }
 
-function getTemp(hoursDisplayed) {
-  return `${Math.round(hoursDisplayed.temp)}&degC`;
+function getCelciusTemp(hoursDisplayed) {
+  const celcius = Math.round(hoursDisplayed.temp);
+  return `${celcius}&degC`;
 }
+
+function getFahrenheitTemp(hoursDisplayed) {
+  const fahrenheit = Math.round(hoursDisplayed.temp * (9 / 5) + 32);
+  return `${fahrenheit}&degF`;
+}
+
+let currentTempClicked = false;
 
 function applyGroupInfos(hoursDisplayed, time, temp) {
   const timeUnit = time;
@@ -43,7 +51,13 @@ function applyGroupInfos(hoursDisplayed, time, temp) {
   for (const [i] of hoursDisplayed.entries()) {
     timeUnit[i].innerText = getHour(hoursDisplayed[i]);
     futureIcon[i].src = getIcon(hoursDisplayed[i]);
-    futureTemp[i].innerHTML = getTemp(hoursDisplayed[i]);
+
+    // if fahrenheit is converted before clicking hourly tab
+    if (currentTempClicked) {
+      futureTemp[i].innerHTML = getFahrenheitTemp(hoursDisplayed[i]);
+    } else {
+      futureTemp[i].innerHTML = getCelciusTemp(hoursDisplayed[i]);
+    }
   }
 }
 
@@ -65,7 +79,7 @@ function getTotalGroups(n, hours) {
 const rightArrow = document.querySelector('.right-arrow');
 const leftArrow = document.querySelector('.left-arrow');
 
-// count clicks
+// count arrow clicks
 let counter = 0;
 
 // show either or both arrows depending on the current page
@@ -220,4 +234,18 @@ dailyButton.addEventListener('click', () => {
   counter = 0;
 });
 
-export { applyHourlyDetails };
+const currentTemp = document.querySelector('.temp');
+
+currentTemp.addEventListener('click', () => {
+  if (!currentTempClicked) {
+    currentTempClicked = true;
+  } else {
+    currentTempClicked = false;
+  }
+});
+
+export {
+  applyHourlyDetails,
+  getCelciusTemp,
+  getFahrenheitTemp,
+};

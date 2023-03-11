@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 /* eslint-disable import/extensions */
 
 import {
@@ -11,11 +12,4 @@ function addHourlyDailyConversionAnimation() {
   });
 }
 
-function removeHourlyDailyConversionAnimation() {
-  futureTemp.forEach((tmp) => { tmp.classList.remove('future-temp-animation'); });
-}
-
-export {
-  addHourlyDailyConversionAnimation,
-  removeHourlyDailyConversionAnimation,
-};
+export { addHourlyDailyConversionAnimation };

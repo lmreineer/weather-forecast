@@ -12,16 +12,35 @@ function getIcon(dailyData) {
   return `../res/icon-set/${icon}.svg`;
 }
 
-function getHighLow(dailyData) {
-  return `${Math.round(dailyData.tempmax)}&degC / <span style="opacity: 0.7">${Math.round(dailyData.tempmin)}&degC</span>`;
+function getCelciusHighLow(dailyData) {
+  const celciusHigh = Math.round(dailyData.tempmax);
+  const celciusLow = Math.round(dailyData.tempmin);
+  const celciusHighLow = `${celciusHigh}&degC / <span style="opacity: 0.7">${celciusLow}&degC</span>`;
+  return celciusHighLow;
+}
+
+function getFahrenheitHighLow(dailyData) {
+  const fahrenheitHigh = Math.round(dailyData.tempmax * (9 / 5) + 32);
+  const fahrenheitLow = Math.round(dailyData.tempmin * (9 / 5) + 32);
+  const fahrenheitHighLow = `${fahrenheitHigh}&degF / <span style="opacity: 0.7">${fahrenheitLow}&degF</span>`;
+  return fahrenheitHighLow;
 }
 
 const timeUnit = document.querySelectorAll('.time-unit');
 const futureTemp = document.querySelectorAll('.future-temp');
 
+let currentTempClicked = false;
+
 function applyTodayInfos(dailyData) {
   timeUnit[0].innerText = 'Today';
-  futureTemp[0].innerHTML = getHighLow(dailyData[0]);
+  futureTemp[0].innerHTML = getCelciusHighLow(dailyData[0]);
+
+  // if fahrenheit is converted before clicking hourly tab
+  if (currentTempClicked) {
+    futureTemp[0].innerHTML = getFahrenheitHighLow(dailyData[0]);
+  } else {
+    futureTemp[0].innerHTML = getCelciusHighLow(dailyData[0]);
+  }
 }
 
 function applyDailyDetails(weatherData) {
@@ -34,11 +53,27 @@ function applyDailyDetails(weatherData) {
   for (const [i] of dailyData.entries()) {
     timeUnit[i].innerText = getDay(dailyData[i]);
     futureIcon[i].src = getIcon(dailyData[i]);
-    futureTemp[i].innerHTML = getHighLow(dailyData[i]);
+
+    // if fahrenheit is converted before clicking hourly tab
+    if (currentTempClicked) {
+      futureTemp[i].innerHTML = getFahrenheitHighLow(dailyData[i]);
+    } else {
+      futureTemp[i].innerHTML = getCelciusHighLow(dailyData[i]);
+    }
   }
 
   applyTodayInfos(dailyData);
 }
+
+const currentTemp = document.querySelector('.temp');
+
+currentTemp.addEventListener('click', () => {
+  if (!currentTempClicked) {
+    currentTempClicked = true;
+  } else {
+    currentTempClicked = false;
+  }
+});
 
 export {
   applyDailyDetails,

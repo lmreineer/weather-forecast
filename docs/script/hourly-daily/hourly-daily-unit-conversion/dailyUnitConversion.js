@@ -1,5 +1,7 @@
-/* eslint-disable import/prefer-default-export */
+/* eslint-disable import/extensions */
 /* eslint-disable no-restricted-syntax */
+
+import { visualCrossing } from '../../apiKeys.js';
 
 function getHighLow(dailyData, scale) {
   // return temp infos
@@ -24,6 +26,31 @@ function applyUnitForDaily(weatherData, scale) {
   applyTodayInfos(dailyData, scale);
 }
 
+function checkDailyFahrenheit() {
+  const locationTitle = document.querySelector('.location');
+
+  const dailyFahrenheitAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationTitle.innerText}?&key=${visualCrossing}`;
+
+  fetch(dailyFahrenheitAPI)
+    .then((response) => response.json())
+    .then((weatherData) => {
+      applyUnitForDaily(weatherData, 'F');
+    });
+}
+
+function checkDailyCelcius() {
+  const locationTitle = document.querySelector('.location');
+
+  const dailyCelciusAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationTitle.innerText}?unitGroup=metric&key=${visualCrossing}`;
+
+  fetch(dailyCelciusAPI)
+    .then((response) => response.json())
+    .then((weatherData) => {
+      applyUnitForDaily(weatherData, 'C');
+    });
+}
+
 export {
-  applyUnitForDaily,
+  checkDailyFahrenheit,
+  checkDailyCelcius,
 };
