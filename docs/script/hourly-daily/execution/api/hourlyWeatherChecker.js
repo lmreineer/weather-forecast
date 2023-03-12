@@ -60,7 +60,8 @@ const hourlyWeatherChecker = (function setTwoMethods() {
               applyHourlyDetails(weatherData, hourData);
 
               removeHourlyDailyAnimation();
-            });
+            })
+            .catch(() => removeHourlyDailyAnimation());
         });
     },
   };

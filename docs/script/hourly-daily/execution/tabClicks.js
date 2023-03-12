@@ -6,7 +6,10 @@ import {
 } from './api/hourlyWeatherChecker.js';
 
 import { checkErrorsForDaily } from './api/dailyWeatherChecker.js';
-import { addHourlyDailyAnimation } from '../hourlyDailyAnimation.js';
+import {
+  addHourlyDailyAnimation,
+  removeHourlyDailyAnimation,
+} from '../hourlyDailyAnimation.js';
 
 const search = document.querySelector('.search');
 
@@ -41,13 +44,22 @@ const hourlyButton = document.querySelector('.hourly-button');
 const dailyButton = document.querySelector('.daily-button');
 
 hourlyButton.addEventListener('click', () => {
+  const errorMessage = document.querySelector('.error');
+
   if (!hourlyButtonClicked) {
     hourlyButtonClicked = true;
 
-    // add preload animation
-    addHourlyDailyAnimation();
-    // set initial location on button click for hourly
-    hourlyWeatherChecker.setInitialLocationOnTabClick();
+    // if error is visible
+    if (errorMessage.style.visibility === 'visible') {
+      // stop operations
+      removeHourlyDailyAnimation();
+
+      // else, set initial location on button click for hourly
+    } else {
+      // add preload animation
+      addHourlyDailyAnimation();
+      hourlyWeatherChecker.setInitialLocationOnTabClick();
+    }
   }
 });
 
@@ -59,6 +71,7 @@ dailyButton.addEventListener('click', () => {
 
   if (hourlyButtonClicked) {
     hourlyButtonClicked = false;
+
     checkTabClicks();
   }
 });

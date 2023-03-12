@@ -56,15 +56,15 @@ img {
     opacity: 0.5;
 }
 
+.current-icon {
+    margin: 0.5rem 1rem 0 0;
+    width: 7rem;
+}
+
 .below>p,
 .current-hl>*,
 .details>p {
     font-family: 'Port Lligat Sans', sans-serif;
-}
-
-.current-icon {
-    margin-right: 1rem;
-    width: 7rem;
 }
 
 .currently,
@@ -114,7 +114,7 @@ input[type="search"]::-webkit-search-cancel-button {
 .search,
 .submit {
     outline: none;
-    border-color: black;
+    border-color: #5A5B5C;
     padding: 0.5rem;
 }
 
@@ -129,6 +129,11 @@ input[type="search"]::-webkit-search-cancel-button {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
+.bottom,
+.upper {
+    display: flex;
+}
+
 .upper {
     justify-content: space-between;
     margin: 1rem;
@@ -137,12 +142,7 @@ input[type="search"]::-webkit-search-cancel-button {
 .bottom {
     flex-direction: column;
     margin: 3rem 5rem 0 5rem;
-    border-top: 1px solid black;
-}
-
-.bottom,
-.upper {
-    display: flex;
+    border-top: 1px solid #5A5B5C;
 }
 
 .buttons,
@@ -207,7 +207,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
 /* default tab on first time page load */
 .daily-button {
-    border: 1px solid black;
+    border: 1px solid #5A5B5C;
     margin-right: 5rem;
 }
 
@@ -225,5 +225,217 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .arrow:active {
-    color: black;
+    color: #5A5B5C;
+}
+
+@media only screen and (max-width: 1350px) {
+    #map {
+        height: 15rem;
+        width: 30rem;
+    }
+
+    .time-unit {
+        font-size: 1.8rem;
+    }
+
+    .future-temp {
+        font-size: 1.3rem;
+    }
+
+    .future-temp>span {
+        font-size: 0.9rem;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .list {
+        width: 10rem;
+    }
+
+    .currently-header,
+    .location {
+        font-size: 1.8rem;
+    }
+
+    .temp {
+        font-size: 1.3rem;
+    }
+
+    .current-icon {
+        width: 6rem;
+    }
+
+    .above>p,
+    .below>p,
+    .details>p {
+        font-size: 0.9rem;
+    }
+
+    .search {
+        width: 15rem;
+    }
+
+    .error {
+        font-size: 0.8rem;
+    }
+
+    #map {
+        width: 25rem;
+    }
+
+    .bottom {
+        border: none;
+    }
+
+    .future {
+        flex-direction: column;
+    }
+
+    .group {
+        justify-content: center;
+        margin: 2rem;
+    }
+
+    .sub-group {
+        border: 3px solid #5A5B5C;
+        border-radius: 1rem;
+        padding: 1rem;
+        width: 12rem;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    }
+
+    .time-unit {
+        font-size: 2rem;
+    }
+
+    .future-temp {
+        font-size: 1.5rem;
+    }
+
+    .future-temp>span {
+        font-size: 1rem;
+    }
+}
+
+@media only screen and (max-width: 1050px) {
+    .container {
+        margin: 0;
+    }
+
+    .top {
+        flex-direction: column;
+    }
+
+    .left,
+    .right {
+        justify-content: center;
+        margin: 4.5rem 4.5rem 0 4.5rem;
+    }
+
+    .currently {
+        width: 27rem;
+        height: 24rem;
+    }
+
+    .currently-header,
+    .location {
+        font-size: 2rem;
+    }
+
+    .temp {
+        font-size: 1.5rem;
+    }
+
+    .current-icon {
+        width: 7rem;
+    }
+
+    .above>p,
+    .below>p,
+    .details>p {
+        font-size: 1rem;
+    }
+
+    .error {
+        font-size: 1rem;
+    }
+
+    .list {
+        width: 15rem;
+    }
+
+    .details {
+        width: 11rem;
+        /* avoid decentering left container */
+        min-width: 11rem;
+    }
+
+    .search {
+        width: 20rem;
+    }
+
+    #map {
+        height: 15rem;
+        width: 40rem;
+    }
+
+    .bottom {
+        margin: 4.5rem 2rem 0 2rem;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .currently {
+        width: 17rem;
+        height: 27rem;
+    }
+
+    .currently-header,
+    .location {
+        font-size: 1.7rem;
+    }
+
+    .temp {
+        font-size: 1.25rem;
+    }
+
+    .current-icon {
+        margin: 1rem 1rem 0 0;
+        width: 4rem;
+    }
+
+    .list,
+    .details {
+        margin-left: 1rem;
+    }
+
+    .error {
+        font-size: 1rem;
+    }
+
+    .list {
+        width: 15rem;
+    }
+
+    .details {
+        width: 11rem;
+    }
+
+    .search {
+        width: 20rem;
+    }
+
+    #map {
+        height: 15rem;
+        width: 40rem;
+    }
+
+    .bottom {
+        margin: 0 2rem 0 2rem;
+    }
+
+    .right,
+    .bottom {
+        margin-top: 4.5rem;
+    }
 }

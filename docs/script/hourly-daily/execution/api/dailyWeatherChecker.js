@@ -15,7 +15,8 @@ function checkDailyWeather() {
       applyDailyDetails(weatherData);
 
       removeHourlyDailyAnimation();
-    });
+    })
+    .catch(() => removeHourlyDailyAnimation());
 }
 
 function checkErrorsForDaily() {
