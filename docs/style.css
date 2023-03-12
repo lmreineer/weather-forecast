@@ -439,3 +439,18 @@ input[type="search"]::-webkit-search-cancel-button {
         margin-top: 4.5rem;
     }
 }
+
+@media only screen and (max-height: 770px) {
+    .container {
+        margin-top: 2.4rem;
+    }
+
+    #map {
+        height: 12rem;
+        width: 35rem;
+    }
+
+    .bottom {
+        margin: 2rem 5rem 0 5rem;
+    }
+}
