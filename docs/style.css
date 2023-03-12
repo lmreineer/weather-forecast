@@ -442,7 +442,33 @@ input[type="search"]::-webkit-search-cancel-button {
 
 @media only screen and (max-height: 770px) {
     .container {
-        margin-top: 2.4rem;
+        margin-top: 3rem;
+    }
+
+    .currently-header,
+    .location,
+    .time-unit {
+        font-size: 1.8rem;
+    }
+
+    .temp {
+        font-size: 1.3rem;
+    }
+
+    .current-icon {
+        width: 6rem;
+    }
+
+    .above>p,
+    .below>p,
+    .details>p,
+    .daily-button,
+    .hourly-button {
+        font-size: 0.8rem;
+    }
+
+    .error {
+        font-size: 0.8rem;
     }
 
     #map {
@@ -452,5 +478,21 @@ input[type="search"]::-webkit-search-cancel-button {
 
     .bottom {
         margin: 2rem 5rem 0 5rem;
+    }
+
+    .sub-group {
+        height: 11rem;
+    }
+
+    .future-temp {
+        font-size: 1.3rem;
+    }
+
+    .future-temp>span { 
+        font-size: 1rem;
+    }
+
+    .future-icon {
+        width: 4rem;
     }
 }
