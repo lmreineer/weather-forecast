@@ -432,12 +432,12 @@ input[type="search"]::-webkit-search-cancel-button {
     }
 
     .search {
-        width: 20rem;
+        width: 17rem;
     }
 
     #map {
         height: 15rem;
-        width: 40rem;
+        width: 29rem;
     }
 
     .bottom {
