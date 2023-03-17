@@ -2,8 +2,8 @@
 /* eslint-disable no-restricted-syntax */
 
 import {
-  vcng,
-  ipglcn,
+  VCNG,
+  IPGLCN,
 } from '../../lesClés.js';
 
 // return hours for next day
@@ -144,12 +144,12 @@ leftArrow.addEventListener('click', () => {
 function checkHourlyFahrenheit() {
   const locationTitle = document.querySelector('.location');
 
-  const hourlyFahrenheitAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationTitle.innerText}?&key=${vcng}`;
+  const hourlyFahrenheitAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationTitle.innerText}?&key=${VCNG}`;
 
   fetch(hourlyFahrenheitAPI)
     .then((response) => response.json())
     .then((weatherData) => {
-      const currentHourAPI = `https://api.ipgeolocation.io/astronomy?apiKey=${ipglcn}&location=${locationTitle.innerText}`;
+      const currentHourAPI = `https://api.ipgeolocation.io/astronomy?apiKey=${IPGLCN}&location=${locationTitle.innerText}`;
 
       fetch(currentHourAPI)
         .then((response) => response.json())
@@ -162,12 +162,12 @@ function checkHourlyFahrenheit() {
 function checkHourlyCelcius() {
   const locationTitle = document.querySelector('.location');
 
-  const hourlyFahrenheitAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationTitle.innerText}?unitGroup=metric&key=${vcng}`;
+  const hourlyFahrenheitAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationTitle.innerText}?unitGroup=metric&key=${VCNG}`;
 
   fetch(hourlyFahrenheitAPI)
     .then((response) => response.json())
     .then((weatherData) => {
-      const currentHourAPI = `https://api.ipgeolocation.io/astronomy?apiKey=${ipglcn}&location=${locationTitle.innerText}`;
+      const currentHourAPI = `https://api.ipgeolocation.io/astronomy?apiKey=${IPGLCN}&location=${locationTitle.innerText}`;
 
       fetch(currentHourAPI)
         .then((response) => response.json())

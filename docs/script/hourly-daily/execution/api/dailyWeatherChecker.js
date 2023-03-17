@@ -1,13 +1,13 @@
 /* eslint-disable import/extensions */
 
-import { vcng } from '../../../lesClés.js';
+import { VCNG } from '../../../lesClés.js';
 import { applyDailyDetails } from '../../dailyDetails.js';
 import { removeHourlyDailyAnimation } from '../../hourlyDailyAnimation.js';
 
 function checkDailyWeather() {
   const search = document.querySelector('.search');
 
-  const dailyWeatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${search.value}?unitGroup=metric&key=${vcng}`;
+  const dailyWeatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${search.value}?unitGroup=metric&key=${VCNG}`;
 
   fetch(dailyWeatherAPI)
     .then((response) => response.json())

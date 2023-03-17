@@ -1,8 +1,8 @@
 /* eslint-disable import/extensions */
 
 import {
-  vcng,
-  ipglcn,
+  VCNG,
+  IPGLCN,
 } from '../../../lesClés.js';
 
 import { applyHourlyDetails } from '../../hourlyDetails.js';
@@ -17,7 +17,7 @@ const hourlyWeatherChecker = (function setTwoMethods() {
 
       search.value = locationTitle.innerText;
 
-      const hourlyWeatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${search.value}?unitGroup=metric&key=${vcng}`;
+      const hourlyWeatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${search.value}?unitGroup=metric&key=${VCNG}`;
 
       // avoid displaying on screen
       search.value = '';
@@ -27,7 +27,7 @@ const hourlyWeatherChecker = (function setTwoMethods() {
         .then((weatherData) => {
           search.value = locationTitle.innerText;
 
-          const currentHourAPI = `https://api.ipgeolocation.io/astronomy?apiKey=${ipglcn}&location=${search.value}`;
+          const currentHourAPI = `https://api.ipgeolocation.io/astronomy?apiKey=${IPGLCN}&location=${search.value}`;
 
           // avoid displaying on screen
           search.value = '';
@@ -46,12 +46,12 @@ const hourlyWeatherChecker = (function setTwoMethods() {
     useSearchBarForLocation() {
       const search = document.querySelector('.search');
 
-      const hourlyWeatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${search.value}?unitGroup=metric&key=${vcng}`;
+      const hourlyWeatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${search.value}?unitGroup=metric&key=${VCNG}`;
 
       fetch(hourlyWeatherAPI)
         .then((response) => response.json())
         .then((weatherData) => {
-          const currentHourAPI = `https://api.ipgeolocation.io/astronomy?apiKey=${ipglcn}&location=${search.value}`;
+          const currentHourAPI = `https://api.ipgeolocation.io/astronomy?apiKey=${IPGLCN}&location=${search.value}`;
 
           fetch(currentHourAPI)
             .then((response) => response.json())

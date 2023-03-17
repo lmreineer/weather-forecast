@@ -7,8 +7,8 @@ import {
 } from '../currentlyAnimation.js';
 
 import {
-  gpfy,
-  vcng,
+  GPFY,
+  VCNG,
 } from '../../lesClés.js';
 
 import { applyLocationOnMap } from '../../location/locationTitle.js';
@@ -25,7 +25,7 @@ function showWeatherError() {
 function checkCurrentWeather() {
   const locationTitle = document.querySelector('.location');
 
-  const currentWeatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationTitle.innerText}?unitGroup=metric&key=${vcng}`;
+  const currentWeatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationTitle.innerText}?unitGroup=metric&key=${VCNG}`;
 
   fetch(currentWeatherAPI)
     .then((response) => response.json())
@@ -46,7 +46,7 @@ function showLocationError() {
 }
 
 function geocodeLocationForCurrently() {
-  const geocodeAPI = `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(search.value)}&apiKey=${gpfy}`;
+  const geocodeAPI = `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(search.value)}&apiKey=${GPFY}`;
 
   fetch(geocodeAPI)
     .then((response) => response.json())

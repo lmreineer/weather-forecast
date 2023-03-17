@@ -76,6 +76,4 @@ currentTemp.addEventListener('click', () => {
   }
 });
 
-export {
-  applyDailyDetails,
-};
+export { applyDailyDetails };

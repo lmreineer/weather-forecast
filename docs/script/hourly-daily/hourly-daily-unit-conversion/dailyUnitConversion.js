@@ -1,7 +1,7 @@
 /* eslint-disable import/extensions */
 /* eslint-disable no-restricted-syntax */
 
-import { vcng } from '../../lesClés.js';
+import { VCNG } from '../../lesClés.js';
 
 function getHighLow(dailyData, scale) {
   const high = Math.round(dailyData.tempmax);
@@ -39,7 +39,7 @@ function applyUnitForDaily(weatherData, scale) {
 function checkDailyFahrenheit() {
   const locationTitle = document.querySelector('.location');
 
-  const dailyFahrenheitAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationTitle.innerText}?&key=${vcng}`;
+  const dailyFahrenheitAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationTitle.innerText}?&key=${VCNG}`;
 
   fetch(dailyFahrenheitAPI)
     .then((response) => response.json())
@@ -51,7 +51,7 @@ function checkDailyFahrenheit() {
 function checkDailyCelcius() {
   const locationTitle = document.querySelector('.location');
 
-  const dailyCelciusAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationTitle.innerText}?unitGroup=metric&key=${vcng}`;
+  const dailyCelciusAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationTitle.innerText}?unitGroup=metric&key=${VCNG}`;
 
   fetch(dailyCelciusAPI)
     .then((response) => response.json())

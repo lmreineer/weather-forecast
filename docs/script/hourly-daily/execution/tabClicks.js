@@ -6,6 +6,7 @@ import {
 } from './api/hourlyWeatherChecker.js';
 
 import { checkErrorsForDaily } from './api/dailyWeatherChecker.js';
+
 import {
   addHourlyDailyAnimation,
   removeHourlyDailyAnimation,

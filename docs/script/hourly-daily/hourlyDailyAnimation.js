@@ -4,9 +4,9 @@ const futureTemp = document.querySelectorAll('.future-temp');
 
 function addHourlyDailyAnimation() {
   timeUnit.forEach((t) => {
-    const time = t;
-    time.classList.add('future-temp-animation');
-    time.innerText = '';
+    const unit = t;
+    unit.classList.add('future-temp-animation');
+    unit.innerText = '';
   });
 
   futureIcon.forEach((fi) => {
@@ -38,9 +38,7 @@ function addHourlyDailyAnimation() {
 
 function removeHourlyDailyAnimation() {
   timeUnit.forEach((t) => { t.classList.remove('future-temp-animation'); });
-
   futureIcon.forEach((fi) => { fi.classList.remove('future-temp-animation'); });
-
   futureTemp.forEach((tmp) => { tmp.classList.remove('future-temp-animation'); });
 }
 
