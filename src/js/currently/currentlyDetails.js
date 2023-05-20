@@ -17,7 +17,7 @@ const details = (function assignDetails() {
   return {
     currentIcon(conditions) {
       const { icon } = conditions;
-      currentIcon.src = `./assets/images/icon-set/${icon}.svg`;
+      currentIcon.src = `../assets/images/icon-set/${icon}.svg`;
     },
 
     description(conditions) {
