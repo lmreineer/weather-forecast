@@ -1,5 +1,6 @@
 # Dependencies
 node_modules
+src/js/lasLlaves.js
 
 # Ignore secret notes
 src/js/remarques.js

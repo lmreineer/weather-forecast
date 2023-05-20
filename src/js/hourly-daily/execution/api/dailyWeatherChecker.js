@@ -1,6 +1,6 @@
 /* eslint-disable import/extensions */
 
-import { VCNG } from '../../../lesClés.js';
+import { VCNG } from '../../../lasLlaves.js';
 import { applyDailyDetails } from '../../dailyDetails.js';
 import { removeHourlyDailyAnimation } from '../../hourlyDailyAnimation.js';
 

@@ -4,7 +4,7 @@
 import {
   VCNG,
   IPGLCN,
-} from '../../lesClés.js';
+} from '../../lasLlaves.js';
 
 // return hours for next day
 function returnNextDayHours(hours, currentHour, hourlyWeatherData) {

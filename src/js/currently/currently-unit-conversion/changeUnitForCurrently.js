@@ -5,7 +5,7 @@ import {
   removeCurrentlyConversionAnimation,
 } from './currentlyConversionAnimation.js';
 
-import { VCNG } from '../../lesClés.js';
+import { VCNG } from '../../lasLlaves.js';
 import { currentTemp } from '../currentlyDetails.js';
 import { applyUnitForCurrently } from './currentlyUnitConversion.js';
 

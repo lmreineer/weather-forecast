@@ -3,7 +3,7 @@
 import {
   VCNG,
   IPGLCN,
-} from '../../../lesClés.js';
+} from '../../../lasLlaves.js';
 
 import { applyHourlyDetails } from '../../hourlyDetails.js';
 import { removeHourlyDailyAnimation } from '../../hourlyDailyAnimation.js';

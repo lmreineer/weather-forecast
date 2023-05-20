@@ -9,7 +9,7 @@ import {
 import {
   GPFY,
   VCNG,
-} from '../../lesClés.js';
+} from '../../lasLlaves.js';
 
 import { applyLocationOnMap } from '../../location/locationTitle.js';
 import { applyCurrentlyDetails } from '../currentlyDetails.js';

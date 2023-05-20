@@ -1,7 +1,7 @@
 /* eslint-disable import/extensions */
 /* eslint-disable no-restricted-syntax */
 
-import { VCNG } from '../../lesClés.js';
+import { VCNG } from '../../lasLlaves.js';
 
 function getHighLow(dailyData, scale) {
   const high = Math.round(dailyData.tempmax);
