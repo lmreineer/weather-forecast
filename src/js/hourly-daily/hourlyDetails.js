@@ -26,7 +26,7 @@ function getHour(hoursDisplayed) {
 
 function getIcon(hoursDisplayed) {
   const { icon } = hoursDisplayed;
-  return `./assets/images/icon-set/${icon}.svg`;
+  return `../assets/images/icon-set/${icon}.svg`;
 }
 
 function getCelciusTemp(hoursDisplayed) {
