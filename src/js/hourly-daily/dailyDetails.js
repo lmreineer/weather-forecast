@@ -9,7 +9,7 @@ function getDay(dailyData) {
 
 function getIcon(dailyData) {
   const { icon } = dailyData;
-  return `./res/icon-set/${icon}.svg`;
+  return `./assets/images/icon-set/${icon}.svg`;
 }
 
 function getCelciusHighLow(dailyData) {

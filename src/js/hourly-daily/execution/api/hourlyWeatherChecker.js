@@ -27,7 +27,7 @@ const hourlyWeatherChecker = (function setTwoMethods() {
         .then((weatherData) => {
           search.value = locationTitle.innerText;
 
-          const currentHourAPI = `https://api.ipgeolocation.io/astronomy?apiKey=${IPGLCN}&location=${search.value}`;
+          const currentHourAPI = `https://api.ipgeolocation.io/astronomy?apiKey=${IPGLCN}&location=New%20York,%20US`;
 
           // avoid displaying on screen
           search.value = '';
