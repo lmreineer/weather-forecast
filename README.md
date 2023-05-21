@@ -2,5 +2,4 @@
 Demo:
 - https://weather-website-lmreineer.netlify.app/
 
-Note:
-- Fully works if ad blocker is disabled
+Note: It fully works if ad blocker is disabled
