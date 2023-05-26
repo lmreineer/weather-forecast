@@ -6,7 +6,10 @@ import { futureTemp } from '../hourlyDailyAnimation.js';
 function addHourlyDailyConversionAnimation() {
   futureTemp.forEach((tmp) => {
     const temp = tmp;
-    temp.innerHTML = '<div class="future-temp-animation"></div>';
+
+    if (!tmp.classList.contains('future-temp-animation')) {
+      temp.innerHTML = '<div class="future-temp-animation"></div>';
+    }
   });
 }
 
