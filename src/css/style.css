@@ -30,6 +30,7 @@ body {
 img {
     width: 5rem;
     filter: drop-shadow(0 5px 5px var(--gray));
+    pointer-events: none;
 }
 
 .container {
