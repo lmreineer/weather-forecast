@@ -1,5 +1,5 @@
-## Weather forecast website with sufficient features
-Demo:
-- https://weather-website-lmreineer.netlify.app/
+### Simple weather forecast website
 
-Note: Completely works if ad blocker is disabled
+Demo: https://weather-website-lmreineer.netlify.app
+
+Note: Disabling the ad blocker is required to work
